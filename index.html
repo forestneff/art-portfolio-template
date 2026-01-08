@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOURDAN ALEXZANDER | Fine Art</title>
+    <title id="meta-title">JOURDAN ALEXZANDER | Fine Art</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,16 +17,26 @@
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap"
         rel="stylesheet">
 
-    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <!-- Dynamic Theme Variables -->
+    <style id="theme-style">
+        :root {
+            --bg-color: #F9F8F6;
+            --text-color: #1C1C1C;
+            --accent-color: #C4A484;
+            --secondary-color: #9CA3AF;
+        }
+    </style>
+
+    <!-- Tailwind Config -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'art-bg': '#F9F8F6', // Warm off-white
-                        'art-dark': '#1C1C1C', // Soft black
-                        'art-accent': '#C4A484', // Light brown/taupe
-                        'art-gray': '#9CA3AF',
+                        'art-bg': 'var(--bg-color)',
+                        'art-dark': 'var(--text-color)',
+                        'art-accent': 'var(--accent-color)',
+                        'art-gray': 'var(--secondary-color)',
                         'overlay-dark': 'rgba(0,0,0,0.4)'
                     },
                     fontFamily: {
@@ -42,13 +52,13 @@
     </script>
 
     <style>
-        /* Custom Scrollbar */
+        /* Utilities */
         ::-webkit-scrollbar {
             width: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #F9F8F6;
+            background: var(--bg-color);
         }
 
         ::-webkit-scrollbar-thumb {
@@ -56,21 +66,10 @@
             border-radius: 4px;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #9CA3AF;
-        }
-
-        /* Smooth Scrolling */
         html {
             scroll-behavior: smooth;
         }
 
-        /* Video Background Utilities */
-        /* Fixed Z-Index Logic: 
-           Container is 0. 
-           Overlay is 1. 
-           Content is 10. 
-        */
         .video-bg-container {
             position: absolute;
             top: 0;
@@ -93,16 +92,19 @@
             object-fit: cover;
         }
 
-        /* YouTube Embed Hack to force Cover style */
         .video-bg-youtube {
             position: absolute;
             top: 50%;
             left: 50%;
             width: 300%;
-            /* Force zoom to cover aspect ratios/remove bars */
             height: 300%;
             transform: translate(-50%, -50%);
             pointer-events: none;
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 2rem;
         }
 
         /* Animations */
@@ -126,7 +128,6 @@
             transition: transform 0.5s ease;
         }
 
-        /* Carousel Hide Scrollbar */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -136,7 +137,7 @@
             scrollbar-width: none;
         }
 
-        /* Login Animation Classes */
+        /* Login Animation */
         .login-active #login-trigger {
             opacity: 0;
             pointer-events: none;
@@ -154,21 +155,38 @@
             transform: translateX(0) !important;
         }
 
-        /* Masonry Utilities */
-        .masonry-item {
-            break-inside: avoid;
-            margin-bottom: 2rem;
+        /* Admin Tabs */
+        .tab-btn.active {
+            border-bottom: 2px solid black;
+            font-weight: bold;
+            color: black;
+        }
+
+        /* Admin Toggle Switch */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #68D391;
+        }
+
+        .toggle-checkbox:checked+.toggle-label {
+            background-color: #68D391;
         }
     </style>
 </head>
 
-<body class="bg-art-bg text-art-dark font-sans antialiased selection:bg-art-accent selection:text-white">
+<body
+    class="bg-art-bg text-art-dark font-sans antialiased selection:bg-art-accent selection:text-white transition-colors duration-500">
 
     <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
         <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="#" class="text-2xl font-serif font-bold tracking-widest uppercase mix-blend-difference text-white"
-                id="nav-logo">J.A. ART</a>
+            <!-- Logo Container -->
+            <a href="#" id="nav-logo-container"
+                class="text-2xl font-serif font-bold tracking-widest uppercase mix-blend-difference text-white">
+                <span id="nav-logo-text">J.A. ART</span>
+                <img id="nav-logo-img" src="" alt="Logo" class="h-8 w-auto hidden">
+            </a>
+
             <div class="hidden md:flex space-x-8 mix-blend-difference text-white" id="nav-links">
                 <a href="#statement"
                     class="hover:text-art-accent transition-colors text-sm tracking-widest uppercase">Statement</a>
@@ -176,10 +194,11 @@
                     class="hover:text-art-accent transition-colors text-sm tracking-widest uppercase">Selected</a>
                 <a href="#archive"
                     class="hover:text-art-accent transition-colors text-sm tracking-widest uppercase">Archive</a>
+                <a href="#bio" class="hover:text-art-accent transition-colors text-sm tracking-widest uppercase">The
+                    Artist</a>
                 <a href="#contact"
                     class="hover:text-art-accent transition-colors text-sm tracking-widest uppercase">Contact</a>
             </div>
-            <!-- Mobile Menu Button -->
             <button id="mobile-menu-btn" class="md:hidden text-white mix-blend-difference focus:outline-none">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
@@ -190,199 +209,179 @@
             <a href="#statement" class="text-white text-2xl font-serif mobile-link">Statement</a>
             <a href="#featured" class="text-white text-2xl font-serif mobile-link">Selected</a>
             <a href="#archive" class="text-white text-2xl font-serif mobile-link">Archive</a>
+            <a href="#bio" class="text-white text-2xl font-serif mobile-link">The Artist</a>
             <button id="close-mobile-menu" class="absolute top-6 right-6 text-white text-3xl">&times;</button>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <header class="relative h-screen flex items-center justify-center overflow-hidden bg-black">
-
-        <!-- Video Container (Layer 0) -->
-        <!-- Removed negative z-index to fix visibility issues -->
         <div id="hero-video-wrapper" class="absolute inset-0 w-full h-full overflow-hidden">
-            <!-- Placeholder -->
             <div class="absolute inset-0 bg-gray-900"></div>
         </div>
-
-        <!-- Gradient Overlay (Layer 1) -->
         <div
             class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-1 pointer-events-none">
         </div>
 
-        <!-- Content (Layer 10) -->
         <div class="relative z-10 text-center text-white px-4 animate-fade-in">
-            <p class="text-sm md:text-base tracking-[0.3em] uppercase mb-4 text-gray-300">The Portfolio of</p>
-            <h1 class="text-5xl md:text-8xl font-serif font-bold mb-6 tracking-tight">JOURDAN ALEXZANDER</h1>
-            <p class="text-lg md:text-xl font-light tracking-wide text-gray-200 max-w-2xl mx-auto">
+            <p id="hero-subtitle" class="text-sm md:text-base tracking-[0.3em] uppercase mb-4 text-gray-300">The
+                Portfolio of</p>
+            <h1 id="hero-title" class="text-5xl md:text-8xl font-serif font-bold mb-6 tracking-tight">JOURDAN ALEXZANDER
+            </h1>
+            <p id="hero-tagline" class="text-lg md:text-xl font-light tracking-wide text-gray-200 max-w-2xl mx-auto">
                 Digital Synthesis &bull; Sculptural Form &bull; Visual Narrative
             </p>
             <div class="mt-12">
                 <a href="#archive"
-                    class="border border-white px-8 py-3 text-sm tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300">
-                    View Collection
-                </a>
+                    class="border border-white px-8 py-3 text-sm tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300">View
+                    Collection</a>
             </div>
         </div>
-
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
-            <a href="#statement" class="text-white opacity-50 hover:opacity-100 transition-opacity">
-                <i class="fas fa-chevron-down text-2xl"></i>
-            </a>
+            <a href="#statement" class="text-white opacity-50 hover:opacity-100 transition-opacity"><i
+                    class="fas fa-chevron-down text-2xl"></i></a>
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="max-w-full mx-auto bg-art-bg relative z-20 shadow-2xl -mt-20 rounded-t-3xl overflow-hidden pb-20">
+    <main
+        class="max-w-full mx-auto bg-art-bg relative z-20 shadow-2xl -mt-20 rounded-t-3xl overflow-hidden pb-20 transition-colors duration-500">
 
-        <!-- Section: Artist Statement -->
+        <!-- Statement -->
         <section id="statement" class="py-24 px-6 md:px-20 text-center max-w-7xl mx-auto">
             <div class="max-w-3xl mx-auto">
                 <h2 class="text-xs font-bold tracking-[0.2em] text-art-accent uppercase mb-4">The Vision</h2>
-                <h3 class="text-3xl md:text-4xl font-serif mb-8 text-art-dark">Bridging the gap between the digital void
-                    and physical permanence.</h3>
-                <p class="text-gray-600 leading-relaxed text-lg mb-8">
+                <h3 id="statement-heading" class="text-3xl md:text-4xl font-serif mb-8 text-art-dark">Bridging the gap
+                    between the digital void and physical permanence.</h3>
+                <p id="statement-body" class="text-gray-600 leading-relaxed text-lg mb-8">
                     My work explores the fragility of memory in the digital age. By combining classical sculpting
-                    techniques with generative algorithms, I create artifacts that exist in a liminal
-                    space—simultaneously ancient and futuristic. This portfolio serves as a living archive of that
-                    exploration.
+                    techniques with generative algorithms, I create artifacts that exist in a liminal space.
                 </p>
                 <div class="w-16 h-1 bg-art-accent mx-auto"></div>
             </div>
         </section>
 
-        <!-- Section: Featured Carousel -->
-        <section id="featured" class="py-20 bg-art-bg overflow-hidden border-t border-gray-100">
+        <!-- Carousel -->
+        <section id="featured" class="py-20 bg-art-bg overflow-hidden border-t border-gray-200/50">
             <div class="px-6 md:px-12 mb-10 flex justify-between items-end max-w-7xl mx-auto">
                 <div>
                     <h2 class="text-3xl font-serif">Selected Works</h2>
-                    <p class="text-sm text-gray-500 mt-2">Curated highlights from the past season.</p>
+                    <p class="text-sm text-gray-500 mt-2">Curated highlights.</p>
                 </div>
                 <div class="flex space-x-4">
                     <button id="scroll-left"
-                        class="w-10 h-10 border border-gray-300 rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
+                        class="w-10 h-10 border border-gray-300 rounded-full flex items-center justify-center hover:bg-art-dark hover:text-art-bg transition-colors"><i
+                            class="fas fa-arrow-left"></i></button>
                     <button id="scroll-right"
-                        class="w-10 h-10 border border-gray-300 rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors">
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
+                        class="w-10 h-10 border border-gray-300 rounded-full flex items-center justify-center hover:bg-art-dark hover:text-art-bg transition-colors"><i
+                            class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
-
-            <!-- Horizontal Scroll Container (Variable Width) -->
             <div id="carousel-track"
                 class="flex space-x-8 overflow-x-auto px-6 md:px-12 pb-8 no-scrollbar scroll-smooth h-[50vh] min-h-[400px]">
-                <!-- Javascript will populate this -->
-                <div class="flex items-center justify-center w-full h-full">
-                    <i class="fas fa-circle-notch fa-spin text-gray-400 text-2xl"></i>
-                </div>
             </div>
         </section>
 
-        <!-- Section: The Archive (Main Gallery) -->
-        <section id="archive" class="py-20 px-6 md:px-12 bg-white min-h-screen">
+        <!-- Archive -->
+        <section id="archive" class="py-20 px-6 md:px-12 bg-white/50 min-h-screen">
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-12">
                     <h2 class="text-4xl font-serif mb-6 md:mb-0">The Archive</h2>
-
-                    <!-- Filters -->
                     <div class="flex flex-wrap justify-center space-x-2 md:space-x-6">
                         <button
                             class="filter-btn active text-sm font-bold uppercase tracking-widest border-b-2 border-art-dark pb-1"
                             data-filter="all">All</button>
                         <button
-                            class="filter-btn text-sm text-gray-500 uppercase tracking-widest hover:text-black transition-colors pb-1 border-b-2 border-transparent hover:border-gray-300"
+                            class="filter-btn text-sm text-gray-500 uppercase tracking-widest hover:text-art-dark transition-colors pb-1 border-b-2 border-transparent hover:border-gray-300"
                             data-filter="Photography">Photography</button>
                         <button
-                            class="filter-btn text-sm text-gray-500 uppercase tracking-widest hover:text-black transition-colors pb-1 border-b-2 border-transparent hover:border-gray-300"
+                            class="filter-btn text-sm text-gray-500 uppercase tracking-widest hover:text-art-dark transition-colors pb-1 border-b-2 border-transparent hover:border-gray-300"
                             data-filter="Sculpture">Sculpture</button>
                         <button
-                            class="filter-btn text-sm text-gray-500 uppercase tracking-widest hover:text-black transition-colors pb-1 border-b-2 border-transparent hover:border-gray-300"
+                            class="filter-btn text-sm text-gray-500 uppercase tracking-widest hover:text-art-dark transition-colors pb-1 border-b-2 border-transparent hover:border-gray-300"
                             data-filter="Digital">Digital</button>
                     </div>
                 </div>
-
-                <!-- Gallery Container -->
                 <div id="gallery-grid" class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 min-h-[400px]">
-                    <!-- Javascript will populate this -->
                     <div class="flex flex-col items-center justify-center text-gray-400 py-20 w-full col-span-full">
                         <i class="fas fa-circle-notch fa-spin text-3xl mb-4"></i>
                         <p>Loading Archive...</p>
                     </div>
                 </div>
-
-                <div id="no-results" class="hidden text-center py-20">
-                    <p class="text-gray-400 italic">No works found in this category.</p>
-                </div>
             </div>
         </section>
 
-        <!-- Section: Contact -->
-        <section id="contact" class="py-24 bg-art-dark text-white text-center">
-            <h2 class="text-3xl font-serif mb-8">Inquiries & Commissions</h2>
-            <p class="text-gray-400 max-w-lg mx-auto mb-10">
-                For catalogue requests, exhibition availability, commission, or collaboration, please contact the artist
-                directly.
-            </p>
-            <a href="mailto:paintfrsh@gmail.com"
-                class="inline-block border border-white px-10 py-4 text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300">
-                Contact
-            </a>
-            <div class="mt-16 flex justify-center space-x-8">
-                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i
-                        class="fab fa-instagram text-xl"></i></a>
-                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i
-                        class="fab fa-twitter text-xl"></i></a>
-            </div>
-
-            <div class="mt-20 pt-10 border-t border-gray-800 flex flex-col items-center">
-                <p class="text-xs text-gray-600 uppercase tracking-widest mb-6">&copy; 2024 Jourdan Alexzander. All
-                    Rights Reserved.</p>
-
-                <!-- Animated Login Container -->
-                <div id="login-container" class="relative group h-10 w-64 mx-auto flex justify-center items-center">
-                    <!-- Trigger Button -->
-                    <button id="login-trigger"
-                        class="text-[10px] text-gray-700 hover:text-gray-500 uppercase tracking-widest transition-all duration-500 absolute">
-                        Studio Login
-                    </button>
-
-                    <!-- Form Overlay -->
-                    <div id="login-form-container"
-                        class="flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 absolute inset-0 transform scale-95">
-                        <div class="relative flex items-center">
-                            <input type="password" id="login-password" placeholder=""
-                                class="bg-transparent border-b border-gray-600 text-center text-xs tracking-widest focus:outline-none w-32 pb-1 text-gray-400 placeholder-gray-600 focus:border-gray-400 transition-colors" />
-                            <button id="login-submit"
-                                class="absolute -right-6 text-gray-500 hover:text-white transition-all duration-300 transform -translate-x-2 opacity-0 text-sm">
-                                <i class="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
+        <!-- BIO SECTION (New) -->
+        <section id="bio" class="py-24 px-6 md:px-12 bg-art-bg border-t border-gray-200/50">
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-start">
+                <div class="w-full md:w-1/3">
+                    <div class="aspect-[3/4] bg-gray-200 overflow-hidden relative shadow-lg">
+                        <img id="bio-headshot"
+                            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop"
+                            alt="Artist Headshot" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="w-full md:w-2/3">
+                    <h2 class="text-xs font-bold tracking-[0.2em] text-art-accent uppercase mb-4">About the Artist</h2>
+                    <h3 id="bio-name" class="text-4xl font-serif mb-8 text-art-dark">Jourdan Alexzander</h3>
+                    <div id="bio-text" class="text-gray-600 leading-relaxed text-lg space-y-6">
+                        <p>Loading biography...</p>
+                    </div>
+                    <div class="mt-10">
+                        <img id="bio-signature" src="" alt="" class="h-12 opacity-60 hidden">
+                        <!-- Placeholder for signature if user wants to add one later -->
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Contact -->
+        <section id="contact" class="py-24 bg-art-dark text-white text-center transition-colors duration-500">
+            <h2 class="text-3xl font-serif mb-8">Inquiries & Commissions</h2>
+            <p class="text-gray-400 max-w-lg mx-auto mb-10">
+                For catalogue requests, exhibition availability, commission, or collaboration, please contact the
+                studio.
+            </p>
+            <a id="contact-email-btn" href="mailto:contact@example.com"
+                class="inline-block border border-white px-10 py-4 text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300">
+                Contact Studio
+            </a>
+            <div id="social-links" class="mt-16 flex justify-center space-x-8">
+                <!-- Populated via JS -->
+            </div>
+
+            <div class="mt-20 pt-10 border-t border-gray-800 flex flex-col items-center">
+                <p id="footer-copy" class="text-xs text-gray-600 uppercase tracking-widest mb-6">&copy; 2024 Jourdan
+                    Alexzander. All Rights Reserved.</p>
+                <div id="login-container" class="relative group h-10 w-64 mx-auto flex justify-center items-center">
+                    <button id="login-trigger"
+                        class="text-[10px] text-gray-700 hover:text-gray-500 uppercase tracking-widest transition-all duration-500 absolute">Studio
+                        Login</button>
+                    <div id="login-form-container"
+                        class="flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 absolute inset-0 transform scale-95">
+                        <div class="relative flex items-center">
+                            <input type="password" id="login-password"
+                                class="bg-transparent border-b border-gray-600 text-center text-xs tracking-widest focus:outline-none w-32 pb-1 text-gray-400 placeholder-gray-600 focus:border-gray-400 transition-colors" />
+                            <button id="login-submit"
+                                class="absolute -right-6 text-gray-500 hover:text-white transition-all duration-300 transform -translate-x-2 opacity-0 text-sm"><i
+                                    class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Canvas Modal (Lightbox) -->
+    <!-- Canvas Modal -->
     <div id="canvas-modal"
         class="fixed inset-0 bg-white z-50 hidden opacity-0 transition-opacity duration-300 flex flex-col">
-        <!-- Modal Header -->
         <div class="flex justify-between items-center p-6 border-b border-gray-100">
             <h3 id="modal-title" class="text-xl font-serif font-bold">Work Title</h3>
             <button id="close-modal"
                 class="text-3xl font-light hover:text-art-accent transition-colors">&times;</button>
         </div>
-
-        <!-- Modal Body -->
         <div class="flex-1 overflow-y-auto p-6 md:p-12 flex flex-col md:flex-row gap-12">
-            <!-- Image/Video Area -->
             <div id="modal-media-container" class="w-full md:w-2/3 bg-gray-50 flex items-center justify-center p-4">
-                <!-- Content injected via JS -->
             </div>
-
-            <!-- Info Area -->
             <div class="w-full md:w-1/3 flex flex-col justify-center space-y-6">
                 <div>
                     <span id="modal-category"
@@ -390,33 +389,28 @@
                     <h2 id="modal-title-large" class="text-4xl font-serif mt-2 mb-4">Work Title</h2>
                     <p id="modal-year" class="text-sm text-gray-500">2023</p>
                 </div>
-
                 <div class="border-t border-gray-200 pt-6">
-                    <p id="modal-description" class="text-gray-600 leading-relaxed mb-6">
-                        Description of the artwork goes here.
-                    </p>
+                    <p id="modal-description" class="text-gray-600 leading-relaxed mb-6">Description...</p>
                     <div class="space-y-2 text-sm">
-                        <div class="flex justify-between">
-                            <span class="text-gray-400 uppercase tracking-wide">Medium</span>
-                            <span id="modal-medium" class="font-medium">Oil on Canvas</span>
-                        </div>
+                        <div class="flex justify-between"><span
+                                class="text-gray-400 uppercase tracking-wide">Medium</span><span id="modal-medium"
+                                class="font-medium">Oil on Canvas</span></div>
                     </div>
                 </div>
-
-                <div class="pt-6">
-                    <button
-                        class="w-full bg-black text-white py-4 text-xs uppercase tracking-widest hover:bg-art-accent transition-colors">Inquire
-                        about this piece</button>
+                <div class="pt-6"><button
+                        class="w-full bg-black text-white py-4 text-xs uppercase tracking-widest hover:bg-art-accent transition-colors">Inquire</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Artist Toolkit (Admin) Modal -->
+    <!-- ADMIN MODAL (TOOLKIT) -->
     <div id="admin-modal"
         class="fixed inset-0 bg-black bg-opacity-95 z-[60] hidden flex justify-center items-center p-4">
-        <div class="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-lg shadow-2xl">
-            <div class="p-6 border-b border-gray-200 flex justify-between items-center sticky top-0 bg-white z-10">
+        <div class="bg-white w-full max-w-5xl max-h-[90vh] overflow-hidden rounded-lg shadow-2xl flex flex-col">
+
+            <!-- Header -->
+            <div class="p-6 border-b border-gray-200 flex justify-between items-center bg-white z-10 shrink-0">
                 <div class="flex items-center space-x-4">
                     <h2 class="text-2xl font-serif font-bold text-black">Artist Toolkit</h2>
                     <div id="drive-link-container" class="hidden">
@@ -425,149 +419,212 @@
                                 class="fab fa-google-drive mr-2"></i>Open Archive</a>
                     </div>
                 </div>
-                <button id="close-admin" class="text-2xl hover:text-red-500">&times;</button>
+                <div class="flex space-x-4">
+                    <button id="btn-tab-upload"
+                        class="tab-btn active text-xs uppercase tracking-widest text-gray-500 hover:text-black">Upload /
+                        Sync</button>
+                    <button id="btn-tab-config"
+                        class="tab-btn text-xs uppercase tracking-widest text-gray-500 hover:text-black">Site
+                        Config</button>
+                    <button id="close-admin" class="text-2xl hover:text-red-500 ml-4">&times;</button>
+                </div>
             </div>
 
-            <div class="p-6 space-y-8">
+            <!-- Content Area -->
+            <div class="flex-1 overflow-y-auto p-6 bg-gray-50">
 
-                <!-- Toggle for Settings -->
-                <div class="flex justify-end">
-                    <button id="toggle-settings"
-                        class="text-xs text-gray-500 hover:text-black uppercase tracking-widest flex items-center">
-                        <i class="fas fa-cog mr-2"></i> Site Configuration
-                    </button>
-                </div>
+                <!-- TAB: UPLOAD / MANAGE -->
+                <div id="tab-upload" class="tab-content active space-y-8">
 
-                <!-- Settings Panel (Hidden by default) -->
-                <div id="settings-panel" class="hidden bg-gray-100 p-4 rounded border border-gray-200 space-y-4">
-                    <h3 class="text-xs font-bold uppercase tracking-widest mb-2 border-b border-gray-300 pb-2">Settings
-                    </h3>
-
-                    <!-- Drive Link -->
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">Google Drive Archive Link</label>
-                        <input type="url" id="settings-drive-url" placeholder="https://drive.google.com/..."
-                            class="w-full p-2 border border-gray-300 rounded text-sm mb-1">
-                    </div>
-
-                    <!-- Hero Video Link -->
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">Hero Background Video (YouTube or MP4
-                            URL)</label>
-                        <input type="url" id="settings-hero-url" placeholder="https://www.youtube.com/watch?v=..."
-                            class="w-full p-2 border border-gray-300 rounded text-sm">
-                        <p class="text-[10px] text-gray-400 mt-1">Leave empty for default. Supports YouTube watch links
-                            or direct .mp4 files.</p>
-                    </div>
-
-                    <button id="save-settings"
-                        class="bg-art-dark text-white px-4 py-2 text-xs uppercase tracking-widest hover:bg-art-accent w-full">Save
-                        Configuration</button>
-                </div>
-
-                <!-- Add New Form -->
-                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                    <h3 class="text-sm font-bold uppercase tracking-widest mb-4 text-art-accent">Upload Content</h3>
-
-                    <form id="add-work-form" class="space-y-4">
-                        <!-- Source Type Toggle -->
-                        <div class="flex space-x-6 border-b border-gray-200 pb-2 mb-2">
-                            <label class="inline-flex items-center cursor-pointer">
-                                <input type="radio" name="sourceType" value="url" class="form-radio text-art-accent"
-                                    checked>
-                                <span class="ml-2 text-sm text-gray-700">Link URL</span>
-                            </label>
-                            <label class="inline-flex items-center cursor-pointer">
-                                <input type="radio" name="sourceType" value="file" class="form-radio text-art-accent">
-                                <span class="ml-2 text-sm text-gray-700">Upload File (Local/Beta)</span>
-                            </label>
+                    <!-- NEW: Drive Sync Section -->
+                    <div
+                        class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div>
+                            <h3 class="text-sm font-bold uppercase tracking-widest mb-1 text-blue-800"><i
+                                    class="fab fa-google-drive mr-2"></i>Sync from Cloud</h3>
+                            <p class="text-xs text-blue-600 max-w-md">Fetch contents from your connected Google Drive
+                                folder. New items will appear below as "Hidden" until approved.</p>
                         </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input type="text" id="input-title" placeholder="Title of Work"
-                                class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-art-accent"
-                                required>
-                            <select id="input-category"
-                                class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-art-accent">
-                                <option value="Digital">Category: Digital</option>
-                                <option value="Sculpture">Category: Sculpture</option>
-                                <option value="Photography">Category: Photography</option>
-                            </select>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input type="number" id="input-year" placeholder="Year"
-                                class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-art-accent"
-                                value="2024">
-                            <select id="input-type"
-                                class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-art-accent">
-                                <option value="image">Type: Image</option>
-                                <option value="video">Type: Video</option>
-                            </select>
-                        </div>
-
-                        <!-- URL Input -->
-                        <div id="group-url-input">
-                            <input type="url" id="input-image-url"
-                                placeholder="Media URL (https://... image.jpg or video.mp4)"
-                                class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-art-accent">
-                        </div>
-
-                        <!-- File Input (Hidden by default) -->
-                        <div id="group-file-input" class="hidden">
-                            <div class="flex items-center justify-center w-full">
-                                <label for="input-file"
-                                    class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
-                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
-                                        <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to
-                                                upload</span> or drag and drop</p>
-                                        <p class="text-xs text-gray-500">JPG, PNG, MP4 (Max 100MB in Beta)</p>
-                                    </div>
-                                    <input id="input-file" type="file" class="hidden" accept="image/*,video/*" />
-                                </label>
-                            </div>
-                            <div id="file-name-display" class="text-xs text-center mt-2 text-art-accent font-bold">
-                            </div>
-                        </div>
-
-                        <input type="text" id="input-medium" placeholder="Medium (e.g. Oil on Canvas)"
-                            class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-art-accent">
-                        <textarea id="input-desc" placeholder="Description/Artist Note" rows="3"
-                            class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-art-accent"></textarea>
-
-                        <div class="flex items-center space-x-2">
-                            <input type="checkbox" id="input-featured"
-                                class="h-4 w-4 text-art-accent focus:ring-art-accent border-gray-300 rounded">
-                            <label for="input-featured" class="text-sm text-gray-700">Feature in Carousel</label>
-                        </div>
-
-                        <button type="submit"
-                            class="w-full bg-black text-white py-3 uppercase tracking-widest hover:bg-art-accent transition-colors">
-                            Add to Archive
+                        <button id="btn-drive-sync"
+                            class="bg-blue-600 text-white px-6 py-3 rounded text-xs uppercase tracking-widest hover:bg-blue-700 transition-colors flex items-center">
+                            <span id="sync-text">Sync Now</span>
+                            <i id="sync-icon" class="fas fa-sync-alt ml-2"></i>
                         </button>
-                    </form>
-                </div>
+                    </div>
 
-                <!-- List of Works -->
-                <div>
-                    <h3 class="text-sm font-bold uppercase tracking-widest mb-4 text-art-accent">Existing Archive</h3>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="border-b border-gray-200 text-xs text-gray-500 uppercase">
-                                    <th class="p-3">Preview</th>
-                                    <th class="p-3">Title</th>
-                                    <th class="p-3">Type</th>
-                                    <th class="p-3">Category</th>
-                                    <th class="p-3 text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="admin-list-body" class="text-sm">
-                                <!-- Populated by JS -->
-                            </tbody>
-                        </table>
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-sm font-bold uppercase tracking-widest mb-4 text-art-accent">Manual Upload</h3>
+                        <form id="add-work-form" class="space-y-4">
+                            <div class="flex space-x-6 border-b border-gray-200 pb-2 mb-2">
+                                <label class="inline-flex items-center cursor-pointer"><input type="radio"
+                                        name="sourceType" value="url" class="form-radio text-art-accent" checked><span
+                                        class="ml-2 text-sm text-gray-700">Link URL</span></label>
+                                <label class="inline-flex items-center cursor-pointer"><input type="radio"
+                                        name="sourceType" value="file" class="form-radio text-art-accent"><span
+                                        class="ml-2 text-sm text-gray-700">Upload File</span></label>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" id="input-title" placeholder="Title"
+                                    class="w-full p-3 border rounded text-sm" required>
+                                <select id="input-category" class="w-full p-3 border rounded text-sm">
+                                    <option value="Digital">Digital</option>
+                                    <option value="Sculpture">Sculpture</option>
+                                    <option value="Photography">Photography</option>
+                                </select>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="number" id="input-year" placeholder="Year"
+                                    class="w-full p-3 border rounded text-sm" value="2024">
+                                <select id="input-type" class="w-full p-3 border rounded text-sm">
+                                    <option value="image">Image</option>
+                                    <option value="video">Video</option>
+                                </select>
+                            </div>
+                            <div id="group-url-input"><input type="url" id="input-image-url" placeholder="Media URL"
+                                    class="w-full p-3 border rounded text-sm"></div>
+                            <div id="group-file-input" class="hidden"><input id="input-file" type="file"
+                                    class="w-full p-3 border rounded text-sm bg-white" accept="image/*,video/*" /></div>
+                            <textarea id="input-desc" placeholder="Description" rows="2"
+                                class="w-full p-3 border rounded text-sm"></textarea>
+                            <div class="flex items-center space-x-2"><input type="checkbox" id="input-featured"><label
+                                    for="input-featured" class="text-sm">Feature</label></div>
+                            <button type="submit"
+                                class="w-full bg-black text-white py-3 uppercase tracking-widest text-xs hover:bg-art-accent">Add
+                                to Archive</button>
+                        </form>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-end mb-4">
+                            <h3 class="text-sm font-bold uppercase tracking-widest text-art-accent">Archive Manager</h3>
+                            <span class="text-xs text-gray-400">Manage visibility and featured status</span>
+                        </div>
+                        <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-gray-50 border-b border-gray-200 text-xs uppercase text-gray-500">
+                                    <tr>
+                                        <th class="p-3">Preview</th>
+                                        <th class="p-3">Title</th>
+                                        <th class="p-3">Source</th>
+                                        <th class="p-3 text-center">Visible</th>
+                                        <th class="p-3 text-center">Feature</th>
+                                        <th class="p-3 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-list-body">
+                                    <!-- Populated JS -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+
+                <!-- TAB: SITE CONFIGURATION -->
+                <div id="tab-config" class="tab-content space-y-8">
+
+                    <!-- Config Sub-Tabs -->
+                    <div class="flex space-x-4 border-b border-gray-200 pb-2">
+                        <button class="config-sub-btn active text-xs font-bold uppercase text-black"
+                            data-target="cfg-general">General</button>
+                        <button class="config-sub-btn text-xs uppercase text-gray-500 hover:text-black"
+                            data-target="cfg-bio">Bio & Artist</button>
+                        <button class="config-sub-btn text-xs uppercase text-gray-500 hover:text-black"
+                            data-target="cfg-style">Style & Theme</button>
+                        <button class="config-sub-btn text-xs uppercase text-gray-500 hover:text-black"
+                            data-target="cfg-contact">Contact</button>
+                    </div>
+
+                    <!-- 1. General Config -->
+                    <div id="cfg-general" class="config-section active space-y-4">
+                        <div class="bg-white p-6 rounded shadow-sm space-y-4">
+                            <h4 class="text-xs font-bold uppercase text-gray-400">Identity</h4>
+                            <div><label class="block text-xs mb-1">Site Title</label><input id="cfg-site-title"
+                                    class="w-full p-2 border rounded text-sm"></div>
+                            <div>
+                                <label class="block text-xs mb-1">Logo Type</label>
+                                <select id="cfg-logo-type" class="w-full p-2 border rounded text-sm mb-2">
+                                    <option value="text">Text Logo</option>
+                                    <option value="image">Image Logo</option>
+                                </select>
+                                <input id="cfg-logo-text" placeholder="Logo Text"
+                                    class="w-full p-2 border rounded text-sm mb-2">
+                                <input id="cfg-logo-url" placeholder="Logo Image URL"
+                                    class="w-full p-2 border rounded text-sm">
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded shadow-sm space-y-4">
+                            <h4 class="text-xs font-bold uppercase text-gray-400">Hero Section</h4>
+                            <div><label class="block text-xs mb-1">Hero Title</label><input id="cfg-hero-title"
+                                    class="w-full p-2 border rounded text-sm"></div>
+                            <div><label class="block text-xs mb-1">Hero Subtitle</label><input id="cfg-hero-subtitle"
+                                    class="w-full p-2 border rounded text-sm"></div>
+                            <div><label class="block text-xs mb-1">Hero Tagline</label><input id="cfg-hero-tagline"
+                                    class="w-full p-2 border rounded text-sm"></div>
+                            <div><label class="block text-xs mb-1">Background Video URL</label><input
+                                    id="cfg-hero-video" class="w-full p-2 border rounded text-sm"></div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Bio Config -->
+                    <div id="cfg-bio" class="config-section hidden space-y-4">
+                        <div class="bg-white p-6 rounded shadow-sm space-y-4">
+                            <h4 class="text-xs font-bold uppercase text-gray-400">Homepage Statement</h4>
+                            <div><label class="block text-xs mb-1">Heading</label><input id="cfg-stmt-head"
+                                    class="w-full p-2 border rounded text-sm"></div>
+                            <div><label class="block text-xs mb-1">Short Body</label><textarea id="cfg-stmt-body"
+                                    rows="3" class="w-full p-2 border rounded text-sm"></textarea></div>
+                        </div>
+                        <div class="bg-white p-6 rounded shadow-sm space-y-4">
+                            <h4 class="text-xs font-bold uppercase text-gray-400">Full Biography</h4>
+                            <div><label class="block text-xs mb-1">Headshot URL</label><input id="cfg-bio-img"
+                                    class="w-full p-2 border rounded text-sm"></div>
+                            <div><label class="block text-xs mb-1">Artist Name</label><input id="cfg-bio-name"
+                                    class="w-full p-2 border rounded text-sm"></div>
+                            <div><label class="block text-xs mb-1">Full Bio</label><textarea id="cfg-bio-text" rows="8"
+                                    class="w-full p-2 border rounded text-sm"></textarea></div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Style Config -->
+                    <div id="cfg-style" class="config-section hidden space-y-4">
+                        <div class="bg-white p-6 rounded shadow-sm space-y-4">
+                            <h4 class="text-xs font-bold uppercase text-gray-400">Theme Presets</h4>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                                <button class="theme-btn border p-2 text-xs rounded hover:bg-gray-100"
+                                    data-theme="warm">Warm Neutral</button>
+                                <button class="theme-btn border p-2 text-xs rounded hover:bg-gray-100"
+                                    data-theme="dark">Dark Mode</button>
+                                <button class="theme-btn border p-2 text-xs rounded hover:bg-gray-100"
+                                    data-theme="light">Minimal Light</button>
+                                <button class="theme-btn border p-2 text-xs rounded hover:bg-gray-100"
+                                    data-theme="bauhaus">Bauhaus</button>
+                            </div>
+                            <div class="pt-4 border-t border-gray-100">
+                                <h4 class="text-xs font-bold uppercase text-gray-400 mb-2">Custom Accent</h4>
+                                <input type="color" id="cfg-accent-color" class="w-full h-10 cursor-pointer">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Contact Config -->
+                    <div id="cfg-contact" class="config-section hidden space-y-4">
+                        <div class="bg-white p-6 rounded shadow-sm space-y-4">
+                            <div><label class="block text-xs mb-1">Contact Email</label><input id="cfg-email"
+                                    class="w-full p-2 border rounded text-sm"></div>
+                            <div><label class="block text-xs mb-1">Instagram URL</label><input id="cfg-social-ig"
+                                    class="w-full p-2 border rounded text-sm"></div>
+                            <div><label class="block text-xs mb-1">Twitter/X URL</label><input id="cfg-social-tw"
+                                    class="w-full p-2 border rounded text-sm"></div>
+                            <div><label class="block text-xs mb-1">Cloud Archive (Google Drive)</label><input
+                                    id="cfg-drive" class="w-full p-2 border rounded text-sm"></div>
+                        </div>
+                    </div>
+
+                    <button id="save-config-btn"
+                        class="w-full bg-art-accent text-white py-3 uppercase tracking-widest text-xs hover:bg-black transition-colors">Save
+                        All Changes</button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -578,9 +635,44 @@
         import { getAuth, signInAnonymously, signInWithCustomToken } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
         import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, query, orderBy, updateDoc } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
+        // --- CORE CONFIGURATION & STATE ---
         const isLocalMode = typeof __firebase_config === 'undefined';
-
         let app, auth, db, appId;
+
+        // Default Config Object
+        const defaultConfig = {
+            siteTitle: "JOURDAN ALEXZANDER | Fine Art",
+            logoType: "text",
+            logoText: "J.A. ART",
+            logoUrl: "",
+            heroTitle: "JOURDAN ALEXZANDER",
+            heroSubtitle: "The Portfolio of",
+            heroTagline: "Digital Synthesis • Sculptural Form • Visual Narrative",
+            heroVideo: "https://youtu.be/8xLUjE5Qnag",
+            stmtHead: "Bridging the gap between the digital void and physical permanence.",
+            stmtBody: "My work explores the fragility of memory in the digital age. By combining classical sculpting techniques with generative algorithms, I create artifacts that exist in a liminal space—simultaneously ancient and futuristic.",
+            bioName: "Jourdan Alexzander",
+            bioImg: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop",
+            bioText: "Jourdan Alexzander is a multidisciplinary artist whose work interrogates the intersection of classical forms and digital decay. <br><br> With a background in both traditional sculpture and computer science, Jourdan uses code as a chisel, carving out new realities from the noise of the information age. His work has been exhibited digitally and physically, bridging the gap between the screen and the gallery space.",
+            email: "paintfrsh@gmail.com",
+            socialIg: "#",
+            socialTw: "#",
+            driveUrl: "",
+            theme: "warm",
+            accentColor: "#C4A484"
+        };
+
+        let siteConfig = { ...defaultConfig };
+        let portfolioData = [];
+        let currentFilter = 'all';
+
+        // Theme Definitions
+        const themes = {
+            warm: { bg: "#F9F8F6", text: "#1C1C1C", accent: "#C4A484", secondary: "#9CA3AF" },
+            dark: { bg: "#121212", text: "#E5E5E5", accent: "#BB86FC", secondary: "#555555" },
+            light: { bg: "#FFFFFF", text: "#000000", accent: "#000000", secondary: "#CCCCCC" },
+            bauhaus: { bg: "#F0F0F0", text: "#111111", accent: "#D63333", secondary: "#3B55A6" }
+        };
 
         if (!isLocalMode) {
             const firebaseConfig = JSON.parse(__firebase_config);
@@ -591,19 +683,14 @@
         }
 
         const initialPortfolioData = [
-            { id: '1', title: "Aeon Flux", category: "Digital", type: "video", year: 2024, medium: "Generative Video", image: "https://videos.pexels.com/video-files/5896379/5896379-hd_1920_1080_24fps.mp4", desc: "A recursive exploration of time loops and digital decay.", featured: true },
-            { id: '2', title: "Marble Silence", category: "Sculpture", type: "image", year: 2023, medium: "Carrara Marble", image: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=800&auto=format&fit=crop", desc: "Classical form interrupted by modern geometric brutalism.", featured: true },
-            { id: '3', title: "Urban Entropy", category: "Photography", type: "image", year: 2022, medium: "C-Type Print", image: "https://images.unsplash.com/photo-1493329025335-18542a61595f?q=80&w=800&auto=format&fit=crop", desc: "High contrast architectural photography capturing city solitude.", featured: false },
+            { id: '1', title: "Aeon Flux", category: "Digital", type: "video", year: 2024, medium: "Generative Video", image: "https://www.youtube.com/watch?v=LXb3EKWsInQ", desc: "A recursive exploration of time loops and digital decay.", featured: true, source: 'manual', hidden: false },
+            { id: '2', title: "Marble Silence", category: "Sculpture", type: "image", year: 2023, medium: "Carrara Marble", image: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=800&auto=format&fit=crop", desc: "Classical form interrupted by modern geometric brutalism.", featured: true, source: 'manual', hidden: false },
+            { id: '3', title: "Urban Entropy", category: "Photography", type: "image", year: 2022, medium: "C-Type Print", image: "https://images.unsplash.com/photo-1493329025335-18542a61595f?q=80&w=800&auto=format&fit=crop", desc: "High contrast architectural photography capturing city solitude.", featured: false, source: 'manual', hidden: false },
         ];
 
-        let portfolioData = [];
-        let currentFilter = 'all';
-
-        // --- INIT ---
+        // --- INITIALIZATION ---
         async function initApp() {
-            // Load Settings & Hero
-            loadSettings();
-            loadHeroVideo();
+            loadConfig();
 
             if (isLocalMode) {
                 console.warn("Running in Local Demo Mode.");
@@ -621,7 +708,6 @@
                 }
 
                 const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'portfolio_items'));
-
                 onSnapshot(q, (snapshot) => {
                     if (snapshot.empty && portfolioData.length === 0) {
                         seedDatabase();
@@ -630,14 +716,10 @@
                         renderApp();
                         renderAdminList();
                     }
-                }, (error) => {
-                    console.error("Data fetch error:", error);
-                    portfolioData = [...initialPortfolioData];
-                    renderApp();
-                });
+                }, (error) => { console.error(error); portfolioData = [...initialPortfolioData]; renderApp(); });
 
             } catch (error) {
-                console.error("Auth Error:", error);
+                console.error(error);
                 portfolioData = [...initialPortfolioData];
                 renderApp();
             }
@@ -645,357 +727,343 @@
 
         async function seedDatabase() {
             if (isLocalMode) return;
-            console.log("Seeding database...");
             const collectionRef = collection(db, 'artifacts', appId, 'public', 'data', 'portfolio_items');
-            for (const item of initialPortfolioData) {
-                const { id, ...itemData } = item;
-                await addDoc(collectionRef, itemData);
-            }
+            for (const item of initialPortfolioData) { const { id, ...d } = item; await addDoc(collectionRef, d); }
         }
 
-        // --- RENDER HELPERS ---
-        function renderMedia(item, className) {
-            const isVideo = item.type === 'video' || (item.image && (item.image.endsWith('.mp4') || item.image.endsWith('.webm') || item.image.startsWith('blob:')));
+        // --- CONFIGURATION SYSTEM ---
+        function loadConfig() {
+            const saved = localStorage.getItem('art_site_config');
+            if (saved) {
+                siteConfig = { ...defaultConfig, ...JSON.parse(saved) };
+            }
+            applyConfig();
+        }
 
-            if (isVideo) {
-                return `<video src="${item.image}" class="${className}" autoplay muted loop playsinline></video>`;
+        function saveConfig() {
+            localStorage.setItem('art_site_config', JSON.stringify(siteConfig));
+            applyConfig();
+            alert("Site Configuration Updated!");
+        }
+
+        function applyConfig() {
+            // ... (Same as before, ensuring bio-headshot uses correct ID)
+            document.title = siteConfig.siteTitle;
+            document.getElementById('meta-title').innerText = siteConfig.siteTitle;
+
+            if (siteConfig.logoType === 'image' && siteConfig.logoUrl) {
+                document.getElementById('nav-logo-text').classList.add('hidden');
+                document.getElementById('nav-logo-img').src = siteConfig.logoUrl;
+                document.getElementById('nav-logo-img').classList.remove('hidden');
             } else {
-                return `<img src="${item.image}" alt="${item.title}" class="${className}" onerror="this.src='https://placehold.co/400x500?text=Image+Error'">`;
+                document.getElementById('nav-logo-img').classList.add('hidden');
+                document.getElementById('nav-logo-text').innerText = siteConfig.logoText;
+                document.getElementById('nav-logo-text').classList.remove('hidden');
             }
+
+            document.getElementById('hero-title').innerText = siteConfig.heroTitle;
+            document.getElementById('hero-subtitle').innerText = siteConfig.heroSubtitle;
+            document.getElementById('hero-tagline').innerText = siteConfig.heroTagline;
+            loadHeroVideo(siteConfig.heroVideo);
+
+            document.getElementById('statement-heading').innerText = siteConfig.stmtHead;
+            document.getElementById('statement-body').innerText = siteConfig.stmtBody;
+
+            document.getElementById('bio-name').innerText = siteConfig.bioName;
+            document.getElementById('bio-headshot').src = siteConfig.bioImg;
+            document.getElementById('bio-text').innerHTML = siteConfig.bioText;
+
+            document.getElementById('contact-email-btn').href = `mailto:${siteConfig.email}`;
+            document.getElementById('footer-copy').innerHTML = `&copy; ${new Date().getFullYear()} ${siteConfig.heroTitle}. All Rights Reserved.`;
+
+            const socialContainer = document.getElementById('social-links');
+            socialContainer.innerHTML = '';
+            if (siteConfig.socialIg) socialContainer.innerHTML += `<a href="${siteConfig.socialIg}" target="_blank" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-instagram text-xl"></i></a>`;
+            if (siteConfig.socialTw) socialContainer.innerHTML += `<a href="${siteConfig.socialTw}" target="_blank" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-twitter text-xl"></i></a>`;
+
+            if (siteConfig.driveUrl) {
+                document.getElementById('drive-link').href = siteConfig.driveUrl;
+                document.getElementById('drive-link-container').classList.remove('hidden');
+            }
+
+            const t = themes[siteConfig.theme] || themes.warm;
+            const root = document.documentElement;
+            root.style.setProperty('--bg-color', t.bg);
+            root.style.setProperty('--text-color', t.text);
+            root.style.setProperty('--secondary-color', t.secondary);
+            root.style.setProperty('--accent-color', siteConfig.accentColor || t.accent);
         }
 
-        // --- HERO VIDEO LOADER ---
+        // --- ADMIN UI LOGIC ---
+        function populateAdminConfig() {
+            // ... (Same as before)
+            document.getElementById('cfg-site-title').value = siteConfig.siteTitle;
+            document.getElementById('cfg-logo-type').value = siteConfig.logoType;
+            document.getElementById('cfg-logo-text').value = siteConfig.logoText;
+            document.getElementById('cfg-logo-url').value = siteConfig.logoUrl;
+            document.getElementById('cfg-hero-title').value = siteConfig.heroTitle;
+            document.getElementById('cfg-hero-subtitle').value = siteConfig.heroSubtitle;
+            document.getElementById('cfg-hero-tagline').value = siteConfig.heroTagline;
+            document.getElementById('cfg-hero-video').value = siteConfig.heroVideo;
+            document.getElementById('cfg-stmt-head').value = siteConfig.stmtHead;
+            document.getElementById('cfg-stmt-body').value = siteConfig.stmtBody;
+            document.getElementById('cfg-bio-name').value = siteConfig.bioName;
+            document.getElementById('cfg-bio-img').value = siteConfig.bioImg;
+            document.getElementById('cfg-bio-text').value = siteConfig.bioText;
+            document.getElementById('cfg-email').value = siteConfig.email;
+            document.getElementById('cfg-social-ig').value = siteConfig.socialIg;
+            document.getElementById('cfg-social-tw').value = siteConfig.socialTw;
+            document.getElementById('cfg-drive').value = siteConfig.driveUrl;
+            document.getElementById('cfg-accent-color').value = siteConfig.accentColor;
+        }
+
+        function readAdminConfig() {
+            // ... (Same as before)
+            siteConfig.siteTitle = document.getElementById('cfg-site-title').value;
+            siteConfig.logoType = document.getElementById('cfg-logo-type').value;
+            siteConfig.logoText = document.getElementById('cfg-logo-text').value;
+            siteConfig.logoUrl = document.getElementById('cfg-logo-url').value;
+            siteConfig.heroTitle = document.getElementById('cfg-hero-title').value;
+            siteConfig.heroSubtitle = document.getElementById('cfg-hero-subtitle').value;
+            siteConfig.heroTagline = document.getElementById('cfg-hero-tagline').value;
+            siteConfig.heroVideo = document.getElementById('cfg-hero-video').value;
+            siteConfig.stmtHead = document.getElementById('cfg-stmt-head').value;
+            siteConfig.stmtBody = document.getElementById('cfg-stmt-body').value;
+            siteConfig.bioName = document.getElementById('cfg-bio-name').value;
+            siteConfig.bioImg = document.getElementById('cfg-bio-img').value;
+            siteConfig.bioText = document.getElementById('cfg-bio-text').value;
+            siteConfig.email = document.getElementById('cfg-email').value;
+            siteConfig.socialIg = document.getElementById('cfg-social-ig').value;
+            siteConfig.socialTw = document.getElementById('cfg-social-tw').value;
+            siteConfig.driveUrl = document.getElementById('cfg-drive').value;
+            siteConfig.accentColor = document.getElementById('cfg-accent-color').value;
+            saveConfig();
+        }
+
+        // --- UTILITY: RENDER MEDIA ---
         function getYoutubeId(url) {
+            if (!url) return null;
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
             const match = url.match(regExp);
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
-        function loadHeroVideo() {
-            const storedUrl = localStorage.getItem('art_toolkit_hero_url');
-            // Default Abstract Ink Video (Pexels MP4 fallback used in previous steps was reliable, switching to YouTube for default to test iframe)
-            // Use an abstract art style video
-            const defaultUrl = "https://www.youtube.com/watch?v=https://www.youtube.com/watch?v=-Lk2Q1LA2VQ&list=PLNZfrta02FkM15KMNlB24dDz68EPa22lD&index=2";
-
-            const urlToUse = storedUrl || defaultUrl;
-            const container = document.getElementById('hero-video-wrapper');
-            const youtubeId = getYoutubeId(urlToUse);
+        function renderMedia(item, className, context = 'grid') {
+            const youtubeId = getYoutubeId(item.image);
+            const isVideoFile = item.type === 'video' || (item.image && (item.image.endsWith('.mp4') || item.image.endsWith('.webm') || item.image.startsWith('blob:')));
 
             if (youtubeId) {
-                // Render YouTube Iframe with parameters for autoplay, loop, mute, hide controls
-                container.innerHTML = `
-                    <div class="video-bg-container">
-                        <iframe 
-                            src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${youtubeId}&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&disablekb=1" 
-                            class="video-bg-youtube opacity-60" 
-                            frameborder="0" 
-                            allow="autoplay; encrypted-media" 
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                `;
+                if (context === 'modal') return `<iframe src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0" class="${className} w-full h-full aspect-video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                else return `<div class="relative w-full h-full"><img src="https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg" class="${className}"><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-12 h-12 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center"><i class="fas fa-play text-white ml-1"></i></div></div></div>`;
+            } else if (isVideoFile) {
+                if (context === 'modal') return `<video src="${item.image}" class="${className} max-h-[80vh] w-full" controls autoplay></video>`;
+                else if (context === 'admin') return `<video src="${item.image}" class="${className}"></video>`;
+                else return `<video src="${item.image}" class="${className}" autoplay muted loop playsinline></video>`;
             } else {
-                // Assume direct MP4 link if not YouTube
-                container.innerHTML = `
-                    <video autoplay loop muted playsinline class="video-bg-direct opacity-60">
-                        <source src="${urlToUse}" type="video/mp4">
-                    </video>
-                `;
+                return `<img src="${item.image}" alt="${item.title}" class="${className}" onerror="this.src='https://placehold.co/400x500?text=Image+Error'">`;
             }
         }
 
-        // --- MAIN RENDERERS ---
-        function renderApp() {
-            renderCarousel();
-            renderGallery();
+        function loadHeroVideo(url) {
+            const container = document.getElementById('hero-video-wrapper');
+            const youtubeId = getYoutubeId(url);
+            if (youtubeId) container.innerHTML = `<div class="video-bg-container"><iframe src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${youtubeId}&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&disablekb=1" class="video-bg-youtube opacity-60" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>`;
+            else container.innerHTML = `<video autoplay loop muted playsinline class="video-bg-direct opacity-60"><source src="${url}" type="video/mp4"></video>`;
         }
+
+        // --- RENDER APP ---
+        function renderApp() { renderCarousel(); renderGallery(); }
 
         function renderCarousel() {
             const track = document.getElementById('carousel-track');
             track.innerHTML = '';
-            const featured = portfolioData.filter(item => item.featured);
-
-            featured.forEach(item => {
+            // Only show featured AND not hidden
+            portfolioData.filter(i => i.featured && !i.hidden).forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'flex-none h-full group cursor-pointer relative';
                 card.onclick = () => openModal(item.id);
-                const mediaHtml = renderMedia(item, "h-full w-auto object-cover");
-
-                card.innerHTML = `
-                    <div class="h-full relative shadow-lg">
-                        ${mediaHtml}
-                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-500"></div>
-                        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
-                            <div class="bg-white/90 backdrop-blur-sm p-3 shadow-sm">
-                                <h3 class="text-sm font-serif font-bold text-black">${item.title}</h3>
-                                <p class="text-[10px] text-gray-500 uppercase tracking-widest">${item.category}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                card.innerHTML = `<div class="h-full relative shadow-lg">${renderMedia(item, "h-full w-auto object-cover", 'grid')}<div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-500"></div><div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"><div class="bg-white/90 backdrop-blur-sm p-3 shadow-sm"><h3 class="text-sm font-serif font-bold text-black">${item.title}</h3><p class="text-[10px] text-gray-500 uppercase tracking-widest">${item.category}</p></div></div></div>`;
                 track.appendChild(card);
             });
         }
 
         function renderGallery() {
             const grid = document.getElementById('gallery-grid');
-            const noResults = document.getElementById('no-results');
             grid.innerHTML = '';
+            // Filter by category AND not hidden
+            const filtered = (currentFilter === 'all' ? portfolioData : portfolioData.filter(i => i.category === currentFilter)).filter(i => !i.hidden);
 
-            const filteredData = currentFilter === 'all'
-                ? portfolioData
-                : portfolioData.filter(item => item.category === currentFilter);
+            if (filtered.length === 0) grid.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10">No visible works.</p>`;
 
-            if (filteredData.length === 0) {
-                noResults.classList.remove('hidden');
-                return;
-            } else {
-                noResults.classList.add('hidden');
-            }
-
-            filteredData.forEach((item, index) => {
+            filtered.forEach((item, index) => {
                 const tile = document.createElement('div');
                 tile.className = 'masonry-item group cursor-pointer relative overflow-hidden animate-fade-in w-full';
                 tile.style.animationDelay = `${index * 50}ms`;
                 tile.onclick = () => openModal(item.id);
-
-                const mediaHtml = renderMedia(item, "w-full h-auto object-contain");
-
-                tile.innerHTML = `
-                    <div class="w-full relative bg-gray-50">
-                        ${mediaHtml}
-                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-white p-4 text-center">
-                            <h3 class="text-2xl font-serif italic transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">${item.title}</h3>
-                            <p class="text-xs uppercase tracking-widest mt-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">${item.category}</p>
-                        </div>
-                    </div>
-                `;
+                tile.innerHTML = `<div class="w-full relative bg-gray-50">${renderMedia(item, "w-full h-auto object-contain", 'grid')}<div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-white p-4 text-center"><h3 class="text-2xl font-serif italic transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">${item.title}</h3><p class="text-xs uppercase tracking-widest mt-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">${item.category}</p></div></div>`;
                 grid.appendChild(tile);
             });
         }
 
+        // --- NEW: SIMULATED DRIVE FETCH ---
+        async function fetchFromDrive() {
+            const btn = document.getElementById('btn-drive-sync');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = `<i class="fas fa-circle-notch fa-spin mr-2"></i> Connecting...`;
+            btn.disabled = true;
+
+            // Simulate Network Delay
+            await new Promise(r => setTimeout(r, 1500));
+
+            // Simulated New Items found in "Drive"
+            const newItems = [
+                { id: Date.now().toString(), title: "Drive Import #1", category: "Digital", type: "image", year: 2024, medium: "Digital Import", image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800", desc: "Imported from Drive", featured: false, source: 'drive', hidden: true },
+                { id: (Date.now() + 1).toString(), title: "Drive Import #2", category: "Photography", type: "image", year: 2024, medium: "Digital Import", image: "https://images.unsplash.com/photo-1515405295579-ba7f9f92f413?q=80&w=800", desc: "Imported from Drive", featured: false, source: 'drive', hidden: true },
+                { id: (Date.now() + 2).toString(), title: "Drive Import #3", category: "Sculpture", type: "image", year: 2024, medium: "Digital Import", image: "https://images.unsplash.com/photo-1549492423-40025948e7a8?q=80&w=800", desc: "Imported from Drive", featured: false, source: 'drive', hidden: true }
+            ];
+
+            // Add to data
+            if (isLocalMode) {
+                portfolioData = [...newItems, ...portfolioData];
+                renderAdminList();
+            } else {
+                for (const item of newItems) {
+                    const { id, ...data } = item;
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'portfolio_items'), data);
+                }
+            }
+
+            btn.innerHTML = `<i class="fas fa-check mr-2"></i> Found 3 Files`;
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+            }, 2000);
+        }
+
+        // --- NEW: ADMIN LIST WITH ACTIONS ---
         function renderAdminList() {
             const tbody = document.getElementById('admin-list-body');
             tbody.innerHTML = '';
 
             portfolioData.forEach(item => {
                 const tr = document.createElement('tr');
-                tr.className = 'border-b border-gray-100 hover:bg-gray-50';
+                tr.className = `border-b border-gray-100 hover:bg-gray-50 ${item.hidden ? 'bg-gray-50 opacity-75' : ''}`;
 
-                const isVideo = item.type === 'video' || (item.image && (item.image.endsWith('.mp4') || item.image.endsWith('.webm') || item.image.startsWith('blob:')));
-                const preview = isVideo
-                    ? `<video src="${item.image}" class="w-10 h-10 object-cover rounded"></video>`
-                    : `<img src="${item.image}" class="w-10 h-10 object-cover rounded">`;
+                const sourceBadge = item.source === 'drive'
+                    ? `<span class="bg-blue-100 text-blue-800 text-[10px] px-2 py-1 rounded font-bold uppercase">Drive</span>`
+                    : `<span class="bg-gray-200 text-gray-600 text-[10px] px-2 py-1 rounded font-bold uppercase">Manual</span>`;
 
                 tr.innerHTML = `
-                    <td class="p-3">${preview}</td>
-                    <td class="p-3 font-medium">${item.title}</td>
-                    <td class="p-3 text-xs uppercase">${item.type || 'image'}</td>
-                    <td class="p-3 text-gray-500">${item.category}</td>
+                    <td class="p-3">${renderMedia(item, "w-10 h-10 object-cover rounded shadow-sm", 'admin')}</td>
+                    <td class="p-3 font-medium text-gray-800">
+                        ${item.title}
+                        ${item.hidden ? '<span class="ml-2 text-xs text-red-400 italic">(Hidden)</span>' : ''}
+                    </td>
+                    <td class="p-3">${sourceBadge}</td>
+                    <td class="p-3 text-center">
+                        <button class="toggle-vis-btn text-gray-400 hover:text-art-accent transition-colors" data-id="${item.id}" data-val="${item.hidden}">
+                            <i class="fas ${item.hidden ? 'fa-eye-slash' : 'fa-eye text-art-dark'}"></i>
+                        </button>
+                    </td>
+                    <td class="p-3 text-center">
+                        <button class="toggle-feat-btn text-gray-400 hover:text-yellow-500 transition-colors" data-id="${item.id}" data-val="${item.featured}">
+                            <i class="fas ${item.featured ? 'fa-star text-yellow-500' : 'fa-star'}"></i>
+                        </button>
+                    </td>
                     <td class="p-3 text-right">
-                        <button class="delete-btn text-red-500 hover:text-red-700 text-xs font-bold uppercase" data-id="${item.id}">Delete</button>
+                        <button class="delete-btn text-red-400 hover:text-red-600 text-xs font-bold uppercase transition-colors" data-id="${item.id}">Delete</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
 
+            // Action Listeners
+            // 1. Delete
             document.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
-                    if (confirm('Are you sure you want to delete this work?')) {
+                    if (confirm('Delete this item?')) {
                         const id = e.target.getAttribute('data-id');
-
-                        if (isLocalMode) {
-                            portfolioData = portfolioData.filter(i => i.id !== id);
-                            renderApp();
-                            renderAdminList();
-                        } else {
-                            await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio_items', id));
-                        }
+                        if (isLocalMode) { portfolioData = portfolioData.filter(i => i.id !== id); renderApp(); renderAdminList(); }
+                        else { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio_items', id)); }
                     }
                 });
             });
-        }
 
-        // --- SETTINGS & LOCAL STORAGE ---
-        function loadSettings() {
-            const driveUrl = localStorage.getItem('art_toolkit_drive_url');
-            if (driveUrl) {
-                document.getElementById('drive-link').href = driveUrl;
-                document.getElementById('drive-link-container').classList.remove('hidden');
-                document.getElementById('settings-drive-url').value = driveUrl;
-            }
+            // 2. Toggle Visibility
+            document.querySelectorAll('.toggle-vis-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const id = e.target.closest('button').getAttribute('data-id');
+                    const isHidden = e.target.closest('button').getAttribute('data-val') === 'true';
+                    if (isLocalMode) {
+                        const item = portfolioData.find(i => i.id === id); item.hidden = !isHidden;
+                        renderApp(); renderAdminList();
+                    } else {
+                        await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio_items', id), { hidden: !isHidden });
+                    }
+                });
+            });
 
-            // Pre-fill hero url input
-            const heroUrl = localStorage.getItem('art_toolkit_hero_url');
-            if (heroUrl) {
-                document.getElementById('settings-hero-url').value = heroUrl;
-            }
-        }
-
-        function saveSettings() {
-            const driveUrl = document.getElementById('settings-drive-url').value;
-            const heroUrl = document.getElementById('settings-hero-url').value;
-
-            if (driveUrl) {
-                localStorage.setItem('art_toolkit_drive_url', driveUrl);
-                document.getElementById('drive-link').href = driveUrl;
-                document.getElementById('drive-link-container').classList.remove('hidden');
-            }
-
-            if (heroUrl) {
-                localStorage.setItem('art_toolkit_hero_url', heroUrl);
-                // Reload Hero Video immediately
-                loadHeroVideo();
-            } else {
-                localStorage.removeItem('art_toolkit_hero_url');
-                loadHeroVideo(); // Resets to default
-            }
-
-            alert("Configuration Saved");
-            document.getElementById('settings-panel').classList.add('hidden');
+            // 3. Toggle Featured
+            document.querySelectorAll('.toggle-feat-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const id = e.target.closest('button').getAttribute('data-id');
+                    const isFeatured = e.target.closest('button').getAttribute('data-val') === 'true';
+                    if (isLocalMode) {
+                        const item = portfolioData.find(i => i.id === id); item.featured = !isFeatured;
+                        renderApp(); renderAdminList();
+                    } else {
+                        await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio_items', id), { featured: !isFeatured });
+                    }
+                });
+            });
         }
 
         // --- INTERACTIONS ---
         function setupInteractions() {
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    buttons.forEach(b => {
-                        b.classList.remove('active', 'border-art-dark', 'font-bold');
-                        b.classList.add('text-gray-500', 'border-transparent');
-                    });
-                    e.target.classList.add('active', 'border-art-dark', 'font-bold');
-                    e.target.classList.remove('text-gray-500', 'border-transparent');
-                    currentFilter = e.target.getAttribute('data-filter');
-                    renderGallery();
-                });
-            });
-
-            // Carousel Scroll
-            document.getElementById('scroll-left').addEventListener('click', () => {
-                document.getElementById('carousel-track').scrollBy({ left: -300, behavior: 'smooth' });
-            });
-            document.getElementById('scroll-right').addEventListener('click', () => {
-                document.getElementById('carousel-track').scrollBy({ left: 300, behavior: 'smooth' });
-            });
-
-            // Modal Controls
+            // ... (Tabs, Theme, Filter, Scroll, Modal, Mobile Menu, Login - Same as before)
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(btn => { btn.addEventListener('click', (e) => { document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active')); e.target.classList.add('active'); document.getElementById(e.target.id.replace('btn-', '')).classList.add('active'); }); });
+            const subTabs = document.querySelectorAll('.config-sub-btn');
+            subTabs.forEach(btn => { btn.addEventListener('click', (e) => { document.querySelectorAll('.config-sub-btn').forEach(b => b.classList.remove('active', 'font-bold', 'text-black')); document.querySelectorAll('.config-sub-btn').forEach(b => b.classList.add('text-gray-500')); document.querySelectorAll('.config-section').forEach(s => s.classList.add('hidden')); e.target.classList.add('active', 'font-bold', 'text-black'); e.target.classList.remove('text-gray-500'); document.getElementById(e.target.getAttribute('data-target')).classList.remove('hidden'); }); });
+            document.querySelectorAll('.theme-btn').forEach(btn => { btn.addEventListener('click', (e) => { siteConfig.theme = e.target.getAttribute('data-theme'); applyConfig(); }); });
+            document.getElementById('save-config-btn').addEventListener('click', readAdminConfig);
+            document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', (e) => { document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('active', 'border-art-dark', 'font-bold'); b.classList.add('text-gray-500', 'border-transparent'); }); e.target.classList.add('active', 'border-art-dark', 'font-bold'); e.target.classList.remove('text-gray-500', 'border-transparent'); currentFilter = e.target.getAttribute('data-filter'); renderGallery(); }); });
+            document.getElementById('scroll-left').addEventListener('click', () => document.getElementById('carousel-track').scrollBy({ left: -300, behavior: 'smooth' }));
+            document.getElementById('scroll-right').addEventListener('click', () => document.getElementById('carousel-track').scrollBy({ left: 300, behavior: 'smooth' }));
             document.getElementById('close-modal').addEventListener('click', closeModal);
-            document.getElementById('canvas-modal').addEventListener('click', (e) => {
-                if (e.target.id === 'canvas-modal') closeModal();
-            });
+            document.getElementById('canvas-modal').addEventListener('click', (e) => { if (e.target.id === 'canvas-modal') closeModal(); });
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('translate-x-full'));
+            document.getElementById('close-mobile-menu').addEventListener('click', () => document.getElementById('mobile-menu').classList.add('translate-x-full'));
 
-            // Mobile Menu
-            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-                document.getElementById('mobile-menu').classList.remove('translate-x-full');
-            });
-            document.getElementById('close-mobile-menu').addEventListener('click', () => {
-                document.getElementById('mobile-menu').classList.add('translate-x-full');
-            });
-
-            // Login Logic
+            // Login
             const loginTrigger = document.getElementById('login-trigger');
             const loginContainer = document.getElementById('login-container');
             const loginPassword = document.getElementById('login-password');
             const loginSubmit = document.getElementById('login-submit');
-
-            loginTrigger.addEventListener('click', () => {
-                loginContainer.classList.add('login-active');
-                setTimeout(() => { loginPassword.focus(); }, 300);
-            });
-
-            loginPassword.addEventListener('input', (e) => {
-                if (e.target.value.length > 0) loginSubmit.classList.add('submit-active');
-                else loginSubmit.classList.remove('submit-active');
-            });
-
-            const handleLogin = () => {
-                if (loginPassword.value === 'admin') {
-                    loginPassword.classList.add('text-green-500', 'border-green-500');
-                    setTimeout(() => {
-                        document.getElementById('admin-modal').classList.remove('hidden');
-                        loginPassword.value = '';
-                        loginPassword.classList.remove('text-green-500', 'border-green-500');
-                        loginContainer.classList.remove('login-active');
-                        loginSubmit.classList.remove('submit-active');
-                        renderAdminList();
-                    }, 500);
-                } else {
-                    loginContainer.classList.add('animate-pulse');
-                    loginPassword.classList.add('text-red-500', 'border-red-500');
-                    setTimeout(() => {
-                        loginContainer.classList.remove('animate-pulse');
-                        loginPassword.classList.remove('text-red-500', 'border-red-500');
-                        loginPassword.value = '';
-                    }, 1000);
-                }
-            };
-
+            loginTrigger.addEventListener('click', () => { loginContainer.classList.add('login-active'); setTimeout(() => { loginPassword.focus(); }, 300); });
+            loginPassword.addEventListener('input', (e) => { if (e.target.value.length > 0) loginSubmit.classList.add('submit-active'); else loginSubmit.classList.remove('submit-active'); });
+            const handleLogin = () => { if (loginPassword.value === 'admin') { loginPassword.classList.add('text-green-500', 'border-green-500'); setTimeout(() => { document.getElementById('admin-modal').classList.remove('hidden'); populateAdminConfig(); loginPassword.value = ''; loginPassword.classList.remove('text-green-500', 'border-green-500'); loginContainer.classList.remove('login-active'); loginSubmit.classList.remove('submit-active'); renderAdminList(); }, 500); } else { loginContainer.classList.add('animate-pulse'); loginPassword.classList.add('text-red-500', 'border-red-500'); setTimeout(() => { loginContainer.classList.remove('animate-pulse'); loginPassword.classList.remove('text-red-500', 'border-red-500'); loginPassword.value = ''; }, 1000); } };
             loginPassword.addEventListener('keyup', (e) => { if (e.key === 'Enter') handleLogin(); });
             loginSubmit.addEventListener('click', handleLogin);
+            document.getElementById('close-admin').addEventListener('click', () => document.getElementById('admin-modal').classList.add('hidden'));
 
-            document.getElementById('close-admin').addEventListener('click', () => {
-                document.getElementById('admin-modal').classList.add('hidden');
-            });
+            // NEW: Drive Sync Listener
+            document.getElementById('btn-drive-sync').addEventListener('click', fetchFromDrive);
 
-
-            // --- ADMIN LOGIC ---
-
-            // Toggle Settings
-            document.getElementById('toggle-settings').addEventListener('click', () => {
-                document.getElementById('settings-panel').classList.toggle('hidden');
-            });
-
-            document.getElementById('save-settings').addEventListener('click', saveSettings);
-
-            // Toggle Upload/Link
+            // Add Work
             const urlGroup = document.getElementById('group-url-input');
             const fileGroup = document.getElementById('group-file-input');
-            const radios = document.getElementsByName('sourceType');
+            document.getElementsByName('sourceType').forEach(r => r.addEventListener('change', (e) => {
+                if (e.target.value === 'url') { urlGroup.classList.remove('hidden'); fileGroup.classList.add('hidden'); }
+                else { urlGroup.classList.add('hidden'); fileGroup.classList.remove('hidden'); }
+            }));
 
-            radios.forEach(radio => {
-                radio.addEventListener('change', (e) => {
-                    if (e.target.value === 'url') {
-                        urlGroup.classList.remove('hidden');
-                        fileGroup.classList.add('hidden');
-                        document.getElementById('input-image-url').required = true;
-                        document.getElementById('input-file').required = false;
-                    } else {
-                        urlGroup.classList.add('hidden');
-                        fileGroup.classList.remove('hidden');
-                        document.getElementById('input-image-url').required = false;
-                        document.getElementById('input-file').required = true;
-                    }
-                });
-            });
-
-            // File Display Name
-            document.getElementById('input-file').addEventListener('change', (e) => {
-                const fileName = e.target.files[0]?.name || "";
-                document.getElementById('file-name-display').innerText = fileName;
-            });
-
-            // ADD WORK SUBMIT
             document.getElementById('add-work-form').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const btn = e.target.querySelector('button');
-                const originalText = btn.innerText;
-                btn.innerText = "Processing...";
-                btn.disabled = true;
-
-                // Determine Source
+                btn.innerText = "Processing..."; btn.disabled = true;
                 const sourceType = document.querySelector('input[name="sourceType"]:checked').value;
-                let mediaUrl = "";
-
-                if (sourceType === 'url') {
-                    mediaUrl = document.getElementById('input-image-url').value;
-                } else {
-                    // FILE UPLOAD (LOCAL BLOB)
-                    const file = document.getElementById('input-file').files[0];
-                    if (file) {
-                        mediaUrl = URL.createObjectURL(file);
-                    }
-                }
+                let mediaUrl = sourceType === 'url' ? document.getElementById('input-image-url').value : (document.getElementById('input-file').files[0] ? URL.createObjectURL(document.getElementById('input-file').files[0]) : "");
 
                 const newItem = {
                     title: document.getElementById('input-title').value,
@@ -1006,101 +1074,37 @@
                     image: mediaUrl,
                     desc: document.getElementById('input-desc').value,
                     featured: document.getElementById('input-featured').checked,
-                    createdAt: new Date().toISOString()
+                    createdAt: new Date().toISOString(),
+                    source: 'manual',
+                    hidden: false
                 };
 
                 try {
-                    if (isLocalMode) {
-                        newItem.id = Date.now().toString();
-                        portfolioData.unshift(newItem);
-                        renderApp();
-                        renderAdminList();
-                        e.target.reset();
-                        document.getElementById('file-name-display').innerText = "";
-                        alert("Work Added locally. (Will vanish on refresh)");
-                    } else {
-                        if (sourceType === 'file') {
-                            alert("Warning: In this Beta template, file uploads are local-only blobs. Please use URL Links for persistent database storage.");
-                        }
-                        await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'portfolio_items'), newItem);
-                        e.target.reset();
-                        alert("Content added to database.");
-                    }
-                } catch (err) {
-                    console.error("Error adding doc: ", err);
-                    alert("Error saving work.");
-                } finally {
-                    btn.innerText = originalText;
-                    btn.disabled = false;
-                }
+                    if (isLocalMode) { newItem.id = Date.now().toString(); portfolioData.unshift(newItem); renderApp(); renderAdminList(); e.target.reset(); alert("Work Added locally."); }
+                    else { await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'portfolio_items'), newItem); e.target.reset(); alert("Added to database."); }
+                } catch (err) { console.error(err); alert("Error saving."); }
+                finally { btn.innerText = "Add to Archive"; btn.disabled = false; }
             });
         }
 
-        // Expose functions globally
         window.openModal = (id) => {
-            const item = portfolioData.find(d => d.id === id);
-            if (!item) return;
-
-            const container = document.getElementById('modal-media-container');
-            const isVideo = item.type === 'video' || (item.image && (item.image.endsWith('.mp4') || item.image.endsWith('.webm') || item.image.startsWith('blob:')));
-
-            if (isVideo) {
-                container.innerHTML = `<video src="${item.image}" class="max-h-[80vh] w-full shadow-xl object-contain" controls autoplay></video>`;
-            } else {
-                container.innerHTML = `<img src="${item.image}" alt="${item.title}" class="max-h-[80vh] shadow-xl object-contain">`;
-            }
-
-            document.getElementById('modal-title').innerText = item.title;
-            document.getElementById('modal-title-large').innerText = item.title;
-            document.getElementById('modal-category').innerText = item.category;
-            document.getElementById('modal-year').innerText = item.year;
-            document.getElementById('modal-medium').innerText = item.medium;
-            document.getElementById('modal-description').innerText = item.desc;
-
-            const modal = document.getElementById('canvas-modal');
-            modal.classList.remove('hidden');
-            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
+            const item = portfolioData.find(d => d.id === id); if (!item) return;
+            document.getElementById('modal-media-container').innerHTML = renderMedia(item, "", 'modal');
+            document.getElementById('modal-title').innerText = item.title; document.getElementById('modal-title-large').innerText = item.title;
+            document.getElementById('modal-category').innerText = item.category; document.getElementById('modal-year').innerText = item.year;
+            document.getElementById('modal-medium').innerText = item.medium; document.getElementById('modal-description').innerText = item.desc;
+            document.getElementById('canvas-modal').classList.remove('hidden');
+            setTimeout(() => { document.getElementById('canvas-modal').classList.remove('opacity-0'); }, 10);
             document.body.style.overflow = 'hidden';
         };
 
         window.closeModal = () => {
-            const modal = document.getElementById('canvas-modal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.getElementById('modal-media-container').innerHTML = '';
-                document.body.style.overflow = 'auto';
-            }, 300);
+            document.getElementById('canvas-modal').classList.add('opacity-0');
+            setTimeout(() => { document.getElementById('canvas-modal').classList.add('hidden'); document.getElementById('modal-media-container').innerHTML = ''; document.body.style.overflow = 'auto'; }, 300);
         };
 
-        // Start App
         initApp();
         setupInteractions();
-        // setupNavbar logic merged into main flow via event listeners on window scroll
-        const navbar = document.getElementById('navbar');
-        const logo = document.getElementById('nav-logo');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-white', 'shadow-md', 'py-4');
-                navbar.classList.remove('py-6');
-                logo.classList.remove('text-white', 'mix-blend-difference');
-                logo.classList.add('text-black');
-                document.getElementById('nav-links').classList.remove('text-white', 'mix-blend-difference');
-                document.getElementById('nav-links').classList.add('text-black');
-                document.getElementById('mobile-menu-btn').classList.remove('text-white', 'mix-blend-difference');
-                document.getElementById('mobile-menu-btn').classList.add('text-black');
-            } else {
-                navbar.classList.remove('bg-white', 'shadow-md', 'py-4');
-                navbar.classList.add('py-6');
-                logo.classList.add('text-white', 'mix-blend-difference');
-                logo.classList.remove('text-black');
-                document.getElementById('nav-links').classList.add('text-white', 'mix-blend-difference');
-                document.getElementById('nav-links').classList.remove('text-black');
-                document.getElementById('mobile-menu-btn').classList.add('text-white', 'mix-blend-difference');
-                document.getElementById('mobile-menu-btn').classList.remove('text-black');
-            }
-        });
-
     </script>
 </body>
 
