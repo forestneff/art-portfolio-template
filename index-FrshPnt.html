@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOURDAN ALEXZANDER | Fine Art</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'art-bg': '#F9F8F6', // Warm off-white
+                        'art-dark': '#1C1C1C', // Soft black
+                        'art-accent': '#C4A484', // Light brown/taupe
+                        'art-gray': '#9CA3AF',
+                        'overlay-dark': 'rgba(0,0,0,0.4)'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    },
+                    height: {
+                        'screen-90': '90vh',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F9F8F6;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #D1D5DB;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9CA3AF;
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Video Background Utilities */
+        .video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Masonry Grid Helper */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 24px;
+            grid-auto-flow: dense;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .image-hover-zoom {
+            transition: transform 0.5s ease;
+        }
+
+        .group:hover .image-hover-zoom {
+            transform: scale(1.05);
+        }
+
+        /* Carousel Hide Scrollbar */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+
+    <!-- Placeholder Comments -->
+    <!-- Chosen Palette: Warm Neutrals (Off-White #F9F8F6, Soft Black #1C1C1C, Taupe #C4A484) to mimic a high-end gallery space. -->
+    <!-- Application Structure Plan:
+         1. Hero Section: Immersive video background to establish atmosphere.
+         2. Artist Statement: Contextual text block.
+         3. Featured Carousel: Horizontal scroll for top works.
+         4. The Archive (Gallery): Main interactive component. Filterable masonry grid.
+         5. Lightbox/Canvas: Modal for deep viewing.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+
+<body class="bg-art-bg text-art-dark font-sans antialiased selection:bg-art-accent selection:text-white">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-2xl font-serif font-bold tracking-widest uppercase mix-blend-difference text-white"
+                id="nav-logo">J.A. ART</a>
+            <div class="hidden md:flex space-x-8 mix-blend-difference text-white" id="nav-links">
+                <a href="#statement"
+                    class="hover:text-art-accent transition-colors text-sm tracking-widest uppercase">Statement</a>
+                <a href="#featured"
+                    class="hover:text-art-accent transition-colors text-sm tracking-widest uppercase">Selected</a>
+                <a href="#archive"
+                    class="hover:text-art-accent transition-colors text-sm tracking-widest uppercase">Archive</a>
+                <a href="#contact"
+                    class="hover:text-art-accent transition-colors text-sm tracking-widest uppercase">Contact</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white mix-blend-difference focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="fixed inset-0 bg-art-dark bg-opacity-95 z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8">
+            <a href="#statement" class="text-white text-2xl font-serif mobile-link">Statement</a>
+            <a href="#featured" class="text-white text-2xl font-serif mobile-link">Selected</a>
+            <a href="#archive" class="text-white text-2xl font-serif mobile-link">Archive</a>
+            <button id="close-mobile-menu" class="absolute top-6 right-6 text-white text-3xl">&times;</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video Background -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Video Placeholder: Using a high-quality abstract loop from a public CDN or fallback -->
+        <div class="absolute inset-0 bg-black">
+            <video autoplay loop muted playsinline class="video-bg opacity-60">
+                <source src="https://videos.pexels.com/video-files/3129671/3129671-hd_1920_1080_30fps.mp4"
+                    type="video/mp4">
+                <!-- Fallback if video fails -->
+                Your browser does not support the video tag.
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 text-center text-white px-4 animate-fade-in">
+            <p class="text-sm md:text-base tracking-[0.3em] uppercase mb-4 text-gray-300">The Portfolio of</p>
+            <h1 class="text-5xl md:text-8xl font-serif font-bold mb-6 tracking-tight">JOURDAN ALEXZANDER</h1>
+            <p class="text-lg md:text-xl font-light tracking-wide text-gray-200 max-w-2xl mx-auto">
+                Digital Synthesis &bull; Sculptural Form &bull; Visual Narrative
+            </p>
+            <div class="mt-12">
+                <a href="#archive"
+                    class="border border-white px-8 py-3 text-sm tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300">
+                    View Collection
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#statement" class="text-white opacity-50 hover:opacity-100 transition-opacity">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto bg-art-bg relative z-20 shadow-2xl -mt-20 rounded-t-3xl overflow-hidden pb-20">
+
+        <!-- Section: Artist Statement -->
+        <section id="statement" class="py-24 px-6 md:px-20 text-center">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-xs font-bold tracking-[0.2em] text-art-accent uppercase mb-4">The Vision</h2>
+                <h3 class="text-3xl md:text-4xl font-serif mb-8 text-art-dark">Bridging the gap between the digital void
+                    and physical permanence.</h3>
+                <p class="text-gray-600 leading-relaxed text-lg mb-8">
+                    My work explores the fragility of memory in the digital age. By combining classical sculpting
+                    techniques with generative algorithms, I create artifacts that exist in a liminal
+                    space—simultaneously ancient and futuristic. This portfolio serves as a living archive of that
+                    exploration.
+                </p>
+                <div class="w-16 h-1 bg-art-accent mx-auto"></div>
+            </div>
+        </section>
+
+        <!-- Section: Featured Carousel -->
+        <section id="featured" class="py-20 bg-art-bg overflow-hidden">
+            <div class="px-6 mb-10 flex justify-between items-end">
+                <div>
+                    <h2 class="text-3xl font-serif">Selected Works</h2>
+                    <p class="text-sm text-gray-500 mt-2">Curated highlights from the past season.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <button id="scroll-left"
+                        class="w-10 h-10 border border-gray-300 rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button id="scroll-right"
+                        class="w-10 h-10 border border-gray-300 rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Horizontal Scroll Container -->
+            <div id="carousel-track" class="flex space-x-8 overflow-x-auto px-6 pb-8 no-scrollbar scroll-smooth">
+                <!-- Javascript will populate this -->
+            </div>
+        </section>
+
+        <!-- Section: The Archive (Main Gallery) -->
+        <section id="archive" class="py-20 px-6 md:px-12 bg-white min-h-screen">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <h2 class="text-4xl font-serif mb-6 md:mb-0">The Archive</h2>
+
+                <!-- Filters -->
+                <div class="flex flex-wrap justify-center space-x-2 md:space-x-6">
+                    <button
+                        class="filter-btn active text-sm font-bold uppercase tracking-widest border-b-2 border-art-dark pb-1"
+                        data-filter="all">All</button>
+                    <button
+                        class="filter-btn text-sm text-gray-500 uppercase tracking-widest hover:text-black transition-colors pb-1 border-b-2 border-transparent hover:border-gray-300"
+                        data-filter="Photography">Photography</button>
+                    <button
+                        class="filter-btn text-sm text-gray-500 uppercase tracking-widest hover:text-black transition-colors pb-1 border-b-2 border-transparent hover:border-gray-300"
+                        data-filter="Sculpture">Sculpture</button>
+                    <button
+                        class="filter-btn text-sm text-gray-500 uppercase tracking-widest hover:text-black transition-colors pb-1 border-b-2 border-transparent hover:border-gray-300"
+                        data-filter="Digital">Digital</button>
+                </div>
+            </div>
+
+            <!-- Grid Container -->
+            <div id="gallery-grid" class="gallery-grid">
+                <!-- Javascript will populate this -->
+            </div>
+
+            <div id="no-results" class="hidden text-center py-20">
+                <p class="text-gray-400 italic">No works found in this category.</p>
+            </div>
+        </section>
+
+        <!-- Section: Contact -->
+        <section id="contact" class="py-24 bg-art-dark text-white text-center">
+            <h2 class="text-3xl font-serif mb-8">Inquiries & Commissions</h2>
+            <p class="text-gray-400 max-w-lg mx-auto mb-10">
+                To place an order or commission a custom work please contact the artist
+                directly.
+            </p>
+            <a href="mailto:paintfrsh@gmail.com"
+                class="inline-block border border-white px-10 py-4 text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300">
+                Contact
+            </a>
+            <div class="mt-16 flex justify-center space-x-8">
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i
+                        class="fab fa-instagram text-xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i
+                        class="fab fa-twitter text-xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i
+                        class="fab fa-artsy text-xl"></i></a>
+            </div>
+            <p class="mt-12 text-xs text-gray-600 uppercase tracking-widest">&copy; 2024 Jourdan Alexzander. All Rights
+                Reserved.</p>
+        </section>
+
+    </main>
+
+    <!-- Canvas Modal (Lightbox) -->
+    <div id="canvas-modal"
+        class="fixed inset-0 bg-white z-50 hidden opacity-0 transition-opacity duration-300 flex flex-col">
+        <!-- Modal Header -->
+        <div class="flex justify-between items-center p-6 border-b border-gray-100">
+            <h3 id="modal-title" class="text-xl font-serif font-bold">Work Title</h3>
+            <button id="close-modal"
+                class="text-3xl font-light hover:text-art-accent transition-colors">&times;</button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="flex-1 overflow-y-auto p-6 md:p-12 flex flex-col md:flex-row gap-12">
+            <!-- Image Area -->
+            <div class="w-full md:w-2/3 bg-gray-50 flex items-center justify-center p-4">
+                <img id="modal-image" src="" alt="Artwork" class="max-h-[80vh] shadow-xl object-contain">
+            </div>
+
+            <!-- Info Area -->
+            <div class="w-full md:w-1/3 flex flex-col justify-center space-y-6">
+                <div>
+                    <span id="modal-category"
+                        class="text-xs font-bold tracking-widest uppercase text-art-accent">Category</span>
+                    <h2 id="modal-title-large" class="text-4xl font-serif mt-2 mb-4">Work Title</h2>
+                    <p id="modal-year" class="text-sm text-gray-500">2023</p>
+                </div>
+
+                <div class="border-t border-gray-200 pt-6">
+                    <p id="modal-description" class="text-gray-600 leading-relaxed mb-6">
+                        Description of the artwork goes here. This explains the technique, the inspiration, and the
+                        materials used.
+                    </p>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400 uppercase tracking-wide">Dimensions</span>
+                            <span class="font-medium">24 x 36 in</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400 uppercase tracking-wide">Medium</span>
+                            <span id="modal-medium" class="font-medium">Oil on Canvas</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400 uppercase tracking-wide">Status</span>
+                            <span class="font-medium text-green-600">Available</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6">
+                    <button
+                        class="w-full bg-black text-white py-4 text-xs uppercase tracking-widest hover:bg-art-accent transition-colors">Inquire
+                        about this piece</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // --- DATA SOURCE ---
+        const portfolioData = [
+            { id: 1, title: "Aeon Flux", category: "Digital", year: 2024, medium: "Generative Video", image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop", desc: "A recursive exploration of time loops and digital decay.", featured: true },
+            { id: 2, title: "Marble Silence", category: "Sculpture", year: 2023, medium: "Carrara Marble", image: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=800&auto=format&fit=crop", desc: "Classical form interrupted by modern geometric brutalism.", featured: true },
+            { id: 3, title: "Urban Entropy", category: "Photography", year: 2022, medium: "C-Type Print", image: "https://images.unsplash.com/photo-1493329025335-18542a61595f?q=80&w=800&auto=format&fit=crop", desc: "High contrast architectural photography capturing city solitude.", featured: false },
+            { id: 4, title: "Void State", category: "Digital", year: 2024, medium: "3D Render", image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=800&auto=format&fit=crop", desc: "The absence of light simulated through ray-tracing engines.", featured: true },
+            { id: 5, title: "Terra Form", category: "Sculpture", year: 2021, medium: "Bronze & Clay", image: "https://images.unsplash.com/photo-1555662369-0264df747209?q=80&w=800&auto=format&fit=crop", desc: "Organic textures clashing with industrial metals.", featured: false },
+            { id: 6, title: "Neon Noir", category: "Photography", year: 2023, medium: "Digital Photography", image: "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?q=80&w=800&auto=format&fit=crop", desc: "Nightscapes of Tokyo illuminated by artificial phosphorescence.", featured: true },
+            { id: 7, title: "Spectral Shift", category: "Digital", year: 2022, medium: "Algorithmic Art", image: "https://images.unsplash.com/photo-1633167606207-d840b5070fc2?q=80&w=800&auto=format&fit=crop", desc: "Color theory tested against random seed generators.", featured: false },
+            { id: 8, title: "Fragmented Self", category: "Sculpture", year: 2020, medium: "Resin", image: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?q=80&w=800&auto=format&fit=crop", desc: "Translucent resin casting of the human form in pieces.", featured: false },
+            { id: 9, title: "Desert Echo", category: "Photography", year: 2021, medium: "Film", image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=800&auto=format&fit=crop", desc: "The silence of the Mojave captured on 35mm.", featured: true },
+        ];
+
+        // --- STATE MANAGEMENT ---
+        let currentFilter = 'all';
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCarousel();
+            renderGallery();
+            setupInteractions();
+            setupNavbar();
+        });
+
+        // --- FUNCTIONS ---
+
+        function renderCarousel() {
+            const track = document.getElementById('carousel-track');
+            const featured = portfolioData.filter(item => item.featured);
+
+            featured.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'flex-none w-80 md:w-96 group cursor-pointer';
+                card.onclick = () => openModal(item.id);
+                card.innerHTML = `
+                    <div class="aspect-[4/5] overflow-hidden mb-4 relative">
+                        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover image-hover-zoom">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-500"></div>
+                        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                             <span class="bg-white text-black text-xs px-2 py-1 uppercase tracking-widest">View</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold group-hover:text-art-accent transition-colors">${item.title}</h3>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest mt-1">${item.category}, ${item.year}</p>
+                `;
+                track.appendChild(card);
+            });
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            const noResults = document.getElementById('no-results');
+            grid.innerHTML = '';
+
+            const filteredData = currentFilter === 'all'
+                ? portfolioData
+                : portfolioData.filter(item => item.category === currentFilter);
+
+            if (filteredData.length === 0) {
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            filteredData.forEach((item, index) => {
+                const tile = document.createElement('div');
+                // Use random heights (via aspect ratio classes) to simulate Masonry feel without complex JS libraries
+                const aspectClass = index % 3 === 0 ? 'aspect-square' : (index % 3 === 1 ? 'aspect-[3/4]' : 'aspect-[4/3]');
+
+                tile.className = 'group cursor-pointer relative overflow-hidden animate-fade-in';
+                tile.style.animationDelay = `${index * 100}ms`;
+                tile.onclick = () => openModal(item.id);
+
+                tile.innerHTML = `
+                    <div class="${aspectClass} w-full overflow-hidden bg-gray-100">
+                        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover image-hover-zoom">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-white p-4 text-center">
+                        <h3 class="text-2xl font-serif italic transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">${item.title}</h3>
+                        <p class="text-xs uppercase tracking-widest mt-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">${item.category}</p>
+                    </div>
+                `;
+                grid.appendChild(tile);
+            });
+        }
+
+        function setupInteractions() {
+            // Filter Buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // Remove active class
+                    buttons.forEach(b => {
+                        b.classList.remove('active', 'border-art-dark', 'font-bold');
+                        b.classList.add('text-gray-500', 'border-transparent');
+                    });
+                    // Add active class
+                    e.target.classList.add('active', 'border-art-dark', 'font-bold');
+                    e.target.classList.remove('text-gray-500', 'border-transparent');
+
+                    // Update State & Render
+                    currentFilter = e.target.getAttribute('data-filter');
+                    renderGallery();
+                });
+            });
+
+            // Carousel Scroll
+            document.getElementById('scroll-left').addEventListener('click', () => {
+                document.getElementById('carousel-track').scrollBy({ left: -300, behavior: 'smooth' });
+            });
+            document.getElementById('scroll-right').addEventListener('click', () => {
+                document.getElementById('carousel-track').scrollBy({ left: 300, behavior: 'smooth' });
+            });
+
+            // Modal Controls
+            document.getElementById('close-modal').addEventListener('click', closeModal);
+            document.getElementById('canvas-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'canvas-modal') closeModal();
+            });
+
+            // Mobile Menu
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.remove('translate-x-full');
+            });
+            document.getElementById('close-mobile-menu').addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('translate-x-full');
+            });
+            document.querySelectorAll('.mobile-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('mobile-menu').classList.add('translate-x-full');
+                });
+            });
+        }
+
+        function setupNavbar() {
+            const navbar = document.getElementById('navbar');
+            const logo = document.getElementById('nav-logo');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-white', 'shadow-md', 'py-4');
+                    navbar.classList.remove('py-6');
+                    logo.classList.remove('text-white', 'mix-blend-difference');
+                    logo.classList.add('text-black');
+                    document.getElementById('nav-links').classList.remove('text-white', 'mix-blend-difference');
+                    document.getElementById('nav-links').classList.add('text-black');
+                    document.getElementById('mobile-menu-btn').classList.remove('text-white', 'mix-blend-difference');
+                    document.getElementById('mobile-menu-btn').classList.add('text-black');
+                } else {
+                    navbar.classList.remove('bg-white', 'shadow-md', 'py-4');
+                    navbar.classList.add('py-6');
+                    logo.classList.add('text-white', 'mix-blend-difference');
+                    logo.classList.remove('text-black');
+                    document.getElementById('nav-links').classList.add('text-white', 'mix-blend-difference');
+                    document.getElementById('nav-links').classList.remove('text-black');
+                    document.getElementById('mobile-menu-btn').classList.add('text-white', 'mix-blend-difference');
+                    document.getElementById('mobile-menu-btn').classList.remove('text-black');
+                }
+            });
+        }
+
+        function openModal(id) {
+            const item = portfolioData.find(d => d.id === id);
+            if (!item) return;
+
+            document.getElementById('modal-image').src = item.image;
+            document.getElementById('modal-title').innerText = item.title;
+            document.getElementById('modal-title-large').innerText = item.title;
+            document.getElementById('modal-category').innerText = item.category;
+            document.getElementById('modal-year').innerText = item.year;
+            document.getElementById('modal-medium').innerText = item.medium;
+            document.getElementById('modal-description').innerText = item.desc;
+
+            const modal = document.getElementById('canvas-modal');
+            modal.classList.remove('hidden');
+            // Small timeout to allow removing hidden before changing opacity for transition
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('canvas-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+    </script>
+</body>
+
+</html>
