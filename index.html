@@ -285,7 +285,7 @@
                             data-filter="Photography">Photography</button>
                         <button
                             class="filter-btn text-sm text-gray-500 uppercase tracking-widest hover:text-art-dark transition-colors pb-1 border-b-2 border-transparent hover:border-gray-300"
-                            data-filter="Sculpture">Sculpture</button>
+                            data-filter="Paintings">Paintings</button>
                         <button
                             class="filter-btn text-sm text-gray-500 uppercase tracking-widest hover:text-art-dark transition-colors pb-1 border-b-2 border-transparent hover:border-gray-300"
                             data-filter="Digital">Digital</button>
@@ -306,7 +306,7 @@
                 <div class="w-full md:w-1/3">
                     <div class="aspect-[3/4] bg-gray-200 overflow-hidden relative shadow-lg">
                         <img id="bio-headshot"
-                            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop"
+                            src="https://drive.google.com/file/d/1LNQC2J3Gp97TScYJrDN8jtK3i5M2wXk2/view?usp=drive_link"
                             alt="Artist Headshot" class="w-full h-full object-cover">
                     </div>
                 </div>
@@ -456,7 +456,7 @@
                                     class="w-full p-3 border rounded text-sm" required>
                                 <select id="input-category" class="w-full p-3 border rounded text-sm">
                                     <option value="Digital">Digital</option>
-                                    <option value="Sculpture">Sculpture</option>
+                                    <option value="Paintings">Paintings</option>
                                     <option value="Photography">Photography</option>
                                 </select>
                             </div>
@@ -649,8 +649,8 @@
             stmtHead: "Bridging the gap between the digital void and physical permanence.",
             stmtBody: "My work explores the fragility of memory in the digital age. By combining classical sculpting techniques with generative algorithms, I create artifacts that exist in a liminal space—simultaneously ancient and futuristic.",
             bioName: "Jourdan Alexzander",
-            bioImg: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop",
-            bioText: "Jourdan Alexzander is a multidisciplinary artist whose work interrogates the intersection of classical forms and digital decay. <br><br> With a background in both traditional sculpture and computer science, Jourdan uses code as a chisel, carving out new realities from the noise of the information age. His work has been exhibited digitally and physically, bridging the gap between the screen and the gallery space.",
+            bioImg: "https://drive.google.com/file/d/1LNQC2J3Gp97TScYJrDN8jtK3i5M2wXk2/view?usp=drive_link",
+            bioText: "Jourdan Alexzander is a multidisciplinary artist whose work interrogates the intersection of classical forms and digital decay. <br><br> With a background in both traditional Paintings and computer science, Jourdan uses code as a chisel, carving out new realities from the noise of the information age. His work has been exhibited digitally and physically, bridging the gap between the screen and the gallery space.",
             email: "paintfrsh@gmail.com",
             socialIg: "#",
             socialTw: "#",
@@ -680,9 +680,9 @@
         }
 
         const initialPortfolioData = [
-            { id: '1', title: "Aeon Flux", category: "Digital", type: "video", year: 2024, medium: "Generative Video", image: "https://www.youtube.com/watch?v=LXb3EKWsInQ", desc: "A recursive exploration of time loops and digital decay.", featured: true, source: 'manual', hidden: false },
-            { id: '2', title: "Marble Silence", category: "Sculpture", type: "image", year: 2023, medium: "Carrara Marble", image: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=800&auto=format&fit=crop", desc: "Classical form interrupted by modern geometric brutalism.", featured: true, source: 'manual', hidden: false },
-            { id: '3', title: "Urban Entropy", category: "Photography", type: "image", year: 2022, medium: "C-Type Print", image: "https://images.unsplash.com/photo-1493329025335-18542a61595f?q=80&w=800&auto=format&fit=crop", desc: "High contrast architectural photography capturing city solitude.", featured: false, source: 'manual', hidden: false },
+            { id: '1', title: "Sound Vortex - Light Play", category: "Digital", type: "video", year: 2025, medium: "Mixed Media, Canvas, Video", image: "https://youtu.be/8xLUjE5Qnag", desc: "Multi-colored light-play on Sound Vortex - oil on canvas.", featured: true, source: 'manual', hidden: false },
+            { id: '2', title: "Creature Statement", category: "Paintings", type: "image", year: 2025, medium: "Mixed media on canvas", image: "https://drive.google.com/file/d/1hHkI7rM0KMGCRKnW5rzXCMYAdvKkItNX/view?usp=drive_link", desc: "Creature Statement centers on a fractured, face-like presence that emerges through layers of vivid color, abrasion, and gestural mark-making. Embedded eyes anchor the composition, establishing a point of recognition within an otherwise volatile field of motion, drips, and looping lines. The surface oscillates between control and disruption, where matte texture absorbs light while saturated and fluorescent marks activate and shift across environments. Rather than resolving into a fixed figure, the work presents identity as unstable—constructed through signal, movement, and perception—inviting the viewer to encounter the image as an evolving presence rather than a portrait.", featured: true, source: 'manual', hidden: false },
+            { id: '2', title: "Creature Statement", category: "Paintings", type: "image", year: 2025, medium: "Mixed media on canvas", image: "https://drive.google.com/file/d/1B8Nj1QGU_maZF6TZZ8fqK_HfDCXWHSly/view?usp=drive_link", desc: "Love A Little presents a layered field of color, pressure, and repeated gesture in which symbols, partial figures, and looping marks emerge through dense surface activity. The composition is built through rhythmic abrasion and overpainting, allowing vivid pigment to move across matte texture in waves rather than fixed forms. Linear marks and fragmented glyphs suggest communication without resolution, while the palette oscillates between warmth and tension. Rather than illustrating sentiment, the work treats love as provisional—constructed, disrupted, and reassembled through movement, repetition, and visual interference.", featured: true, source: 'manual', hidden: false },
         ];
 
         // --- INITIALIZATION ---
@@ -954,7 +954,7 @@
             const newItems = [
                 { id: Date.now().toString(), title: "Drive Import #1", category: "Digital", type: "image", year: 2024, medium: "Digital Import", image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800", desc: "Imported from Drive", featured: false, source: 'drive', hidden: true },
                 { id: (Date.now() + 1).toString(), title: "Drive Import #2", category: "Photography", type: "image", year: 2024, medium: "Digital Import", image: "https://images.unsplash.com/photo-1515405295579-ba7f9f92f413?q=80&w=800", desc: "Imported from Drive", featured: false, source: 'drive', hidden: true },
-                { id: (Date.now() + 2).toString(), title: "Drive Import #3", category: "Sculpture", type: "image", year: 2024, medium: "Digital Import", image: "https://images.unsplash.com/photo-1549492423-40025948e7a8?q=80&w=800", desc: "Imported from Drive", featured: false, source: 'drive', hidden: true }
+                { id: (Date.now() + 2).toString(), title: "Drive Import #3", category: "Paintings", type: "image", year: 2024, medium: "Digital Import", image: "https://images.unsplash.com/photo-1549492423-40025948e7a8?q=80&w=800", desc: "Imported from Drive", featured: false, source: 'drive', hidden: true }
             ];
 
             if (isLocalMode) {
