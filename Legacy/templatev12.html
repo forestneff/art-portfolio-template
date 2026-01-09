@@ -165,8 +165,7 @@
 
         <!-- Featured Carousel -->
         <section id="featured" class="py-20 bg-art-bg overflow-hidden border-t border-gray-200/50 w-full">
-            <!-- UPDATED: Fixed Mobile Alignment (items-center for mobile, md:items-end for desktop) -->
-            <div class="px-6 md:px-12 mb-10 flex flex-col md:flex-row justify-between items-center md:items-end max-w-7xl mx-auto text-center md:text-left">
+            <div class="px-6 md:px-12 mb-10 flex flex-col md:flex-row justify-between items-end max-w-7xl mx-auto">
                 <div class="mb-6 md:mb-0">
                     <h2 class="text-3xl font-serif">Selected Works</h2>
                     <p class="text-sm text-gray-500 mt-2">Curated highlights from the studio.</p>
@@ -310,7 +309,7 @@
                 <div class="p-4 md:p-6 border-b border-gray-200 flex items-center justify-center md:justify-start">
                     <h2 class="hidden md:block text-xl font-serif font-bold text-black">Toolkit</h2>
                     <i class="fas fa-tools md:hidden text-xl text-black"></i>
-                    <p class="hidden md:block text-[10px] uppercase tracking-widest text-gray-400 mt-1 ml-2">v2.0</p>
+                    <p class="hidden md:block text-[10px] uppercase tracking-widest text-gray-400 mt-1 ml-2">v9.5</p>
                 </div>
                 <nav class="flex-1 p-2 md:p-4 space-y-2">
                     <button class="nav-btn w-full text-center md:text-left px-2 md:px-4 py-3 rounded text-xs font-bold uppercase tracking-widest text-gray-500 hover:bg-gray-100 transition-all active" data-target="tab-content">
@@ -358,17 +357,8 @@
                                     <option value="Concept">Concept</option>
                                     <option value="Digital">Digital</option>
                                     <option value="Audio">Audio</option>
-                                    <option value="Video">Video</option>
                                 </select>
-                                <div class="flex gap-2">
-                                    <input type="url" id="input-image-url" placeholder="Media URL or Upload" class="flex-1 p-2 border rounded text-sm bg-gray-50">
-                                    <input type="file" id="file-upload" class="hidden">
-                                    <button type="button" onclick="document.getElementById('file-upload').click()" class="bg-gray-200 hover:bg-gray-300 text-gray-600 px-3 rounded" title="Upload Local File"><i class="fas fa-paperclip"></i></button>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <input type="text" id="input-year" placeholder="Year" class="w-full p-2 border rounded text-sm bg-gray-50">
-                                <input type="text" id="input-medium" placeholder="Medium (e.g. Oil on Canvas)" class="w-full p-2 border rounded text-sm bg-gray-50">
+                                <input type="url" id="input-image-url" placeholder="URL" class="w-full p-2 border rounded text-sm bg-gray-50">
                             </div>
                             <input type="hidden" id="input-type" value="image">
                             <div class="flex justify-between items-center pt-2">
@@ -588,12 +578,12 @@
             heroBtnLink: "#archive",
             
             // Branding
-            logoUrl: "", 
+            logoUrl: "", // Optional Image Logo
             theme: "warm",
-            accentColor: "#C4A484", 
+            accentColor: "#C4A484", // Default accent
             
             // EPK PROFILE DATA
-            epkUrl: "", 
+            epkUrl: "", // Source Doc
             bioName: "Jourdan Alexzander",
             bioImg: "https://lh3.googleusercontent.com/d/1LNQC2J3Gp97TScYJrDN8jtK3i5M2wXk2=w1000",
             stmtHook: "Jourdan Alexzander is a multidisciplinary artist and experiential creator whose work fuses abstract expressionism, street-influenced mark-making, sacred geometry, sound, and architectural thinking into immersive visual narratives exploring consciousness, place, and frequency.",
@@ -667,30 +657,11 @@
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
-        function getMediaType(url) {
-            if (!url) return 'image';
-            if (getYoutubeId(url)) return 'video';
-            if (url.match(/\.(mp4|webm|ogg|mov)$/i)) return 'video';
-            if (url.match(/\.(mp3|wav|m4a)$/i)) return 'audio';
-            if (url.startsWith('data:audio')) return 'audio';
-            if (url.startsWith('data:video')) return 'video';
-            return 'image';
-        }
-
         function renderMedia(item, className, context = 'grid') {
             const youtubeId = getYoutubeId(item.image);
-            const isVideoFile = (item.type === 'video' || getMediaType(item.image) === 'video') && !youtubeId;
-            const isAudio = item.type === 'audio' || getMediaType(item.image) === 'audio';
-
             if (youtubeId) {
                 if (context === 'modal') return `<iframe src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0" class="${className} w-full h-full aspect-video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
                 else return `<div class="relative w-full h-full group-hover:scale-105 transition-transform duration-700"><img src="https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg" class="${className}" onerror="this.src='https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg'"><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/50"><i class="fas fa-play text-white ml-1"></i></div></div></div>`;
-            } else if (isVideoFile) {
-                if (context === 'modal') return `<video src="${item.image}" class="${className} max-h-[80vh] w-full" controls autoplay></video>`;
-                else return `<video src="${item.image}" class="${className} group-hover:scale-105 transition-transform duration-700" autoplay muted loop playsinline></video>`;
-            } else if (isAudio) {
-                if (context === 'modal') return `<div class="w-full flex flex-col items-center justify-center bg-gray-900 p-10 rounded-lg text-white"><i class="fas fa-music text-6xl mb-6 text-art-accent"></i><audio src="${item.image}" controls class="w-full"></audio><p class="mt-4 font-serif text-2xl">${item.title}</p></div>`;
-                else return `<div class="w-full h-full min-h-[300px] bg-gray-900 flex flex-col items-center justify-center text-white relative group overflow-hidden"><div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/sound-waves.png')]"></div><div class="relative z-10 p-6 text-center"><i class="fas fa-waveform text-4xl mb-4 text-art-accent"></i><h4 class="font-serif text-lg">${item.title}</h4><span class="text-[10px] uppercase tracking-widest mt-2 block opacity-70">Audio Track</span></div></div>`;
             } else {
                 return `<img src="${item.image}" alt="${item.title}" class="${className} group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://placehold.co/400x500?text=Image+Error'">`;
             }
@@ -731,20 +702,13 @@
                 }
             });
 
-            // Add Footer Jump Icon (Desktop)
+            // Add Footer Jump Icon
             const jumpBtn = document.createElement('a');
             jumpBtn.href = "#footer-copy";
+            // Applied mix-blend-difference, same transition, and hover text-art-accent
             jumpBtn.className = "hover:text-art-accent transition-colors ml-4 cursor-pointer text-sm mix-blend-difference text-white";
             jumpBtn.innerHTML = '<i class="fas fa-fingerprint text-lg"></i>';
             navContainer.appendChild(jumpBtn);
-
-            // Add Footer Jump Icon (Mobile)
-            const mobileJump = document.createElement('a');
-            mobileJump.href = "#footer-copy";
-            mobileJump.className = "text-gray-500 text-3xl hover:text-white transition-colors mt-8";
-            mobileJump.innerHTML = '<i class="fas fa-fingerprint"></i>';
-            mobileJump.addEventListener('click', () => document.getElementById('mobile-menu').classList.add('translate-x-full'));
-            mobileNavContainer.appendChild(mobileJump);
         }
 
         function renderArchiveFilters() {
@@ -810,7 +774,7 @@
             document.title = siteConfig.siteTitle;
             document.getElementById('meta-title').innerText = siteConfig.siteTitle;
             
-            // Branding
+            // Branding (Logo vs Text)
             const logoImg = document.getElementById('nav-logo-img');
             const logoText = document.getElementById('nav-logo-text');
             if (siteConfig.logoUrl) {
@@ -820,7 +784,7 @@
             } else {
                 logoImg.classList.add('hidden');
                 logoText.classList.remove('hidden');
-                logoText.innerText = "J.A. ART"; 
+                logoText.innerText = "J.A. ART"; // Or specific hero title abbreviation
             }
 
             // Colors
@@ -829,8 +793,10 @@
             root.style.setProperty('--bg-color', t.bg);
             root.style.setProperty('--text-color', t.text);
             root.style.setProperty('--secondary-color', t.secondary);
+            // Use custom accent if provided, else fallback to theme defaults (implied)
             root.style.setProperty('--accent-color', siteConfig.accentColor);
             
+            // Update color preview in Admin
             const cp = document.getElementById('color-preview');
             if(cp) cp.style.backgroundColor = siteConfig.accentColor;
 
@@ -862,11 +828,13 @@
         window.setThemePreset = function(themeName) {
              const t = themes[themeName];
              siteConfig.theme = themeName;
+             // Set default accent for that theme
              if(themeName === 'warm') siteConfig.accentColor = "#C4A484";
              if(themeName === 'dark') siteConfig.accentColor = "#BB86FC";
              if(themeName === 'light') siteConfig.accentColor = "#000000";
              if(themeName === 'bauhaus') siteConfig.accentColor = "#D63333";
              
+             // Update UI immediately for feedback
              document.getElementById('cfg-accent-color').value = siteConfig.accentColor;
              document.getElementById('color-preview').style.backgroundColor = siteConfig.accentColor;
              applyConfig();
@@ -945,6 +913,7 @@
         };
 
         function saveAdminConfig() {
+            // Read all fields
             siteConfig.siteTitle = document.getElementById('cfg-site-title').value;
             siteConfig.logoUrl = document.getElementById('cfg-logo-url').value;
             siteConfig.accentColor = document.getElementById('cfg-accent-color').value;
@@ -1066,42 +1035,6 @@
             // Save Configs
             document.querySelectorAll('.save-config-btn').forEach(btn => btn.addEventListener('click', saveAdminConfig));
             
-            // File Upload Logic (Smart Sort)
-            document.getElementById('file-upload').addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (!file) return;
-
-                // 1. Auto-Detect Type
-                const mime = file.type;
-                let type = 'image';
-                let category = 'Mixed Media'; // default
-                
-                if (mime.startsWith('video/')) { type = 'video'; category = 'Video'; }
-                else if (mime.startsWith('audio/')) { type = 'audio'; category = 'Audio'; }
-                
-                document.getElementById('input-type').value = type;
-                document.getElementById('input-category').value = category;
-
-                // 2. Smart Metadata Extraction (Filename)
-                const name = file.name.split('.')[0]; // remove extension
-                const cleanName = name.replace(/[_-]/g, ' '); // replace separators
-                
-                // Extract Year if 4 digits present
-                const yearMatch = cleanName.match(/\b(19|20)\d{2}\b/);
-                if (yearMatch) document.getElementById('input-year').value = yearMatch[0];
-                
-                // Set Title (remove year if present to be clean)
-                const title = cleanName.replace(/\b(19|20)\d{2}\b/, '').trim();
-                document.getElementById('input-title').value = title || "Untitled";
-
-                // 3. File Reader for Local Preview
-                const reader = new FileReader();
-                reader.onload = function(evt) {
-                    document.getElementById('input-image-url').value = evt.target.result;
-                };
-                reader.readAsDataURL(file);
-            });
-
             // Login Logic
             const loginTrigger = document.getElementById('login-trigger');
             const loginContainer = document.getElementById('login-container');
