@@ -161,6 +161,16 @@
             font-weight: bold;
             color: black;
         }
+
+        /* Admin Toggle Switch */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #68D391;
+        }
+
+        .toggle-checkbox:checked+.toggle-label {
+            background-color: #68D391;
+        }
     </style>
 </head>
 
@@ -300,7 +310,7 @@
             </div>
         </section>
 
-        <!-- BIO SECTION -->
+        <!-- BIO SECTION (New) -->
         <section id="bio" class="py-24 px-6 md:px-12 bg-art-bg border-t border-gray-200/50">
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-start">
                 <div class="w-full md:w-1/3">
@@ -318,6 +328,7 @@
                     </div>
                     <div class="mt-10">
                         <img id="bio-signature" src="" alt="" class="h-12 opacity-60 hidden">
+                        <!-- Placeholder for signature if user wants to add one later -->
                     </div>
                 </div>
             </div>
@@ -402,10 +413,11 @@
             <div class="p-6 border-b border-gray-200 flex justify-between items-center bg-white z-10 shrink-0">
                 <div class="flex items-center space-x-4">
                     <h2 class="text-2xl font-serif font-bold text-black">Artist Toolkit</h2>
-                    <button id="btn-open-archive"
-                        class="text-xs text-blue-600 hover:text-blue-800 uppercase tracking-widest border border-blue-200 px-3 py-1 rounded-full flex items-center">
-                        <i class="fab fa-google-drive mr-2"></i>Open Archive
-                    </button>
+                    <div id="drive-link-container" class="hidden">
+                        <a href="#" target="_blank" id="drive-link"
+                            class="text-xs text-blue-600 hover:text-blue-800 uppercase tracking-widest border border-blue-200 px-3 py-1 rounded-full"><i
+                                class="fab fa-google-drive mr-2"></i>Open Archive</a>
+                    </div>
                 </div>
                 <div class="flex space-x-4">
                     <button id="btn-tab-upload"
@@ -430,7 +442,7 @@
                         <div>
                             <h3 class="text-sm font-bold uppercase tracking-widest mb-1 text-blue-800"><i
                                     class="fab fa-google-drive mr-2"></i>Sync from Cloud</h3>
-                            <p class="text-xs text-blue-600 max-w-md">Fetch contents from your linked Google Drive
+                            <p class="text-xs text-blue-600 max-w-md">Fetch contents from your connected Google Drive
                                 folder. New items will appear below as "Hidden" until approved.</p>
                         </div>
                         <button id="btn-drive-sync"
@@ -466,15 +478,12 @@
                                 <select id="input-type" class="w-full p-3 border rounded text-sm">
                                     <option value="image">Image</option>
                                     <option value="video">Video</option>
-                                    <option value="audio">Audio</option>
                                 </select>
                             </div>
-                            <div id="group-url-input"><input type="url" id="input-image-url"
-                                    placeholder="Media URL (Image, Video, Audio)"
+                            <div id="group-url-input"><input type="url" id="input-image-url" placeholder="Media URL"
                                     class="w-full p-3 border rounded text-sm"></div>
                             <div id="group-file-input" class="hidden"><input id="input-file" type="file"
-                                    class="w-full p-3 border rounded text-sm bg-white"
-                                    accept="image/*,video/*,audio/*" /></div>
+                                    class="w-full p-3 border rounded text-sm bg-white" accept="image/*,video/*" /></div>
                             <textarea id="input-desc" placeholder="Description" rows="2"
                                 class="w-full p-3 border rounded text-sm"></textarea>
                             <div class="flex items-center space-x-2"><input type="checkbox" id="input-featured"><label
@@ -522,7 +531,7 @@
                         <button class="config-sub-btn text-xs uppercase text-gray-500 hover:text-black"
                             data-target="cfg-style">Style & Theme</button>
                         <button class="config-sub-btn text-xs uppercase text-gray-500 hover:text-black"
-                            data-target="cfg-contact">Details</button>
+                            data-target="cfg-contact">Contact</button>
                     </div>
 
                     <!-- 1. General Config -->
@@ -597,23 +606,17 @@
                         </div>
                     </div>
 
-                    <!-- 4. Contact/Details Config -->
+                    <!-- 4. Contact Config -->
                     <div id="cfg-contact" class="config-section hidden space-y-4">
                         <div class="bg-white p-6 rounded shadow-sm space-y-4">
-                            <h4 class="text-xs font-bold uppercase text-gray-400">Details</h4>
                             <div><label class="block text-xs mb-1">Contact Email</label><input id="cfg-email"
                                     class="w-full p-2 border rounded text-sm"></div>
                             <div><label class="block text-xs mb-1">Instagram URL</label><input id="cfg-social-ig"
                                     class="w-full p-2 border rounded text-sm"></div>
                             <div><label class="block text-xs mb-1">Twitter/X URL</label><input id="cfg-social-tw"
                                     class="w-full p-2 border rounded text-sm"></div>
-                            <div class="pt-4 border-t border-gray-100">
-                                <label class="block text-xs mb-1 font-bold text-art-accent">Cloud Archive (Google Drive
-                                    Folder)</label>
-                                <input id="cfg-drive" placeholder="https://drive.google.com/..."
-                                    class="w-full p-2 border rounded text-sm bg-gray-50 focus:bg-white transition-colors">
-                                <p class="text-[10px] text-gray-400 mt-1">Required for Sync features.</p>
-                            </div>
+                            <div><label class="block text-xs mb-1">Cloud Archive (Google Drive)</label><input
+                                    id="cfg-drive" class="w-full p-2 border rounded text-sm"></div>
                         </div>
                     </div>
 
@@ -654,7 +657,7 @@
             email: "paintfrsh@gmail.com",
             socialIg: "#",
             socialTw: "#",
-            driveUrl: "", // Defaults to empty
+            driveUrl: "",
             theme: "warm",
             accentColor: "#C4A484"
         };
@@ -744,7 +747,7 @@
         }
 
         function applyConfig() {
-            // 1. General
+            // ... (Same as before, ensuring bio-headshot uses correct ID)
             document.title = siteConfig.siteTitle;
             document.getElementById('meta-title').innerText = siteConfig.siteTitle;
 
@@ -758,32 +761,31 @@
                 document.getElementById('nav-logo-text').classList.remove('hidden');
             }
 
-            // 2. Hero
             document.getElementById('hero-title').innerText = siteConfig.heroTitle;
             document.getElementById('hero-subtitle').innerText = siteConfig.heroSubtitle;
             document.getElementById('hero-tagline').innerText = siteConfig.heroTagline;
             loadHeroVideo(siteConfig.heroVideo);
 
-            // 3. Statement
             document.getElementById('statement-heading').innerText = siteConfig.stmtHead;
             document.getElementById('statement-body').innerText = siteConfig.stmtBody;
 
-            // 4. Bio
             document.getElementById('bio-name').innerText = siteConfig.bioName;
             document.getElementById('bio-headshot').src = siteConfig.bioImg;
             document.getElementById('bio-text').innerHTML = siteConfig.bioText;
 
-            // 5. Contact
             document.getElementById('contact-email-btn').href = `mailto:${siteConfig.email}`;
             document.getElementById('footer-copy').innerHTML = `&copy; ${new Date().getFullYear()} ${siteConfig.heroTitle}. All Rights Reserved.`;
 
-            // Socials
             const socialContainer = document.getElementById('social-links');
             socialContainer.innerHTML = '';
             if (siteConfig.socialIg) socialContainer.innerHTML += `<a href="${siteConfig.socialIg}" target="_blank" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-instagram text-xl"></i></a>`;
             if (siteConfig.socialTw) socialContainer.innerHTML += `<a href="${siteConfig.socialTw}" target="_blank" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-twitter text-xl"></i></a>`;
 
-            // 6. Theme
+            if (siteConfig.driveUrl) {
+                document.getElementById('drive-link').href = siteConfig.driveUrl;
+                document.getElementById('drive-link-container').classList.remove('hidden');
+            }
+
             const t = themes[siteConfig.theme] || themes.warm;
             const root = document.documentElement;
             root.style.setProperty('--bg-color', t.bg);
@@ -794,54 +796,46 @@
 
         // --- ADMIN UI LOGIC ---
         function populateAdminConfig() {
+            // ... (Same as before)
             document.getElementById('cfg-site-title').value = siteConfig.siteTitle;
             document.getElementById('cfg-logo-type').value = siteConfig.logoType;
             document.getElementById('cfg-logo-text').value = siteConfig.logoText;
             document.getElementById('cfg-logo-url').value = siteConfig.logoUrl;
-
             document.getElementById('cfg-hero-title').value = siteConfig.heroTitle;
             document.getElementById('cfg-hero-subtitle').value = siteConfig.heroSubtitle;
             document.getElementById('cfg-hero-tagline').value = siteConfig.heroTagline;
             document.getElementById('cfg-hero-video').value = siteConfig.heroVideo;
-
             document.getElementById('cfg-stmt-head').value = siteConfig.stmtHead;
             document.getElementById('cfg-stmt-body').value = siteConfig.stmtBody;
-
             document.getElementById('cfg-bio-name').value = siteConfig.bioName;
             document.getElementById('cfg-bio-img').value = siteConfig.bioImg;
             document.getElementById('cfg-bio-text').value = siteConfig.bioText;
-
             document.getElementById('cfg-email').value = siteConfig.email;
             document.getElementById('cfg-social-ig').value = siteConfig.socialIg;
             document.getElementById('cfg-social-tw').value = siteConfig.socialTw;
-            document.getElementById('cfg-drive').value = siteConfig.driveUrl; // Populate Drive URL
-
+            document.getElementById('cfg-drive').value = siteConfig.driveUrl;
             document.getElementById('cfg-accent-color').value = siteConfig.accentColor;
         }
 
         function readAdminConfig() {
+            // ... (Same as before)
             siteConfig.siteTitle = document.getElementById('cfg-site-title').value;
             siteConfig.logoType = document.getElementById('cfg-logo-type').value;
             siteConfig.logoText = document.getElementById('cfg-logo-text').value;
             siteConfig.logoUrl = document.getElementById('cfg-logo-url').value;
-
             siteConfig.heroTitle = document.getElementById('cfg-hero-title').value;
             siteConfig.heroSubtitle = document.getElementById('cfg-hero-subtitle').value;
             siteConfig.heroTagline = document.getElementById('cfg-hero-tagline').value;
             siteConfig.heroVideo = document.getElementById('cfg-hero-video').value;
-
             siteConfig.stmtHead = document.getElementById('cfg-stmt-head').value;
             siteConfig.stmtBody = document.getElementById('cfg-stmt-body').value;
-
             siteConfig.bioName = document.getElementById('cfg-bio-name').value;
             siteConfig.bioImg = document.getElementById('cfg-bio-img').value;
             siteConfig.bioText = document.getElementById('cfg-bio-text').value;
-
             siteConfig.email = document.getElementById('cfg-email').value;
             siteConfig.socialIg = document.getElementById('cfg-social-ig').value;
             siteConfig.socialTw = document.getElementById('cfg-social-tw').value;
             siteConfig.driveUrl = document.getElementById('cfg-drive').value;
-
             siteConfig.accentColor = document.getElementById('cfg-accent-color').value;
             saveConfig();
         }
@@ -857,28 +851,15 @@
         function renderMedia(item, className, context = 'grid') {
             const youtubeId = getYoutubeId(item.image);
             const isVideoFile = item.type === 'video' || (item.image && (item.image.endsWith('.mp4') || item.image.endsWith('.webm') || item.image.startsWith('blob:')));
-            const isAudioFile = item.type === 'audio' || (item.image && (item.image.endsWith('.mp3') || item.image.endsWith('.wav')));
 
             if (youtubeId) {
                 if (context === 'modal') return `<iframe src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0" class="${className} w-full h-full aspect-video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
                 else return `<div class="relative w-full h-full"><img src="https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg" class="${className}"><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-12 h-12 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center"><i class="fas fa-play text-white ml-1"></i></div></div></div>`;
-            }
-            else if (isVideoFile) {
+            } else if (isVideoFile) {
                 if (context === 'modal') return `<video src="${item.image}" class="${className} max-h-[80vh] w-full" controls autoplay></video>`;
                 else if (context === 'admin') return `<video src="${item.image}" class="${className}"></video>`;
                 else return `<video src="${item.image}" class="${className}" autoplay muted loop playsinline></video>`;
-            }
-            else if (isAudioFile) {
-                // Audio Card
-                if (context === 'modal') {
-                    return `<div class="w-full flex flex-col items-center justify-center bg-gray-900 p-10 rounded-lg text-white"><i class="fas fa-music text-6xl mb-6"></i><audio src="${item.image}" controls class="w-full"></audio></div>`;
-                } else if (context === 'admin') {
-                    return `<div class="${className} bg-gray-200 flex items-center justify-center"><i class="fas fa-volume-up text-gray-500"></i></div>`;
-                } else {
-                    return `<div class="w-full h-full min-h-[200px] bg-gray-900 flex flex-col items-center justify-center text-white"><i class="fas fa-waveform text-4xl mb-4"></i><span class="text-xs uppercase tracking-widest">Audio</span></div>`;
-                }
-            }
-            else {
+            } else {
                 return `<img src="${item.image}" alt="${item.title}" class="${className}" onerror="this.src='https://placehold.co/400x500?text=Image+Error'">`;
             }
         }
@@ -924,39 +905,24 @@
             });
         }
 
-        // --- NEW: DRIVE LOGIC ---
-        function checkDriveUrl() {
-            if (!siteConfig.driveUrl || siteConfig.driveUrl.trim() === "") {
-                const url = prompt("Please enter your Google Drive Folder URL to continue:");
-                if (url) {
-                    siteConfig.driveUrl = url;
-                    // Update field in config tab if it's there
-                    document.getElementById('cfg-drive').value = url;
-                    saveConfig(); // Persist
-                    return true;
-                }
-                return false;
-            }
-            return true;
-        }
-
+        // --- NEW: SIMULATED DRIVE FETCH ---
         async function fetchFromDrive() {
-            if (!checkDriveUrl()) return;
-
             const btn = document.getElementById('btn-drive-sync');
             const originalContent = btn.innerHTML;
             btn.innerHTML = `<i class="fas fa-circle-notch fa-spin mr-2"></i> Connecting...`;
             btn.disabled = true;
 
-            await new Promise(r => setTimeout(r, 1500)); // Sim delay
+            // Simulate Network Delay
+            await new Promise(r => setTimeout(r, 1500));
 
-            // Simulated Discovery
+            // Simulated New Items found in "Drive"
             const newItems = [
                 { id: Date.now().toString(), title: "Drive Import #1", category: "Digital", type: "image", year: 2024, medium: "Digital Import", image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800", desc: "Imported from Drive", featured: false, source: 'drive', hidden: true },
                 { id: (Date.now() + 1).toString(), title: "Drive Import #2", category: "Photography", type: "image", year: 2024, medium: "Digital Import", image: "https://images.unsplash.com/photo-1515405295579-ba7f9f92f413?q=80&w=800", desc: "Imported from Drive", featured: false, source: 'drive', hidden: true },
                 { id: (Date.now() + 2).toString(), title: "Drive Import #3", category: "Sculpture", type: "image", year: 2024, medium: "Digital Import", image: "https://images.unsplash.com/photo-1549492423-40025948e7a8?q=80&w=800", desc: "Imported from Drive", featured: false, source: 'drive', hidden: true }
             ];
 
+            // Add to data
             if (isLocalMode) {
                 portfolioData = [...newItems, ...portfolioData];
                 renderAdminList();
@@ -968,12 +934,10 @@
             }
 
             btn.innerHTML = `<i class="fas fa-check mr-2"></i> Found 3 Files`;
-            setTimeout(() => { btn.innerHTML = originalContent; btn.disabled = false; }, 2000);
-        }
-
-        function openDriveArchive() {
-            if (!checkDriveUrl()) return;
-            window.open(siteConfig.driveUrl, '_blank');
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+            }, 2000);
         }
 
         // --- NEW: ADMIN LIST WITH ACTIONS ---
@@ -1014,6 +978,7 @@
             });
 
             // Action Listeners
+            // 1. Delete
             document.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
                     if (confirm('Delete this item?')) {
@@ -1024,6 +989,7 @@
                 });
             });
 
+            // 2. Toggle Visibility
             document.querySelectorAll('.toggle-vis-btn').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
                     const id = e.target.closest('button').getAttribute('data-id');
@@ -1037,6 +1003,7 @@
                 });
             });
 
+            // 3. Toggle Featured
             document.querySelectorAll('.toggle-feat-btn').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
                     const id = e.target.closest('button').getAttribute('data-id');
@@ -1080,9 +1047,8 @@
             loginSubmit.addEventListener('click', handleLogin);
             document.getElementById('close-admin').addEventListener('click', () => document.getElementById('admin-modal').classList.add('hidden'));
 
-            // NEW: Drive & Archive Listeners
+            // NEW: Drive Sync Listener
             document.getElementById('btn-drive-sync').addEventListener('click', fetchFromDrive);
-            document.getElementById('btn-open-archive').addEventListener('click', openDriveArchive);
 
             // Add Work
             const urlGroup = document.getElementById('group-url-input');
