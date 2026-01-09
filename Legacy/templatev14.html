@@ -55,172 +55,56 @@
 
     <style>
         /* Utilities */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
 
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #D1D5DB;
-            border-radius: 3px;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         /* Video Backgrounds */
-        .video-bg-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .video-bg-direct {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-        }
-
-        .video-bg-youtube {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
+        .video-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
+        .video-bg-direct { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; }
+        .video-bg-youtube { position: absolute; top: 50%; left: 50%; width: 300%; height: 300%; transform: translate(-50%, -50%); pointer-events: none; }
 
         /* Masonry & Layout */
-        .masonry-grid {
-            column-count: 1;
-            column-gap: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .masonry-grid {
-                column-count: 2;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .masonry-grid {
-                column-count: 3;
-            }
-        }
-
-        .masonry-item {
-            break-inside: avoid;
-            margin-bottom: 2rem;
-        }
+        .masonry-grid { column-count: 1; column-gap: 2rem; }
+        @media (min-width: 768px) { .masonry-grid { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+        .masonry-item { break-inside: avoid; margin-bottom: 2rem; }
 
         /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* Login Animation (Strict Original) */
-        .login-active #login-trigger {
-            opacity: 0;
-            pointer-events: none;
-            transform: scale(0.9);
-        }
-
-        .login-active #login-form-container {
-            opacity: 1;
-            pointer-events: auto;
-            transform: scale(1);
-        }
-
-        .submit-active {
-            opacity: 1 !important;
-            transform: translateX(0) !important;
-        }
+        .login-active #login-trigger { opacity: 0; pointer-events: none; transform: scale(0.9); }
+        .login-active #login-form-container { opacity: 1; pointer-events: auto; transform: scale(1); }
+        .submit-active { opacity: 1 !important; transform: translateX(0) !important; }
 
         /* Dashboard Styles */
-        .nav-btn.active {
-            background-color: #F3F4F6;
-            color: black;
-            border-right: 3px solid var(--accent-color);
-        }
-
-        .chart-container {
-            position: relative;
-            height: 250px;
-            width: 100%;
-        }
-
+        .nav-btn.active { background-color: #F3F4F6; color: black; border-right: 3px solid var(--accent-color); }
+        .chart-container { position: relative; height: 250px; width: 100%; }
+        
         /* Layout Manager Styles */
-        .layout-item {
-            transition: all 0.3s ease;
-        }
-
-        .layout-item:hover {
-            background-color: #f9fafb;
-        }
-
+        .layout-item { transition: all 0.3s ease; }
+        .layout-item:hover { background-color: #f9fafb; }
+        
         /* Color Swatch */
-        .color-swatch {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid #e5e7eb;
-            transition: transform 0.2s;
-        }
-
-        .color-swatch:hover {
-            transform: scale(1.1);
-            border-color: #9ca3af;
-        }
+        .color-swatch { width: 24px; height: 24px; border-radius: 50%; cursor: pointer; border: 2px solid #e5e7eb; transition: transform 0.2s; }
+        .color-swatch:hover { transform: scale(1.1); border-color: #9ca3af; }
     </style>
 </head>
 
-<body
-    class="bg-art-bg text-art-dark font-sans antialiased selection:bg-art-accent selection:text-white transition-colors duration-500">
+<body class="bg-art-bg text-art-dark font-sans antialiased selection:bg-art-accent selection:text-white transition-colors duration-500">
 
     <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <!-- Logo Container -->
-            <a href="#" id="nav-logo-container"
-                class="text-2xl font-serif font-bold tracking-widest uppercase mix-blend-difference text-white flex items-center gap-3">
-                <img id="nav-logo-img" src="" alt="Logo" class="h-8 w-auto hidden object-contain">
+            <a href="#" id="nav-logo-container" class="text-2xl font-serif font-bold tracking-widest uppercase mix-blend-difference text-white flex items-center gap-3">
+                 <img id="nav-logo-img" src="" alt="Logo" class="h-8 w-auto hidden object-contain">
                 <span id="nav-logo-text">J.A. ART</span>
             </a>
 
@@ -236,8 +120,7 @@
         </div>
 
         <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu"
-            class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8">
+        <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8">
             <div id="mobile-links-container" class="flex flex-col items-center space-y-8">
                 <!-- Injected via JS -->
             </div>
@@ -246,77 +129,60 @@
     </nav>
 
     <!-- Hero Section -->
-    <header id="hero"
-        class="relative h-screen flex items-center justify-center overflow-hidden bg-black section-target">
+    <header class="relative h-screen flex items-center justify-center overflow-hidden bg-black">
         <div id="hero-video-wrapper" class="absolute inset-0 w-full h-full overflow-hidden">
             <div class="absolute inset-0 bg-gray-900"></div>
         </div>
-        <div
-            class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-1 pointer-events-none">
-        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-1 pointer-events-none"></div>
 
         <div class="relative z-10 text-center text-white px-4 animate-fade-in">
-            <p id="hero-subtitle" class="text-sm md:text-base tracking-[0.3em] uppercase mb-4 text-gray-300">The
-                Portfolio of</p>
-            <h1 id="hero-title" class="text-5xl md:text-8xl font-serif font-bold mb-6 tracking-tight">JOURDAN ALEXZANDER
-            </h1>
+            <p id="hero-subtitle" class="text-sm md:text-base tracking-[0.3em] uppercase mb-4 text-gray-300">The Portfolio of</p>
+            <h1 id="hero-title" class="text-5xl md:text-8xl font-serif font-bold mb-6 tracking-tight">JOURDAN ALEXZANDER</h1>
             <p id="hero-tagline" class="text-lg md:text-xl font-light tracking-wide text-gray-200 max-w-2xl mx-auto">
                 Digital Synthesis &bull; Sculptural Form &bull; Visual Narrative
             </p>
             <div class="mt-12">
-                <a id="hero-btn" href="#archive"
-                    class="border border-white px-8 py-3 text-sm tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300">View
-                    Collection</a>
+                <a id="hero-btn" href="#archive" class="border border-white px-8 py-3 text-sm tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300">View Collection</a>
             </div>
         </div>
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
-            <a href="#statement" class="text-white opacity-50 hover:opacity-100 transition-opacity"><i
-                    class="fas fa-chevron-down text-2xl"></i></a>
+            <a href="#statement" class="text-white opacity-50 hover:opacity-100 transition-opacity"><i class="fas fa-chevron-down text-2xl"></i></a>
         </div>
     </header>
 
     <!-- Main Content Area -->
-    <main
-        class="max-w-full mx-auto bg-art-bg relative z-20 shadow-2xl -mt-20 rounded-t-3xl overflow-hidden pb-20 transition-colors duration-500 flex flex-col">
+    <main class="max-w-full mx-auto bg-art-bg relative z-20 shadow-2xl -mt-20 rounded-t-3xl overflow-hidden pb-20 transition-colors duration-500 flex flex-col">
 
         <!-- Statement -->
-        <section id="statement" class="py-24 px-6 md:px-20 text-center max-w-7xl mx-auto w-full section-target">
+        <section id="statement" class="py-24 px-6 md:px-20 text-center max-w-7xl mx-auto w-full">
             <div class="max-w-3xl mx-auto">
                 <h2 class="text-xs font-bold tracking-[0.2em] text-art-accent uppercase mb-4">The Vision</h2>
-                <h3 id="statement-heading" class="text-3xl md:text-4xl font-serif mb-8 text-art-dark">Bridging the gap
-                    between the digital void and physical permanence.</h3>
-                <p id="statement-body" class="text-gray-600 leading-relaxed text-lg mb-8">My work explores the fragility
-                    of memory in the digital age.</p>
+                <h3 id="statement-heading" class="text-3xl md:text-4xl font-serif mb-8 text-art-dark">Bridging the gap between the digital void and physical permanence.</h3>
+                <p id="statement-body" class="text-gray-600 leading-relaxed text-lg mb-8">My work explores the fragility of memory in the digital age.</p>
                 <div class="w-16 h-1 bg-art-accent mx-auto"></div>
             </div>
         </section>
 
         <!-- Featured Carousel -->
-        <section id="featured"
-            class="py-20 bg-art-bg overflow-hidden border-t border-gray-200/50 w-full section-target">
-            <div
-                class="px-6 md:px-12 mb-10 flex flex-col md:flex-row justify-between items-center md:items-end max-w-7xl mx-auto text-center md:text-left">
+        <section id="featured" class="py-20 bg-art-bg overflow-hidden border-t border-gray-200/50 w-full">
+            <!-- UPDATED: Fixed Mobile Alignment (items-center for mobile, md:items-end for desktop) -->
+            <div class="px-6 md:px-12 mb-10 flex flex-col md:flex-row justify-between items-center md:items-end max-w-7xl mx-auto text-center md:text-left">
                 <div class="mb-6 md:mb-0">
                     <h2 class="text-3xl font-serif">Selected Works</h2>
                     <p class="text-sm text-gray-500 mt-2">Curated highlights from the studio.</p>
                 </div>
                 <div class="flex space-x-4">
-                    <button id="scroll-left"
-                        class="w-12 h-12 border border-gray-300 rounded-full flex items-center justify-center hover:bg-art-dark hover:text-art-bg transition-colors"><i
-                            class="fas fa-arrow-left"></i></button>
-                    <button id="scroll-right"
-                        class="w-12 h-12 border border-gray-300 rounded-full flex items-center justify-center hover:bg-art-dark hover:text-art-bg transition-colors"><i
-                            class="fas fa-arrow-right"></i></button>
+                    <button id="scroll-left" class="w-12 h-12 border border-gray-300 rounded-full flex items-center justify-center hover:bg-art-dark hover:text-art-bg transition-colors"><i class="fas fa-arrow-left"></i></button>
+                    <button id="scroll-right" class="w-12 h-12 border border-gray-300 rounded-full flex items-center justify-center hover:bg-art-dark hover:text-art-bg transition-colors"><i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
-            <div id="carousel-track"
-                class="flex space-x-8 overflow-x-auto px-6 md:px-12 pb-8 no-scrollbar scroll-smooth h-[60vh] min-h-[500px] items-center">
+            <div id="carousel-track" class="flex space-x-8 overflow-x-auto px-6 md:px-12 pb-8 no-scrollbar scroll-smooth h-[60vh] min-h-[500px] items-center">
                 <!-- Injected via JS -->
             </div>
         </section>
 
         <!-- Exhibitions -->
-        <section id="exhibitions" class="py-20 px-6 md:px-12 bg-white w-full hidden section-target">
+        <section id="exhibitions" class="py-20 px-6 md:px-12 bg-white w-full hidden">
             <div class="max-w-5xl mx-auto">
                 <div class="text-center mb-12">
                     <h2 class="text-xs font-bold tracking-[0.2em] text-art-accent uppercase mb-4">On View</h2>
@@ -324,8 +190,7 @@
                 </div>
                 <div class="space-y-6">
                     <!-- Demo Event Item -->
-                    <div
-                        class="flex flex-col md:flex-row items-center border-b border-gray-100 pb-6 hover:bg-gray-50 p-4 transition-colors">
+                    <div class="flex flex-col md:flex-row items-center border-b border-gray-100 pb-6 hover:bg-gray-50 p-4 transition-colors">
                         <div class="w-full md:w-1/4 text-center md:text-left mb-2 md:mb-0">
                             <span class="block text-2xl font-serif font-bold text-art-dark">OCT 14</span>
                             <span class="text-xs uppercase tracking-widest text-gray-400">2025</span>
@@ -335,9 +200,7 @@
                             <p class="text-sm text-gray-500 italic">Immersive Audio-Visual Installation</p>
                         </div>
                         <div class="w-full md:w-1/4 text-center md:text-right">
-                            <span
-                                class="inline-block border border-gray-300 px-6 py-2 text-xs uppercase tracking-widest">San
-                                Francisco</span>
+                            <span class="inline-block border border-gray-300 px-6 py-2 text-xs uppercase tracking-widest">San Francisco</span>
                         </div>
                     </div>
                 </div>
@@ -345,19 +208,18 @@
         </section>
 
         <!-- Press -->
-        <section id="press" class="py-24 px-6 bg-art-dark text-white w-full hidden section-target">
+        <section id="press" class="py-24 px-6 bg-art-dark text-white w-full hidden">
             <div class="max-w-4xl mx-auto text-center">
                 <i class="fas fa-quote-left text-4xl text-art-accent mb-8 opacity-50"></i>
                 <blockquote class="font-serif text-2xl md:text-4xl italic leading-relaxed mb-8">
-                    "Alexzander’s work reflects neither environment directly, but carries both sensibilities: the
-                    immediacy of the city alongside the spatial awareness of wide-open terrain."
+                    "Alexzander’s work reflects neither environment directly, but carries both sensibilities: the immediacy of the city alongside the spatial awareness of wide-open terrain."
                 </blockquote>
                 <cite class="text-sm uppercase tracking-[0.2em] text-gray-400 not-italic">— Artforum, 2024</cite>
             </div>
         </section>
 
         <!-- Archive -->
-        <section id="archive" class="py-20 px-6 md:px-12 bg-white/50 min-h-screen w-full section-target">
+        <section id="archive" class="py-20 px-6 md:px-12 bg-white/50 min-h-screen w-full">
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-12">
                     <h2 class="text-4xl font-serif mb-6 md:mb-0">The Archive</h2>
@@ -367,18 +229,20 @@
                     </div>
                 </div>
                 <div id="gallery-grid" class="masonry-grid space-y-8 min-h-[400px]">
-                    <!-- Injected via JS -->
+                    <div class="flex flex-col items-center justify-center text-gray-400 py-20 w-full col-span-full">
+                        <i class="fas fa-circle-notch fa-spin text-3xl mb-4"></i>
+                        <p>Loading Archive...</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Bio -->
-        <section id="bio" class="py-24 px-6 md:px-12 bg-art-bg border-t border-gray-200/50 w-full section-target">
+        <section id="bio" class="py-24 px-6 md:px-12 bg-art-bg border-t border-gray-200/50 w-full">
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-start">
                 <div class="w-full md:w-1/3 sticky top-24">
                     <div class="aspect-[3/4] bg-gray-200 overflow-hidden relative shadow-lg">
-                        <img id="bio-headshot" src="" alt="Artist"
-                            class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                        <img id="bio-headshot" src="" alt="Artist" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
                     </div>
                 </div>
                 <div class="w-full md:w-2/3">
@@ -390,32 +254,22 @@
         </section>
 
         <!-- Contact & Footer -->
-        <section id="contact"
-            class="py-24 bg-art-dark text-white text-center transition-colors duration-500 w-full section-target">
+        <section id="contact" class="py-24 bg-art-dark text-white text-center transition-colors duration-500 w-full">
             <h2 class="text-3xl font-serif mb-8">Inquiries & Commissions</h2>
-            <p id="contact-text" class="text-gray-400 max-w-lg mx-auto mb-10">For catalogue requests, exhibition
-                availability, commission, or collaboration.</p>
-            <a id="contact-email-btn" href="#"
-                class="inline-block border border-white px-10 py-4 text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300">Contact
-                Studio</a>
+            <p id="contact-text" class="text-gray-400 max-w-lg mx-auto mb-10">For catalogue requests, exhibition availability, commission, or collaboration.</p>
+            <a id="contact-email-btn" href="#" class="inline-block border border-white px-10 py-4 text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300">Contact Studio</a>
             <div id="social-links" class="mt-16 flex justify-center space-x-8"></div>
 
             <div class="mt-20 pt-10 border-t border-gray-800 flex flex-col items-center">
                 <p id="footer-copy" class="text-xs text-gray-600 uppercase tracking-widest mb-6"></p>
-
+                
                 <!-- LOGIN CONTAINER -->
                 <div id="login-container" class="relative group h-10 w-64 mx-auto flex justify-center items-center">
-                    <button id="login-trigger"
-                        class="text-[10px] text-gray-700 hover:text-gray-500 uppercase tracking-widest transition-all duration-500 absolute">Studio
-                        Login</button>
-                    <div id="login-form-container"
-                        class="flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 absolute inset-0 transform scale-95">
+                    <button id="login-trigger" class="text-[10px] text-gray-700 hover:text-gray-500 uppercase tracking-widest transition-all duration-500 absolute">Studio Login</button>
+                    <div id="login-form-container" class="flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 absolute inset-0 transform scale-95">
                         <div class="relative flex items-center">
-                            <input type="password" id="login-password"
-                                class="bg-transparent border-b border-gray-600 text-center text-xs tracking-widest focus:outline-none w-32 pb-1 text-gray-400 placeholder-gray-600 focus:border-gray-400 transition-colors" />
-                            <button id="login-submit"
-                                class="absolute -right-6 text-gray-500 hover:text-white transition-all duration-300 transform -translate-x-2 opacity-0 text-sm"><i
-                                    class="fas fa-arrow-right"></i></button>
+                            <input type="password" id="login-password" class="bg-transparent border-b border-gray-600 text-center text-xs tracking-widest focus:outline-none w-32 pb-1 text-gray-400 placeholder-gray-600 focus:border-gray-400 transition-colors" />
+                            <button id="login-submit" class="absolute -right-6 text-gray-500 hover:text-white transition-all duration-300 transform -translate-x-2 opacity-0 text-sm"><i class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -424,47 +278,36 @@
     </main>
 
     <!-- Canvas Modal -->
-    <div id="canvas-modal"
-        class="fixed inset-0 bg-white z-50 hidden opacity-0 transition-opacity duration-300 flex flex-col">
+    <div id="canvas-modal" class="fixed inset-0 bg-white z-50 hidden opacity-0 transition-opacity duration-300 flex flex-col">
         <div class="flex justify-between items-center p-6 border-b border-gray-100">
             <h3 id="modal-title" class="text-xl font-serif font-bold">Work Title</h3>
-            <button id="close-modal"
-                class="text-3xl font-light hover:text-art-accent transition-colors">&times;</button>
+            <button id="close-modal" class="text-3xl font-light hover:text-art-accent transition-colors">&times;</button>
         </div>
         <div class="flex-1 overflow-y-auto p-6 md:p-12 flex flex-col md:flex-row gap-12">
-            <div id="modal-media-container" class="w-full md:w-2/3 bg-gray-50 flex items-center justify-center p-4">
-            </div>
+            <div id="modal-media-container" class="w-full md:w-2/3 bg-gray-50 flex items-center justify-center p-4"></div>
             <div class="w-full md:w-1/3 flex flex-col justify-center space-y-6">
                 <div>
-                    <span id="modal-category"
-                        class="text-xs font-bold tracking-widest uppercase text-art-accent">Category</span>
+                    <span id="modal-category" class="text-xs font-bold tracking-widest uppercase text-art-accent">Category</span>
                     <h2 id="modal-title-large" class="text-4xl font-serif mt-2 mb-4">Work Title</h2>
                     <p id="modal-year" class="text-sm text-gray-500">2023</p>
                 </div>
                 <div class="border-t border-gray-200 pt-6">
                     <p id="modal-description" class="text-gray-600 leading-relaxed mb-6">Description...</p>
                     <div class="space-y-2 text-sm">
-                        <div class="flex justify-between"><span
-                                class="text-gray-400 uppercase tracking-wide">Medium</span><span id="modal-medium"
-                                class="font-medium">Oil on Canvas</span></div>
+                        <div class="flex justify-between"><span class="text-gray-400 uppercase tracking-wide">Medium</span><span id="modal-medium" class="font-medium">Oil on Canvas</span></div>
                     </div>
                 </div>
-                <div class="pt-6"><button
-                        class="w-full bg-black text-white py-4 text-xs uppercase tracking-widest hover:bg-art-accent transition-colors">Inquire</button>
-                </div>
+                <div class="pt-6"><button class="w-full bg-black text-white py-4 text-xs uppercase tracking-widest hover:bg-art-accent transition-colors">Inquire</button></div>
             </div>
         </div>
     </div>
 
-    <!-- Edit Item Modal -->
-    <div id="edit-item-modal"
-        class="fixed inset-0 z-[70] hidden bg-black/50 backdrop-blur-sm flex justify-center items-center p-4">
-        <div
-            class="bg-white w-full max-w-3xl rounded-lg shadow-2xl flex flex-col overflow-hidden animate-fade-in max-h-[90vh]">
+    <!-- Edit Item Modal (New) -->
+    <div id="edit-item-modal" class="fixed inset-0 z-[70] hidden bg-black/50 backdrop-blur-sm flex justify-center items-center p-4">
+        <div class="bg-white w-full max-w-3xl rounded-lg shadow-2xl flex flex-col overflow-hidden animate-fade-in max-h-[90vh]">
             <div class="bg-gray-100 px-6 py-4 flex justify-between items-center border-b border-gray-200">
                 <h3 class="text-lg font-bold text-gray-800">Edit Item Details</h3>
-                <button id="close-edit-modal" class="text-gray-500 hover:text-red-500"><i
-                        class="fas fa-times text-xl"></i></button>
+                <button id="close-edit-modal" class="text-gray-500 hover:text-red-500"><i class="fas fa-times text-xl"></i></button>
             </div>
             <div class="p-6 overflow-y-auto">
                 <form id="edit-work-form" class="space-y-4">
@@ -472,13 +315,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Title</label>
-                            <input type="text" id="edit-title"
-                                class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none">
+                            <input type="text" id="edit-title" class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none">
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Category</label>
-                            <select id="edit-category"
-                                class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none">
+                            <select id="edit-category" class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none">
                                 <option value="Abstract">Abstract</option>
                                 <option value="Mixed Media">Mixed Media</option>
                                 <option value="Concept">Concept</option>
@@ -498,36 +339,27 @@
                             </select>
                         </div>
                         <div class="md:col-span-2">
-                            <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Media URL /
-                                Upload</label>
-                            <div class="flex gap-2 flex-wrap sm:flex-nowrap">
-                                <input type="text" id="edit-image-url"
-                                    class="flex-1 p-2 border rounded text-sm focus:border-art-accent focus:outline-none"
-                                    placeholder="Paste URL or Upload">
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Media URL</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="edit-image-url" class="flex-1 p-2 border rounded text-sm focus:border-art-accent focus:outline-none">
                                 <input type="file" id="edit-file-upload" class="hidden">
-                                <button type="button" onclick="document.getElementById('edit-file-upload').click()"
-                                    class="bg-gray-200 hover:bg-gray-300 px-3 py-2 rounded text-gray-600 shrink-0 w-full sm:w-auto mt-2 sm:mt-0"
-                                    title="Upload File"><i class="fas fa-upload mr-2 sm:mr-0"></i><span
-                                        class="sm:hidden">Upload File</span></button>
+                                <button type="button" onclick="document.getElementById('edit-file-upload').click()" class="bg-gray-200 hover:bg-gray-300 px-3 rounded text-gray-600"><i class="fas fa-upload"></i></button>
                             </div>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Year</label>
-                            <input type="text" id="edit-year"
-                                class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none">
+                            <input type="text" id="edit-year" class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none">
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Medium</label>
-                            <input type="text" id="edit-medium"
-                                class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none">
+                            <input type="text" id="edit-medium" class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none">
                         </div>
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Description</label>
-                        <textarea id="edit-desc" rows="3"
-                            class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none"></textarea>
+                        <textarea id="edit-desc" rows="3" class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none"></textarea>
                     </div>
                     <div class="flex items-center space-x-2">
                         <input type="checkbox" id="edit-featured" class="accent-art-accent h-4 w-4">
@@ -536,57 +368,41 @@
                 </form>
             </div>
             <div class="bg-gray-50 px-6 py-4 border-t border-gray-200 flex justify-end space-x-4">
-                <button id="cancel-edit"
-                    class="text-gray-500 text-sm font-bold uppercase tracking-wide hover:text-gray-800">Cancel</button>
-                <button id="save-edit"
-                    class="bg-art-accent text-white px-6 py-2 text-sm font-bold uppercase tracking-wide rounded shadow hover:bg-black transition-colors">Save
-                    Changes</button>
+                <button id="cancel-edit" class="text-gray-500 text-sm font-bold uppercase tracking-wide hover:text-gray-800">Cancel</button>
+                <button id="save-edit" class="bg-art-accent text-white px-6 py-2 text-sm font-bold uppercase tracking-wide rounded shadow hover:bg-black transition-colors">Save Changes</button>
             </div>
         </div>
     </div>
 
     <!-- ADMIN MODAL -->
-    <div id="admin-modal"
-        class="fixed inset-0 bg-black bg-opacity-95 z-[60] hidden flex justify-center items-center p-4 backdrop-blur-sm">
+    <div id="admin-modal" class="fixed inset-0 bg-black bg-opacity-95 z-[60] hidden flex justify-center items-center p-4 backdrop-blur-sm">
         <div class="bg-white w-full max-w-6xl h-[85vh] rounded-xl shadow-2xl flex overflow-hidden">
             <!-- Sidebar -->
             <div class="w-16 md:w-64 bg-gray-50 border-r border-gray-200 flex flex-col transition-all">
                 <div class="p-4 md:p-6 border-b border-gray-200 flex items-center justify-center md:justify-start">
                     <h2 class="hidden md:block text-xl font-serif font-bold text-black">Toolkit</h2>
                     <i class="fas fa-tools md:hidden text-xl text-black"></i>
-                    <p class="hidden md:block text-[10px] uppercase tracking-widest text-gray-400 mt-1 ml-2">v2.4</p>
+                    <p class="hidden md:block text-[10px] uppercase tracking-widest text-gray-400 mt-1 ml-2">v2.2</p>
                 </div>
                 <nav class="flex-1 p-2 md:p-4 space-y-2">
-                    <button
-                        class="nav-btn w-full text-center md:text-left px-2 md:px-4 py-3 rounded text-xs font-bold uppercase tracking-widest text-gray-500 hover:bg-gray-100 transition-all active"
-                        data-target="tab-content">
-                        <i class="fas fa-layer-group md:w-6 text-center"></i> <span
-                            class="hidden md:inline">Content</span>
+                    <button class="nav-btn w-full text-center md:text-left px-2 md:px-4 py-3 rounded text-xs font-bold uppercase tracking-widest text-gray-500 hover:bg-gray-100 transition-all active" data-target="tab-content">
+                        <i class="fas fa-layer-group md:w-6 text-center"></i> <span class="hidden md:inline">Content</span>
                     </button>
-                    <button
-                        class="nav-btn w-full text-center md:text-left px-2 md:px-4 py-3 rounded text-xs font-bold uppercase tracking-widest text-gray-500 hover:bg-gray-100 transition-all"
-                        data-target="tab-layout">
+                    <button class="nav-btn w-full text-center md:text-left px-2 md:px-4 py-3 rounded text-xs font-bold uppercase tracking-widest text-gray-500 hover:bg-gray-100 transition-all" data-target="tab-layout">
                         <i class="fas fa-columns md:w-6 text-center"></i> <span class="hidden md:inline">Layout</span>
                     </button>
-                    <button
-                        class="nav-btn w-full text-center md:text-left px-2 md:px-4 py-3 rounded text-xs font-bold uppercase tracking-widest text-gray-500 hover:bg-gray-100 transition-all"
-                        data-target="tab-design">
+                    <button class="nav-btn w-full text-center md:text-left px-2 md:px-4 py-3 rounded text-xs font-bold uppercase tracking-widest text-gray-500 hover:bg-gray-100 transition-all" data-target="tab-design">
                         <i class="fas fa-palette md:w-6 text-center"></i> <span class="hidden md:inline">Design</span>
                     </button>
-                    <button
-                        class="nav-btn w-full text-center md:text-left px-2 md:px-4 py-3 rounded text-xs font-bold uppercase tracking-widest text-gray-500 hover:bg-gray-100 transition-all"
-                        data-target="tab-profile">
+                    <button class="nav-btn w-full text-center md:text-left px-2 md:px-4 py-3 rounded text-xs font-bold uppercase tracking-widest text-gray-500 hover:bg-gray-100 transition-all" data-target="tab-profile">
                         <i class="fas fa-user md:w-6 text-center"></i> <span class="hidden md:inline">Profile</span>
                     </button>
-                    <button
-                        class="nav-btn w-full text-center md:text-left px-2 md:px-4 py-3 rounded text-xs font-bold uppercase tracking-widest text-gray-500 hover:bg-gray-100 transition-all"
-                        data-target="tab-settings">
+                    <button class="nav-btn w-full text-center md:text-left px-2 md:px-4 py-3 rounded text-xs font-bold uppercase tracking-widest text-gray-500 hover:bg-gray-100 transition-all" data-target="tab-settings">
                         <i class="fas fa-cog md:w-6 text-center"></i> <span class="hidden md:inline">Settings</span>
                     </button>
                 </nav>
                 <div class="p-4 border-t border-gray-200">
-                    <button id="close-admin"
-                        class="w-full text-center text-xs uppercase text-red-400 hover:text-red-600 font-bold">
+                    <button id="close-admin" class="w-full text-center text-xs uppercase text-red-400 hover:text-red-600 font-bold">
                         <i class="fas fa-sign-out-alt md:hidden"></i> <span class="hidden md:inline">Logout</span>
                     </button>
                 </div>
@@ -599,8 +415,7 @@
                 <div id="tab-content" class="dash-tab active space-y-8 animate-fade-in">
                     <div class="flex justify-between items-center">
                         <h2 class="text-2xl font-bold font-serif">Content Manager</h2>
-                        <button id="btn-drive-sync"
-                            class="bg-blue-600 text-white px-4 py-2 rounded-full text-xs uppercase tracking-widest hover:bg-blue-700 transition-colors shadow-sm">
+                        <button id="btn-drive-sync" class="bg-blue-600 text-white px-4 py-2 rounded-full text-xs uppercase tracking-widest hover:bg-blue-700 transition-colors shadow-sm">
                             <i class="fab fa-google-drive mr-2"></i> Sync Drive
                         </button>
                     </div>
@@ -608,8 +423,7 @@
                     <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
                         <form id="add-work-form" class="space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <input type="text" id="input-title" placeholder="Title"
-                                    class="w-full p-2 border rounded text-sm bg-gray-50" required>
+                                <input type="text" id="input-title" placeholder="Title" class="w-full p-2 border rounded text-sm bg-gray-50" required>
                                 <select id="input-category" class="w-full p-2 border rounded text-sm bg-gray-50">
                                     <option value="Abstract">Abstract</option>
                                     <option value="Mixed Media">Mixed Media</option>
@@ -618,29 +432,20 @@
                                     <option value="Audio">Audio</option>
                                     <option value="Video">Video</option>
                                 </select>
-                                <div class="flex gap-2 flex-wrap sm:flex-nowrap">
-                                    <input type="url" id="input-image-url" placeholder="Media URL or Upload"
-                                        class="flex-1 p-2 border rounded text-sm bg-gray-50">
+                                <div class="flex gap-2">
+                                    <input type="url" id="input-image-url" placeholder="Media URL or Upload" class="flex-1 p-2 border rounded text-sm bg-gray-50">
                                     <input type="file" id="file-upload" class="hidden">
-                                    <button type="button" onclick="document.getElementById('file-upload').click()"
-                                        class="bg-gray-200 hover:bg-gray-300 text-gray-600 px-3 py-2 rounded shrink-0 w-full sm:w-auto mt-2 sm:mt-0"
-                                        title="Upload Local File"><i class="fas fa-paperclip mr-2 sm:mr-0"></i><span
-                                            class="sm:hidden">Upload File</span></button>
+                                    <button type="button" onclick="document.getElementById('file-upload').click()" class="bg-gray-200 hover:bg-gray-300 text-gray-600 px-3 rounded" title="Upload Local File"><i class="fas fa-paperclip"></i></button>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <input type="text" id="input-year" placeholder="Year"
-                                    class="w-full p-2 border rounded text-sm bg-gray-50">
-                                <input type="text" id="input-medium" placeholder="Medium (e.g. Oil on Canvas)"
-                                    class="w-full p-2 border rounded text-sm bg-gray-50">
+                                <input type="text" id="input-year" placeholder="Year" class="w-full p-2 border rounded text-sm bg-gray-50">
+                                <input type="text" id="input-medium" placeholder="Medium (e.g. Oil on Canvas)" class="w-full p-2 border rounded text-sm bg-gray-50">
                             </div>
                             <input type="hidden" id="input-type" value="image">
                             <div class="flex justify-between items-center pt-2">
-                                <label class="flex items-center text-xs text-gray-500"><input type="checkbox"
-                                        id="input-featured" class="mr-2"> Featured</label>
-                                <button type="submit"
-                                    class="bg-black text-white px-6 py-2 text-xs uppercase tracking-widest hover:bg-art-accent transition-colors">Add
-                                    Item</button>
+                                <label class="flex items-center text-xs text-gray-500"><input type="checkbox" id="input-featured" class="mr-2"> Featured</label>
+                                <button type="submit" class="bg-black text-white px-6 py-2 text-xs uppercase tracking-widest hover:bg-art-accent transition-colors">Add Item</button>
                             </div>
                         </form>
                     </div>
@@ -649,8 +454,8 @@
                         <table class="w-full text-left text-sm">
                             <thead class="bg-gray-50 border-b border-gray-200 text-xs uppercase text-gray-500">
                                 <tr>
-                                    <th class="p-3 w-16 md:w-auto">Work</th>
-                                    <th class="p-3 hidden md:table-cell">Details</th>
+                                    <th class="p-3">Work</th>
+                                    <th class="p-3">Details</th>
                                     <th class="p-3 text-right">Actions</th>
                                 </tr>
                             </thead>
@@ -679,13 +484,11 @@
                                 <div class="space-y-3">
                                     <div>
                                         <label class="block text-xs mb-1">Button Text</label>
-                                        <input id="cfg-hero-btn-text"
-                                            class="w-full p-2 border rounded text-sm bg-gray-50">
+                                        <input id="cfg-hero-btn-text" class="w-full p-2 border rounded text-sm bg-gray-50">
                                     </div>
                                     <div>
                                         <label class="block text-xs mb-1">Target Section (ID)</label>
-                                        <select id="cfg-hero-btn-link"
-                                            class="w-full p-2 border rounded text-sm bg-gray-50">
+                                        <select id="cfg-hero-btn-link" class="w-full p-2 border rounded text-sm bg-gray-50">
                                             <option value="#archive">Archive</option>
                                             <option value="#featured">Featured</option>
                                             <option value="#contact">Contact</option>
@@ -699,34 +502,29 @@
                                 <h4 class="text-xs font-bold uppercase text-gray-400 mb-4">Archive Configuration</h4>
                                 <div>
                                     <label class="block text-xs mb-1">Categories (Comma Separated)</label>
-                                    <textarea id="cfg-archive-cats"
-                                        class="w-full p-2 border rounded text-sm bg-gray-50 h-24 font-mono"
-                                        placeholder="Abstract, Mixed Media..."></textarea>
+                                    <textarea id="cfg-archive-cats" class="w-full p-2 border rounded text-sm bg-gray-50 h-24 font-mono" placeholder="Abstract, Mixed Media..."></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button
-                        class="save-config-btn w-full bg-art-accent text-white py-3 uppercase tracking-widest text-xs hover:bg-black transition-colors">Save
-                        Layout Changes</button>
+                     <button class="save-config-btn w-full bg-art-accent text-white py-3 uppercase tracking-widest text-xs hover:bg-black transition-colors">Save Layout Changes</button>
                 </div>
 
                 <!-- 3. DESIGN TAB -->
                 <div id="tab-design" class="dash-tab hidden space-y-8 animate-fade-in">
                     <h2 class="text-2xl font-bold font-serif">Site Design</h2>
-
+                    
                     <!-- Branding: Logo & Colors -->
                     <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm space-y-4">
                         <h4 class="text-xs font-bold uppercase text-gray-400">Brand Identity</h4>
-
+                        
                         <!-- Logo Upload -->
                         <div>
-                            <label class="block text-xs mb-1">Logo URL (Optional)</label>
-                            <div class="flex gap-2">
-                                <input id="cfg-logo-url" class="flex-1 p-2 border rounded text-sm bg-gray-50"
-                                    placeholder="https://...">
-                            </div>
-                            <p class="text-[10px] text-gray-400 mt-1">If empty, displays site title text.</p>
+                             <label class="block text-xs mb-1">Logo URL (Optional)</label>
+                             <div class="flex gap-2">
+                                <input id="cfg-logo-url" class="flex-1 p-2 border rounded text-sm bg-gray-50" placeholder="https://...">
+                             </div>
+                             <p class="text-[10px] text-gray-400 mt-1">If empty, displays site title text.</p>
                         </div>
 
                         <!-- Color Palette -->
@@ -734,25 +532,18 @@
                             <label class="block text-xs mb-2">Accent Color & Theme</label>
                             <div class="flex items-center gap-4 mb-4">
                                 <div class="relative">
-                                    <input type="color" id="cfg-accent-color"
-                                        class="opacity-0 absolute inset-0 w-8 h-8 cursor-pointer z-10">
-                                    <div id="color-preview"
-                                        class="w-8 h-8 rounded-full border border-gray-200 shadow-sm"
-                                        style="background-color: var(--accent-color);"></div>
+                                    <input type="color" id="cfg-accent-color" class="opacity-0 absolute inset-0 w-8 h-8 cursor-pointer z-10">
+                                    <div id="color-preview" class="w-8 h-8 rounded-full border border-gray-200 shadow-sm" style="background-color: var(--accent-color);"></div>
                                 </div>
                                 <span class="text-xs text-gray-500">Click circle to pick custom color</span>
                             </div>
-
+                            
                             <label class="block text-xs mb-2">Presets</label>
                             <div class="flex gap-3">
-                                <div class="color-swatch bg-[#F9F8F6]" onclick="setThemePreset('warm')"
-                                    title="Warm Neutral"></div>
-                                <div class="color-swatch bg-[#121212]" onclick="setThemePreset('dark')"
-                                    title="Dark Mode"></div>
-                                <div class="color-swatch bg-[#FFFFFF]" onclick="setThemePreset('light')"
-                                    title="Minimal White"></div>
-                                <div class="color-swatch bg-[#3B55A6]" onclick="setThemePreset('bauhaus')"
-                                    title="Bauhaus Blue"></div>
+                                <div class="color-swatch bg-[#F9F8F6]" onclick="setThemePreset('warm')" title="Warm Neutral"></div>
+                                <div class="color-swatch bg-[#121212]" onclick="setThemePreset('dark')" title="Dark Mode"></div>
+                                <div class="color-swatch bg-[#FFFFFF]" onclick="setThemePreset('light')" title="Minimal White"></div>
+                                <div class="color-swatch bg-[#3B55A6]" onclick="setThemePreset('bauhaus')" title="Bauhaus Blue"></div>
                             </div>
                         </div>
                     </div>
@@ -761,32 +552,30 @@
                     <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm space-y-4">
                         <h4 class="text-xs font-bold uppercase text-gray-400">Typography & Titles</h4>
                         <div>
-                            <label class="block text-xs mb-1">Site Title (Browser Tab)</label>
+                             <label class="block text-xs mb-1">Site Title (Browser Tab)</label>
                             <input id="cfg-site-title" class="w-full p-2 border rounded text-sm bg-gray-50">
                         </div>
                         <div>
-                            <label class="block text-xs mb-1">Hero Title (Main)</label>
-                            <input id="cfg-hero-title" class="w-full p-2 border rounded text-sm bg-gray-50">
+                             <label class="block text-xs mb-1">Hero Title (Main)</label>
+                             <input id="cfg-hero-title" class="w-full p-2 border rounded text-sm bg-gray-50">
                         </div>
                         <div>
-                            <label class="block text-xs mb-1">Hero Subtitle</label>
-                            <input id="cfg-hero-subtitle" class="w-full p-2 border rounded text-sm bg-gray-50">
+                             <label class="block text-xs mb-1">Hero Subtitle</label>
+                             <input id="cfg-hero-subtitle" class="w-full p-2 border rounded text-sm bg-gray-50">
                         </div>
                         <div>
-                            <label class="block text-xs mb-1">Hero Tagline</label>
-                            <input id="cfg-hero-tagline" class="w-full p-2 border rounded text-sm bg-gray-50">
+                             <label class="block text-xs mb-1">Hero Tagline</label>
+                             <input id="cfg-hero-tagline" class="w-full p-2 border rounded text-sm bg-gray-50">
                         </div>
-                        <div>
-                            <label class="block text-xs mb-1">Hero Video URL</label>
-                            <input id="cfg-hero-video" class="w-full p-2 border rounded text-sm bg-gray-50">
+                         <div>
+                             <label class="block text-xs mb-1">Hero Video URL</label>
+                             <input id="cfg-hero-video" class="w-full p-2 border rounded text-sm bg-gray-50">
                         </div>
                     </div>
-                    <button
-                        class="save-config-btn w-full bg-art-accent text-white py-3 uppercase tracking-widest text-xs hover:bg-black transition-colors">Save
-                        Design</button>
+                    <button class="save-config-btn w-full bg-art-accent text-white py-3 uppercase tracking-widest text-xs hover:bg-black transition-colors">Save Design</button>
                 </div>
-
-                <!-- 4. PROFILE TAB -->
+                
+                 <!-- 4. PROFILE TAB -->
                 <div id="tab-profile" class="dash-tab hidden space-y-8 animate-fade-in">
                     <h2 class="text-2xl font-bold font-serif">Artist Profile (EPK)</h2>
 
@@ -799,76 +588,59 @@
                                 <img id="preview-bio-img" class="w-full mt-2 h-32 object-cover rounded bg-gray-100">
                             </div>
                             <div class="w-full md:w-2/3 space-y-4">
-                                <div><label class="block text-xs mb-1">Artist Name</label><input id="cfg-bio-name"
-                                        class="w-full p-2 border rounded text-sm bg-gray-50"></div>
-                                <div><label class="block text-xs mb-1">One-Line Hook</label><textarea id="cfg-stmt-hook"
-                                        rows="2" class="w-full p-2 border rounded text-sm bg-gray-50"></textarea></div>
+                                <div><label class="block text-xs mb-1">Artist Name</label><input id="cfg-bio-name" class="w-full p-2 border rounded text-sm bg-gray-50"></div>
+                                <div><label class="block text-xs mb-1">One-Line Hook</label><textarea id="cfg-stmt-hook" rows="2" class="w-full p-2 border rounded text-sm bg-gray-50"></textarea></div>
                             </div>
                         </div>
                     </div>
 
                     <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm space-y-4">
-                        <h4 class="text-xs font-bold uppercase text-gray-400">Biography Variations</h4>
+                         <h4 class="text-xs font-bold uppercase text-gray-400">Biography Variations</h4>
                         <div>
                             <label class="block text-xs mb-1">Short Bio (Press)</label>
-                            <textarea id="cfg-bio-short" rows="3"
-                                class="w-full p-2 border rounded text-sm bg-gray-50"></textarea>
+                            <textarea id="cfg-bio-short" rows="3" class="w-full p-2 border rounded text-sm bg-gray-50"></textarea>
                         </div>
                         <div>
                             <label class="block text-xs mb-1">Long Bio (Full)</label>
-                            <textarea id="cfg-bio-long" rows="8"
-                                class="w-full p-2 border rounded text-sm bg-gray-50"></textarea>
+                            <textarea id="cfg-bio-long" rows="8" class="w-full p-2 border rounded text-sm bg-gray-50"></textarea>
                         </div>
-                        <div>
+                         <div>
                             <label class="block text-xs mb-1">Statement Headline</label>
                             <input id="cfg-stmt-head" class="w-full p-2 border rounded text-sm bg-gray-50">
                         </div>
                     </div>
-                    <button
-                        class="save-config-btn w-full bg-art-accent text-white py-3 uppercase tracking-widest text-xs hover:bg-black transition-colors">Save
-                        Profile</button>
+                    <button class="save-config-btn w-full bg-art-accent text-white py-3 uppercase tracking-widest text-xs hover:bg-black transition-colors">Save Profile</button>
                 </div>
 
                 <!-- 5. SETTINGS TAB -->
                 <div id="tab-settings" class="dash-tab hidden space-y-8 animate-fade-in">
                     <h2 class="text-2xl font-bold font-serif">Settings & Connect</h2>
-
+                    
                     <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm space-y-4">
                         <h4 class="text-xs font-bold uppercase text-gray-400">System Source</h4>
                         <div>
-                            <label class="block text-xs mb-1">Default EPK Document Address (URL)</label>
-                            <div class="flex gap-2">
-                                <input id="cfg-epk-url" class="flex-1 p-2 border rounded text-sm bg-gray-50"
-                                    placeholder="https://docs.google.com/...">
-                                <button type="button" onclick="simulateEpkSync()"
-                                    class="bg-blue-600 text-white px-3 py-1 rounded text-xs uppercase tracking-widest hover:bg-blue-700">Sync</button>
-                            </div>
-                            <p class="text-[10px] text-gray-400 mt-1">Updates profile data from source document.</p>
+                             <label class="block text-xs mb-1">Default EPK Document Address (URL)</label>
+                             <input id="cfg-epk-url" class="w-full p-2 border rounded text-sm bg-gray-50" placeholder="https://docs.google.com/...">
+                             <p class="text-[10px] text-gray-400 mt-1">The source document for core site text.</p>
                         </div>
                     </div>
 
                     <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm space-y-4">
                         <h4 class="text-xs font-bold uppercase text-gray-400">Contact Details</h4>
-                        <input id="cfg-email" class="w-full p-2 border rounded text-sm bg-gray-50"
-                            placeholder="Contact Email">
-                        <input id="cfg-phone" class="w-full p-2 border rounded text-sm bg-gray-50"
-                            placeholder="Phone (Optional)">
+                        <input id="cfg-email" class="w-full p-2 border rounded text-sm bg-gray-50" placeholder="Contact Email">
+                        <input id="cfg-phone" class="w-full p-2 border rounded text-sm bg-gray-50" placeholder="Phone (Optional)">
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm space-y-4">
+                         <h4 class="text-xs font-bold uppercase text-gray-400">Collector Info</h4>
+                         <textarea id="cfg-collector-info" rows="3" class="w-full p-2 border rounded text-sm bg-gray-50"></textarea>
                     </div>
 
                     <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm space-y-4">
-                        <h4 class="text-xs font-bold uppercase text-gray-400">Collector Info</h4>
-                        <textarea id="cfg-collector-info" rows="3"
-                            class="w-full p-2 border rounded text-sm bg-gray-50"></textarea>
+                         <h4 class="text-xs font-bold uppercase text-gray-400">Cloud Sync</h4>
+                        <input id="cfg-drive" class="w-full p-2 border rounded text-sm bg-gray-50" placeholder="Google Drive URL">
                     </div>
-
-                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm space-y-4">
-                        <h4 class="text-xs font-bold uppercase text-gray-400">Cloud Sync</h4>
-                        <input id="cfg-drive" class="w-full p-2 border rounded text-sm bg-gray-50"
-                            placeholder="Google Drive URL">
-                    </div>
-                    <button
-                        class="save-config-btn w-full bg-art-accent text-white py-3 uppercase tracking-widest text-xs hover:bg-black transition-colors">Save
-                        Settings</button>
+                    <button class="save-config-btn w-full bg-art-accent text-white py-3 uppercase tracking-widest text-xs hover:bg-black transition-colors">Save Settings</button>
                 </div>
 
             </div>
@@ -890,27 +662,27 @@
             heroVideo: "https://youtu.be/8xLUjE5Qnag",
             heroBtnText: "View Collection",
             heroBtnLink: "#archive",
-
+            
             // Branding
-            logoUrl: "",
+            logoUrl: "", 
             theme: "warm",
-            accentColor: "#C4A484",
-
+            accentColor: "#C4A484", 
+            
             // EPK PROFILE DATA
-            epkUrl: "",
+            epkUrl: "", 
             bioName: "Jourdan Alexzander",
             bioImg: "https://lh3.googleusercontent.com/d/1LNQC2J3Gp97TScYJrDN8jtK3i5M2wXk2=w1000",
             stmtHook: "Jourdan Alexzander is a multidisciplinary artist and experiential creator whose work fuses abstract expressionism, street-influenced mark-making, sacred geometry, sound, and architectural thinking into immersive visual narratives exploring consciousness, place, and frequency.",
             bioShort: "Jourdan Alexzander is a California-based multidisciplinary artist working across painting, mixed media, sound, spatial design, and experiential environments. His visual work blends abstract expressionism, street-influenced techniques, and psychedelic symbolism, often incorporating heavy texture, bold color fields, and cosmic or lunar motifs inspired by the landscapes of Northern California and the Sierra Nevada.",
             bioLong: "Jourdan Alexzander is a multidisciplinary artist and creative director whose practice spans painting, mixed media, architectural environments, sound, and immersive systems. Rooted in abstract expressionism and street-art methodologies, his visual language is defined by thick textural surfaces, layered mark-making, and vibrant chromatic tension.<br><br>Many works explore lunar symbolism, sacred geometry, and energetic landscapes—often referencing Lake Tahoe, desert environments, and the liminal space between nature and consciousness.<br><br>Beyond traditional studio practice, Jourdan is the founder of Orion Aura / Pulseora, an experimental ecosystem combining architecture, lighting, sound design, and locally controlled AI systems.",
             stmtHead: "Bridging the gap between the digital void and physical permanence.",
-
+            
             // CONTACT & SETTINGS
             email: "paintfrsh@gmail.com",
             phone: "",
             collectorInfo: "For catalogue requests, exhibition availability, commission, or collaboration, please contact the studio.",
             driveUrl: "",
-
+            
             // Layout Configuration
             layout: [
                 { id: 'statement', visible: true, name: "Artist Statement" },
@@ -934,15 +706,13 @@
         ];
 
         /* === GLOBAL VARS === */
-        const savedConfigStr = localStorage.getItem('art_site_config');
-        const savedConfig = savedConfigStr ? JSON.parse(savedConfigStr) : {};
-        // Source of Truth Logic: Merge defaults with saved overrides
-        let siteConfig = { ...defaultConfig, ...savedConfig };
-
+        const savedConfig = localStorage.getItem('art_site_config');
+        let siteConfig = savedConfig ? { ...defaultConfig, ...JSON.parse(savedConfig) } : { ...defaultConfig };
+        
         // Data Integrity Check
-        if (!siteConfig.logoUrl) siteConfig.logoUrl = "";
-        if (!siteConfig.epkUrl) siteConfig.epkUrl = "";
-        if (!siteConfig.accentColor) siteConfig.accentColor = defaultConfig.accentColor;
+        if(!siteConfig.logoUrl) siteConfig.logoUrl = "";
+        if(!siteConfig.epkUrl) siteConfig.epkUrl = "";
+        if(!siteConfig.accentColor) siteConfig.accentColor = defaultConfig.accentColor;
 
         const isLocalMode = typeof __firebase_config === 'undefined';
         let app, auth, db, appId;
@@ -1014,15 +784,15 @@
                 if (el) {
                     if (section.visible) {
                         el.classList.remove('hidden');
-
+                        
                         let label = section.name;
-                        if (section.id === 'featured') label = 'Selected';
-                        if (section.id === 'archive') label = 'Work';
-                        if (section.id === 'bio') label = 'About';
-                        if (section.id === 'statement') label = 'Statement';
-                        if (section.id === 'contact') label = 'Contact';
-                        if (section.id === 'exhibitions') label = 'Events';
-                        if (section.id === 'press') label = 'Press';
+                        if(section.id === 'featured') label = 'Selected';
+                        if(section.id === 'archive') label = 'Work';
+                        if(section.id === 'bio') label = 'About';
+                        if(section.id === 'statement') label = 'Statement';
+                        if(section.id === 'contact') label = 'Contact';
+                        if(section.id === 'exhibitions') label = 'Events';
+                        if(section.id === 'press') label = 'Press';
 
                         const a = document.createElement('a'); a.href = `#${section.id}`; a.className = "hover:text-art-accent transition-colors text-sm tracking-widest uppercase"; a.innerText = label;
                         navContainer.appendChild(a);
@@ -1056,7 +826,7 @@
         function renderArchiveFilters() {
             const container = document.getElementById('archive-filters');
             container.innerHTML = `<button class="filter-btn active text-sm font-bold uppercase tracking-widest border-b-2 border-art-dark pb-1" data-filter="all">All</button>`;
-
+            
             siteConfig.archiveCats.forEach(cat => {
                 const btn = document.createElement('button');
                 btn.className = "filter-btn text-sm text-gray-500 uppercase tracking-widest hover:text-art-dark transition-colors pb-1 border-b-2 border-transparent hover:border-gray-300";
@@ -1065,11 +835,11 @@
                 container.appendChild(btn);
             });
 
-            document.querySelectorAll('.filter-btn').forEach(btn => {
+             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('active', 'border-art-dark', 'font-bold'); b.classList.add('text-gray-500', 'border-transparent'); });
                     e.currentTarget.classList.add('active', 'border-art-dark', 'font-bold'); e.currentTarget.classList.remove('text-gray-500', 'border-transparent');
-                    currentFilter = e.currentTarget.getAttribute('data-filter');
+                    currentFilter = e.currentTarget.getAttribute('data-filter'); 
                     renderGallery();
                 });
             });
@@ -1102,7 +872,7 @@
             const track = document.getElementById('carousel-track');
             track.innerHTML = '';
             const featuredItems = portfolioData.filter(i => i.featured && !i.hidden);
-            if (featuredItems.length === 0) track.innerHTML = '<p class="text-gray-400 italic px-6">No featured works selected.</p>';
+            if(featuredItems.length === 0) track.innerHTML = '<p class="text-gray-400 italic px-6">No featured works selected.</p>';
             featuredItems.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'flex-none h-full w-[80vw] md:w-[400px] group cursor-pointer relative snap-center';
@@ -1115,7 +885,7 @@
         function applyConfig() {
             document.title = siteConfig.siteTitle;
             document.getElementById('meta-title').innerText = siteConfig.siteTitle;
-
+            
             // Branding
             const logoImg = document.getElementById('nav-logo-img');
             const logoText = document.getElementById('nav-logo-text');
@@ -1126,7 +896,7 @@
             } else {
                 logoImg.classList.add('hidden');
                 logoText.classList.remove('hidden');
-                logoText.innerText = "J.A. ART";
+                logoText.innerText = "J.A. ART"; 
             }
 
             // Colors
@@ -1136,26 +906,26 @@
             root.style.setProperty('--text-color', t.text);
             root.style.setProperty('--secondary-color', t.secondary);
             root.style.setProperty('--accent-color', siteConfig.accentColor);
-
+            
             const cp = document.getElementById('color-preview');
-            if (cp) cp.style.backgroundColor = siteConfig.accentColor;
+            if(cp) cp.style.backgroundColor = siteConfig.accentColor;
 
             // Content
             document.getElementById('hero-title').innerText = siteConfig.heroTitle;
             document.getElementById('hero-subtitle').innerText = siteConfig.heroSubtitle;
             document.getElementById('hero-tagline').innerText = siteConfig.heroTagline;
             loadHeroVideo(siteConfig.heroVideo);
-
+            
             document.getElementById('bio-name').innerText = siteConfig.bioName;
             document.getElementById('bio-headshot').src = siteConfig.bioImg;
             document.getElementById('bio-text').innerHTML = siteConfig.bioLong;
             document.getElementById('statement-heading').innerText = siteConfig.stmtHead;
             document.getElementById('statement-body').innerHTML = siteConfig.stmtHook;
-
+            
             document.getElementById('contact-email-btn').href = `mailto:${siteConfig.email}`;
             document.getElementById('contact-text').innerText = siteConfig.collectorInfo;
             document.getElementById('footer-copy').innerHTML = `&copy; ${new Date().getFullYear()} ${siteConfig.heroTitle}. All Rights Reserved.`;
-
+            
             const heroBtn = document.getElementById('hero-btn');
             heroBtn.innerText = siteConfig.heroBtnText || "View Collection";
             heroBtn.href = siteConfig.heroBtnLink || "#archive";
@@ -1165,42 +935,17 @@
         }
 
         /* === ADMIN FUNCTIONS === */
-        window.setThemePreset = function (themeName) {
-            const t = themes[themeName];
-            siteConfig.theme = themeName;
-            if (themeName === 'warm') siteConfig.accentColor = "#C4A484";
-            if (themeName === 'dark') siteConfig.accentColor = "#BB86FC";
-            if (themeName === 'light') siteConfig.accentColor = "#000000";
-            if (themeName === 'bauhaus') siteConfig.accentColor = "#D63333";
-
-            document.getElementById('cfg-accent-color').value = siteConfig.accentColor;
-            document.getElementById('color-preview').style.backgroundColor = siteConfig.accentColor;
-            applyConfig();
-        }
-
-        window.simulateEpkSync = function () {
-            const url = document.getElementById('cfg-epk-url').value;
-            if (!url) { alert("Please enter a Google Doc URL."); return; }
-            const btn = document.querySelector('button[onclick="simulateEpkSync()"]');
-            const originalText = btn.innerText;
-            btn.innerText = "Syncing...";
-
-            // SIMULATED SYNC: In reality, this would parse the Doc ID and call Google Drive API
-            setTimeout(() => {
-                alert("Simulated Sync Complete: Profile Updated from EPK.");
-
-                // Demo Update to show logic working
-                siteConfig.bioShort += " [Synced]";
-
-                // Smart Update Trigger
-                // If Design/Hero fields match old profile data, update them.
-                // For simulation, we just force an update if they contain "Jourdan"
-                if (siteConfig.siteTitle.includes("JOURDAN")) siteConfig.siteTitle = siteConfig.bioName + " | Portfolio";
-
-                populateAdminConfig();
-                applyConfig();
-                btn.innerText = originalText;
-            }, 1000);
+        window.setThemePreset = function(themeName) {
+             const t = themes[themeName];
+             siteConfig.theme = themeName;
+             if(themeName === 'warm') siteConfig.accentColor = "#C4A484";
+             if(themeName === 'dark') siteConfig.accentColor = "#BB86FC";
+             if(themeName === 'light') siteConfig.accentColor = "#000000";
+             if(themeName === 'bauhaus') siteConfig.accentColor = "#D63333";
+             
+             document.getElementById('cfg-accent-color').value = siteConfig.accentColor;
+             document.getElementById('color-preview').style.backgroundColor = siteConfig.accentColor;
+             applyConfig();
         }
 
         function populateAdminConfig() {
@@ -1212,7 +957,7 @@
             document.getElementById('cfg-hero-subtitle').value = siteConfig.heroSubtitle;
             document.getElementById('cfg-hero-tagline').value = siteConfig.heroTagline;
             document.getElementById('cfg-hero-video').value = siteConfig.heroVideo;
-
+            
             // Profile Tab
             document.getElementById('cfg-bio-name').value = siteConfig.bioName;
             document.getElementById('cfg-bio-img').value = siteConfig.bioImg;
@@ -1227,14 +972,14 @@
             document.getElementById('cfg-collector-info').value = siteConfig.collectorInfo;
             document.getElementById('cfg-drive').value = siteConfig.driveUrl;
             document.getElementById('cfg-epk-url').value = siteConfig.epkUrl;
-
+            
             // Layout Tab
             document.getElementById('cfg-hero-btn-text').value = siteConfig.heroBtnText || "View Collection";
             document.getElementById('cfg-hero-btn-link').value = siteConfig.heroBtnLink || "#archive";
             document.getElementById('cfg-archive-cats').value = siteConfig.archiveCats.join(', ');
 
             renderLayoutManager();
-
+            
             // Color input listener
             document.getElementById('cfg-accent-color').addEventListener('input', (e) => {
                 siteConfig.accentColor = e.target.value;
@@ -1265,8 +1010,8 @@
                 list.appendChild(div);
             });
         }
-
-        window.moveSection = function (index, direction) {
+        
+        window.moveSection = function(index, direction) {
             if (direction === -1 && index > 0) {
                 [siteConfig.layout[index], siteConfig.layout[index - 1]] = [siteConfig.layout[index - 1], siteConfig.layout[index]];
             } else if (direction === 1 && index < siteConfig.layout.length - 1) {
@@ -1276,12 +1021,7 @@
         };
 
         function saveAdminConfig() {
-            // Logic: Capture old values to check for dependencies
-            const oldName = siteConfig.bioName;
-
-            // Read values
-            const newName = document.getElementById('cfg-bio-name').value;
-
+            // Read all fields
             siteConfig.siteTitle = document.getElementById('cfg-site-title').value;
             siteConfig.logoUrl = document.getElementById('cfg-logo-url').value;
             siteConfig.accentColor = document.getElementById('cfg-accent-color').value;
@@ -1290,7 +1030,7 @@
             siteConfig.heroTagline = document.getElementById('cfg-hero-tagline').value;
             siteConfig.heroVideo = document.getElementById('cfg-hero-video').value;
 
-            siteConfig.bioName = newName;
+            siteConfig.bioName = document.getElementById('cfg-bio-name').value;
             siteConfig.bioImg = document.getElementById('cfg-bio-img').value;
             siteConfig.stmtHook = document.getElementById('cfg-stmt-hook').value;
             siteConfig.bioShort = document.getElementById('cfg-bio-short').value;
@@ -1302,19 +1042,11 @@
             siteConfig.collectorInfo = document.getElementById('cfg-collector-info').value;
             siteConfig.driveUrl = document.getElementById('cfg-drive').value;
             siteConfig.epkUrl = document.getElementById('cfg-epk-url').value;
-
+            
             siteConfig.heroBtnText = document.getElementById('cfg-hero-btn-text').value;
             siteConfig.heroBtnLink = document.getElementById('cfg-hero-btn-link').value;
             const cats = document.getElementById('cfg-archive-cats').value.split(',').map(s => s.trim()).filter(s => s.length > 0);
             siteConfig.archiveCats = cats;
-
-            // Smart Update Logic: If Artist Name changed, update Hero Title if they matched previously
-            if (oldName !== newName) {
-                // If Hero Title was identical to old name (case insensitive), update it
-                if (siteConfig.heroTitle.toLowerCase() === oldName.toLowerCase()) {
-                    siteConfig.heroTitle = newName.toUpperCase();
-                }
-            }
 
             localStorage.setItem('art_site_config', JSON.stringify(siteConfig));
             applyConfig();
@@ -1343,12 +1075,12 @@
             portfolioData = [...initialPortfolioData];
             renderCarousel();
             renderGallery();
-
+            
             if (!isLocalMode) {
                 try {
                     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) await signInWithCustomToken(auth, __initial_auth_token);
                     else await signInAnonymously(auth);
-
+                    
                     onSnapshot(query(collection(db, 'artifacts', appId, 'public', 'data', 'portfolio_items')), (snap) => {
                         if (!snap.empty) {
                             portfolioData = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -1357,43 +1089,43 @@
                             renderAdminList();
                         }
                     });
-                } catch (e) { console.error("Firebase Auth Error", e); }
+                } catch(e) { console.error("Firebase Auth Error", e); }
             }
         }
 
         // Attach Globals
         window.openModal = openModal;
         window.closeModal = closeModal;
-
+        
         function renderAdminList() {
-            const tbody = document.getElementById('admin-list-body');
+             const tbody = document.getElementById('admin-list-body');
             tbody.innerHTML = '';
             portfolioData.forEach(item => {
                 const tr = document.createElement('tr');
                 tr.className = `border-b border-gray-100 hover:bg-gray-50 transition-colors ${item.hidden ? 'opacity-50' : ''}`;
                 tr.innerHTML = `
                     <td class="p-3">${renderMedia(item, "w-10 h-10 object-cover rounded shadow-sm", 'admin')} <span class="ml-2 font-bold text-gray-800 text-xs">${item.title}</span></td>
-                    <td class="p-3 hidden md:table-cell"><p class="text-[10px] text-gray-400 uppercase">${item.type} • ${item.category}</p></td>
-                    <td class="p-3 text-right whitespace-nowrap">
+                    <td class="p-3"><p class="text-[10px] text-gray-400 uppercase">${item.type} • ${item.category}</p></td>
+                    <td class="p-3 text-right">
                         <button class="vis-btn text-gray-400 hover:text-blue-500 text-sm mx-1 transition-colors" data-id="${item.id}" title="Toggle Visibility"><i class="fas ${item.hidden ? 'fa-eye-slash' : 'fa-eye'}"></i></button>
-                        <button class="feat-btn text-gray-400 hover:text-yellow-500 text-sm mx-1 transition-colors" data-id="${item.id}" title="Toggle Featured"><i class="fas ${item.featured ? 'fa-star text-yellow-500' : 'fa-star'}"></i></button>
                         <button class="edit-btn text-gray-400 hover:text-art-accent text-sm mx-1 transition-colors" data-id="${item.id}" title="Edit Details"><i class="fas fa-edit"></i></button>
                         <button class="del-btn text-gray-400 hover:text-red-500 text-sm mx-1 transition-colors" data-id="${item.id}" title="Delete"><i class="fas fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
-
-            // Listeners
+            
+            // Delete Listener
             document.querySelectorAll('.del-btn').forEach(b => b.addEventListener('click', async (e) => {
                 if (!confirm('Delete?')) return;
                 const id = e.currentTarget.getAttribute('data-id');
-                if (isLocalMode) {
-                    portfolioData = portfolioData.filter(i => i.id !== id);
-                    renderCarousel(); renderGallery(); renderAdminList();
+                if (isLocalMode) { 
+                    portfolioData = portfolioData.filter(i => i.id !== id); 
+                    renderCarousel(); renderGallery(); renderAdminList(); 
                 } else await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio_items', id));
             }));
 
+            // Visibility Listener
             document.querySelectorAll('.vis-btn').forEach(b => b.addEventListener('click', async (e) => {
                 const id = e.currentTarget.getAttribute('data-id');
                 const item = portfolioData.find(i => i.id === id);
@@ -1403,15 +1135,7 @@
                 } else await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio_items', id), { hidden: !item.hidden });
             }));
 
-            document.querySelectorAll('.feat-btn').forEach(b => b.addEventListener('click', async (e) => {
-                const id = e.currentTarget.getAttribute('data-id');
-                const item = portfolioData.find(i => i.id === id);
-                if (isLocalMode) {
-                    item.featured = !item.featured;
-                    renderCarousel(); renderGallery(); renderAdminList();
-                } else await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio_items', id), { featured: !item.featured });
-            }));
-
+            // Edit Listener
             document.querySelectorAll('.edit-btn').forEach(b => b.addEventListener('click', (e) => {
                 const id = e.currentTarget.getAttribute('data-id');
                 openEditModal(id);
@@ -1444,11 +1168,11 @@
         });
 
         // Edit Modal File Upload
-        document.getElementById('edit-file-upload').addEventListener('change', function (e) {
+        document.getElementById('edit-file-upload').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
             const reader = new FileReader();
-            reader.onload = function (evt) {
+            reader.onload = function(evt) {
                 document.getElementById('edit-image-url').value = evt.target.result;
             };
             reader.readAsDataURL(file);
@@ -1482,7 +1206,7 @@
                     await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio_items', id), updatedItem);
                     document.getElementById('edit-item-modal').classList.add('hidden');
                     alert("Item Updated in Cloud!");
-                } catch (err) {
+                } catch(err) {
                     console.error(err);
                     alert("Error updating item.");
                 }
@@ -1500,26 +1224,7 @@
         // Event Listeners
         document.addEventListener('DOMContentLoaded', () => {
             initApp();
-
-            // Global Keydown (Esc & Space)
-            document.addEventListener('keydown', (e) => {
-                // Escape: Close Modals
-                if (e.key === 'Escape') {
-                    if (!document.getElementById('canvas-modal').classList.contains('hidden')) closeModal();
-                    if (!document.getElementById('edit-item-modal').classList.contains('hidden')) document.getElementById('edit-item-modal').classList.add('hidden');
-                    if (!document.getElementById('admin-modal').classList.contains('hidden')) document.getElementById('admin-modal').classList.add('hidden');
-                }
-
-                // Space: Scroll Next Section (only if not typing in an input)
-                if (e.key === ' ' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-                    e.preventDefault();
-                    const sections = Array.from(document.querySelectorAll('.section-target:not(.hidden)'));
-                    const currentY = window.scrollY + 10;
-                    const nextSection = sections.find(s => s.offsetTop > currentY);
-                    if (nextSection) nextSection.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-
+            
             // Tab Navigation
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -1533,9 +1238,9 @@
 
             // Save Configs
             document.querySelectorAll('.save-config-btn').forEach(btn => btn.addEventListener('click', saveAdminConfig));
-
+            
             // File Upload Logic (Smart Sort)
-            document.getElementById('file-upload').addEventListener('change', function (e) {
+            document.getElementById('file-upload').addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (!file) return;
 
@@ -1543,28 +1248,28 @@
                 const mime = file.type;
                 let type = 'image';
                 let category = 'Mixed Media'; // default
-
+                
                 if (mime.startsWith('video/')) { type = 'video'; category = 'Video'; }
                 else if (mime.startsWith('audio/')) { type = 'audio'; category = 'Audio'; }
-
+                
                 document.getElementById('input-type').value = type;
                 document.getElementById('input-category').value = category;
 
                 // 2. Smart Metadata Extraction (Filename)
                 const name = file.name.split('.')[0]; // remove extension
                 const cleanName = name.replace(/[_-]/g, ' '); // replace separators
-
+                
                 // Extract Year if 4 digits present
                 const yearMatch = cleanName.match(/\b(19|20)\d{2}\b/);
                 if (yearMatch) document.getElementById('input-year').value = yearMatch[0];
-
+                
                 // Set Title (remove year if present to be clean)
                 const title = cleanName.replace(/\b(19|20)\d{2}\b/, '').trim();
                 document.getElementById('input-title').value = title || "Untitled";
 
                 // 3. File Reader for Local Preview
                 const reader = new FileReader();
-                reader.onload = function (evt) {
+                reader.onload = function(evt) {
                     document.getElementById('input-image-url').value = evt.target.result;
                 };
                 reader.readAsDataURL(file);
@@ -1602,7 +1307,7 @@
                     try {
                         await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'portfolio_items'), newItem);
                         alert("Item Added to Cloud!");
-                    } catch (err) {
+                    } catch(err) {
                         console.error(err);
                         alert("Error adding item to cloud.");
                     }
@@ -1619,16 +1324,16 @@
             const loginPassword = document.getElementById('login-password');
             const loginSubmit = document.getElementById('login-submit');
 
-            loginTrigger.addEventListener('click', () => {
-                loginContainer.classList.add('login-active');
-                setTimeout(() => { loginPassword.focus(); }, 100);
+            loginTrigger.addEventListener('click', () => { 
+                loginContainer.classList.add('login-active'); 
+                setTimeout(() => { loginPassword.focus(); }, 100); 
             });
 
-            loginPassword.addEventListener('input', (e) => {
-                if (e.target.value.length > 0) loginSubmit.classList.add('submit-active');
-                else loginSubmit.classList.remove('submit-active');
+            loginPassword.addEventListener('input', (e) => { 
+                if (e.target.value.length > 0) loginSubmit.classList.add('submit-active'); 
+                else loginSubmit.classList.remove('submit-active'); 
             });
-
+            
             const handleLogin = () => {
                 if (loginPassword.value === 'admin' || loginPassword.value === 'frsh') {
                     document.getElementById('admin-modal').classList.remove('hidden');
@@ -1641,26 +1346,19 @@
                 } else {
                     loginContainer.classList.add('animate-pulse');
                     loginPassword.classList.add('border-red-500');
-                    setTimeout(() => {
-                        loginContainer.classList.remove('animate-pulse');
-                        loginPassword.classList.remove('border-red-500');
-                        loginPassword.value = '';
+                    setTimeout(() => { 
+                        loginContainer.classList.remove('animate-pulse'); 
+                        loginPassword.classList.remove('border-red-500'); 
+                        loginPassword.value = ''; 
                     }, 1000);
                 }
             };
-
+            
             loginPassword.addEventListener('keyup', (e) => { if (e.key === 'Enter') handleLogin(); });
             loginSubmit.addEventListener('click', handleLogin);
-
+            
             document.getElementById('close-admin').addEventListener('click', () => document.getElementById('admin-modal').classList.add('hidden'));
-
-            // Correct Modal Close Logic
-            document.getElementById('close-modal').addEventListener('click', closeModal);
-            document.getElementById('canvas-modal').addEventListener('click', (e) => {
-                // Close if clicking the background overlay (id="canvas-modal") but NOT its children
-                if (e.target.id === 'canvas-modal') closeModal();
-            });
-
+            
             // Interactions
             document.getElementById('scroll-left').addEventListener('click', () => document.getElementById('carousel-track').scrollBy({ left: -350, behavior: 'smooth' }));
             document.getElementById('scroll-right').addEventListener('click', () => document.getElementById('carousel-track').scrollBy({ left: 350, behavior: 'smooth' }));
@@ -1670,5 +1368,4 @@
 
     </script>
 </body>
-
 </html>
