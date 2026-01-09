@@ -299,7 +299,6 @@
                     </div>
                 </div>
                 <div id="gallery-grid" class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 min-h-[400px]">
-                    <!-- Placeholder prevents layout collapse before JS init -->
                     <div class="flex flex-col items-center justify-center text-gray-400 py-20 w-full col-span-full">
                         <i class="fas fa-circle-notch fa-spin text-3xl mb-4"></i>
                         <p>Loading Archive...</p>
@@ -399,7 +398,7 @@
             <div class="w-64 bg-gray-50 border-r border-gray-200 flex flex-col">
                 <div class="p-6 border-b border-gray-200">
                     <h2 class="text-xl font-serif font-bold text-black">Toolkit</h2>
-                    <p class="text-[10px] uppercase tracking-widest text-gray-400 mt-1">Artist Dashboard v7.2</p>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-400 mt-1">Artist Dashboard v7.1</p>
                 </div>
                 <nav class="flex-1 p-4 space-y-2">
                     <button
@@ -617,30 +616,30 @@
         import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, query, orderBy, updateDoc } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
         /* === ARTIST DATA & CONFIGURATION (EDIT HERE FOR LOCAL MODE) === */
-            const defaultConfig = {
-                siteTitle: "JOURDAN ALEXZANDER | Fine Art",
-                heroTitle: "JOURDAN ALEXZANDER",
-                heroSubtitle: "The Portfolio of",
-                heroTagline: "Digital Synthesis • Sculptural Form • Visual Narrative",
-                heroVideo: "https://youtu.be/8xLUjE5Qnag", // Default video - J.A. Sound Vortex ~ Light Play
-                stmtHead: "Bridging the gap between the digital void and physical permanence.",
-                stmtBody: "Jourdan Alexzander is a multidisciplinary artist and experiential creator whose work fuses abstract expressionism, street-influenced mark-making, sacred geometry, sound, and architectural thinking into immersive visual narratives exploring consciousness, place, and frequency.",
-                bioName: "Jourdan Alexzander",
-                bioImg: "https://drive.google.com/file/d/1LNQC2J3Gp97TScYJrDN8jtK3i5M2wXk2/view?usp=sharing",
-                bioText: "Jourdan Alexzander is a multidisciplinary artist whose work interrogates the intersection of classical forms and digital decay.",
-                email: "paintfrsh@gmail.com",
-                socialIg: "#", socialTw: "#",
-                driveUrl: "https://drive.google.com/drive/folders/1v03f-apEHLc1WnAizUcKgWt5TrmmKwNG?usp=sharing", googleClientId: "",
-                theme: "warm", accentColor: "#C4A484"
-            };
+        const defaultConfig = {
+            siteTitle: "JOURDAN ALEXZANDER | Fine Art",
+            heroTitle: "JOURDAN ALEXZANDER",
+            heroSubtitle: "The Portfolio of",
+            heroTagline: "Digital Synthesis • Sculptural Form • Visual Narrative",
+            heroVideo: "https://youtu.be/8xLUjE5Qnag", // Default video - J.A. Sound Vortex ~ Light Play
+            stmtHead: "Bridging the gap between the digital void and physical permanence.",
+            stmtBody: "Jourdan Alexzander is a multidisciplinary artist and experiential creator whose work fuses abstract expressionism, street-influenced mark-making, sacred geometry, sound, and architectural thinking into immersive visual narratives exploring consciousness, place, and frequency.",
+            bioName: "Jourdan Alexzander",
+            bioImg: "https://drive.google.com/file/d/1LNQC2J3Gp97TScYJrDN8jtK3i5M2wXk2/view?usp=sharing",
+            bioText: "Jourdan Alexzander is a multidisciplinary artist whose work interrogates the intersection of classical forms and digital decay.",
+            email: "paintfrsh@gmail.com",
+            socialIg: "#", socialTw: "#",
+            driveUrl: "https://drive.google.com/drive/folders/1v03f-apEHLc1WnAizUcKgWt5TrmmKwNG?usp=sharing", googleClientId: "",
+            theme: "warm", accentColor: "#C4A484"
+        };
 
-            const initialPortfolioData = [
-                { id: '1', title: "Aeon Flux", category: "Digital", type: "video", year: 2025, medium: "Generative Video", image: "https://www.youtube.com/watch?v=LXb3EKWsInQ", desc: "A recursive exploration of time loops.", featured: false, hidden: true, source: 'manual' },
-                { id: '2', title: "Marble Silence", category: "Paintings", type: "image", year: 2023, medium: "Oil on Canvas", image: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=800", desc: "Classical form interrupted.", featured: false, hidden: true, source: 'manual' },
-                { id: '3', title: "Sound Vortex", category: "Digital", type: "video", year: 2025, medium: "Mixed Media, Canvas, Video", image: "https://youtu.be/8xLUjE5Qnag", desc: "Multi-colored light-play on Sound Vortex.", featured: true, source: 'manual', hidden: false },
-                { id: '4', title: "Creature Statement", category: "Paintings", type: "image", year: 2025, medium: "Mixed media on canvas", image: "https://images.unsplash.com/photo-1579783902614-a3fb39279c0f?q=80&w=800", desc: "Creature Statement centers on a fractured, face-like presence...", featured: true, source: 'manual', hidden: false },
-                { id: '5', title: "Sonic Landscape", category: "Audio", type: "audio", year: 2024, medium: "Soundscape", image: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", desc: "Ambient sound study.", featured: false, hidden: true, source: 'manual' }
-            ];
+        const initialPortfolioData = [
+            { id: '1', title: "Aeon Flux", category: "Digital", type: "video", year: 2025, medium: "Generative Video", image: "https://www.youtube.com/watch?v=LXb3EKWsInQ", desc: "A recursive exploration of time loops.", featured: false, hidden: true, source: 'manual' },
+            { id: '2', title: "Marble Silence", category: "Paintings", type: "image", year: 2023, medium: "Oil on Canvas", image: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=800", desc: "Classical form interrupted.", featured: false, hidden: true, source: 'manual' },
+            { id: '3', title: "Sound Vortex", category: "Digital", type: "video", year: 2025, medium: "Mixed Media, Canvas, Video", image: "https://youtu.be/8xLUjE5Qnag", desc: "Multi-colored light-play on Sound Vortex.", featured: true, source: 'manual', hidden: false },
+            { id: '4', title: "Creature Statement", category: "Paintings", type: "image", year: 2025, medium: "Mixed media on canvas", image: "https://images.unsplash.com/photo-1579783902614-a3fb39279c0f?q=80&w=800", desc: "Creature Statement centers on a fractured, face-like presence...", featured: true, source: 'manual', hidden: false },
+            { id: '5', title: "Sonic Landscape", category: "Audio", type: "audio", year: 2024, medium: "Soundscape", image: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", desc: "Ambient sound study.", featured: false, hidden: true, source: 'manual' }
+        ];
 
         /* === GLOBAL VARIABLES === */
         const isLocalMode = typeof __firebase_config === 'undefined';
@@ -909,42 +908,20 @@
         /* --- INIT LOGIC --- */
         async function initApp() {
             loadConfig();
-
-            // 1. Instant Render (Optimistic UI)
-            // Show local data immediately so the user never sees a spinner indefinitely
-            portfolioData = [...initialPortfolioData];
-            renderApp();
-            renderAdminList();
-
             if (isLocalMode) {
-                console.warn("Local Mode: Using static data.");
-                return;
+                console.warn("Local Mode Active");
+                portfolioData = [...initialPortfolioData];
+                renderApp(); renderAdminList(); return;
             }
-
-            // 2. Hydrate from Backend
             try {
-                // ... auth & snapshot ...
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) await signInWithCustomToken(auth, __initial_auth_token);
+                else await signInAnonymously(auth);
                 const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'portfolio_items'));
                 onSnapshot(q, (snapshot) => {
                     if (snapshot.empty && portfolioData.length === 0) seedDatabase();
-                    else {
-                        portfolioData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                        renderApp();
-                        renderAdminList();
-                    }
-                }, (err) => {
-                    console.error("Snapshot error:", err);
-                    // Fallback is already rendered, so we just log.
-                });
-            } catch (err) {
-                console.error("Backend connection failed, staying on local data:", err);
-                // No need to re-render, we are already showing local data
-            }
+                    else { portfolioData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderApp(); renderAdminList(); }
+                }, (err) => { console.error(err); portfolioData = [...initialPortfolioData]; renderApp(); });
+            } catch (err) { console.error(err); portfolioData = [...initialPortfolioData]; renderApp(); }
         }
 
         function setupInteractions() {
