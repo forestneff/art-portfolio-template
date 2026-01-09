@@ -302,6 +302,78 @@
         </div>
     </div>
 
+    <!-- Edit Item Modal (New) -->
+    <div id="edit-item-modal" class="fixed inset-0 z-[70] hidden bg-black/50 backdrop-blur-sm flex justify-center items-center p-4">
+        <div class="bg-white w-full max-w-3xl rounded-lg shadow-2xl flex flex-col overflow-hidden animate-fade-in max-h-[90vh]">
+            <div class="bg-gray-100 px-6 py-4 flex justify-between items-center border-b border-gray-200">
+                <h3 class="text-lg font-bold text-gray-800">Edit Item Details</h3>
+                <button id="close-edit-modal" class="text-gray-500 hover:text-red-500"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto">
+                <form id="edit-work-form" class="space-y-4">
+                    <input type="hidden" id="edit-id">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Title</label>
+                            <input type="text" id="edit-title" class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Category</label>
+                            <select id="edit-category" class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none">
+                                <option value="Abstract">Abstract</option>
+                                <option value="Mixed Media">Mixed Media</option>
+                                <option value="Concept">Concept</option>
+                                <option value="Digital">Digital</option>
+                                <option value="Audio">Audio</option>
+                                <option value="Video">Video</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Type</label>
+                            <select id="edit-type" class="w-full p-2 border rounded text-sm bg-gray-50">
+                                <option value="image">Image</option>
+                                <option value="video">Video</option>
+                                <option value="audio">Audio</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Media URL</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="edit-image-url" class="flex-1 p-2 border rounded text-sm focus:border-art-accent focus:outline-none">
+                                <input type="file" id="edit-file-upload" class="hidden">
+                                <button type="button" onclick="document.getElementById('edit-file-upload').click()" class="bg-gray-200 hover:bg-gray-300 px-3 rounded text-gray-600"><i class="fas fa-upload"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Year</label>
+                            <input type="text" id="edit-year" class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Medium</label>
+                            <input type="text" id="edit-medium" class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Description</label>
+                        <textarea id="edit-desc" rows="3" class="w-full p-2 border rounded text-sm focus:border-art-accent focus:outline-none"></textarea>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <input type="checkbox" id="edit-featured" class="accent-art-accent h-4 w-4">
+                        <label for="edit-featured" class="text-sm text-gray-700">Featured in Carousel</label>
+                    </div>
+                </form>
+            </div>
+            <div class="bg-gray-50 px-6 py-4 border-t border-gray-200 flex justify-end space-x-4">
+                <button id="cancel-edit" class="text-gray-500 text-sm font-bold uppercase tracking-wide hover:text-gray-800">Cancel</button>
+                <button id="save-edit" class="bg-art-accent text-white px-6 py-2 text-sm font-bold uppercase tracking-wide rounded shadow hover:bg-black transition-colors">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ADMIN MODAL -->
     <div id="admin-modal" class="fixed inset-0 bg-black bg-opacity-95 z-[60] hidden flex justify-center items-center p-4 backdrop-blur-sm">
         <div class="bg-white w-full max-w-6xl h-[85vh] rounded-xl shadow-2xl flex overflow-hidden">
@@ -310,7 +382,7 @@
                 <div class="p-4 md:p-6 border-b border-gray-200 flex items-center justify-center md:justify-start">
                     <h2 class="hidden md:block text-xl font-serif font-bold text-black">Toolkit</h2>
                     <i class="fas fa-tools md:hidden text-xl text-black"></i>
-                    <p class="hidden md:block text-[10px] uppercase tracking-widest text-gray-400 mt-1 ml-2">v2.0</p>
+                    <p class="hidden md:block text-[10px] uppercase tracking-widest text-gray-400 mt-1 ml-2">v2.2</p>
                 </div>
                 <nav class="flex-1 p-2 md:p-4 space-y-2">
                     <button class="nav-btn w-full text-center md:text-left px-2 md:px-4 py-3 rounded text-xs font-bold uppercase tracking-widest text-gray-500 hover:bg-gray-100 transition-all active" data-target="tab-content">
@@ -381,7 +453,11 @@
                     <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
                         <table class="w-full text-left text-sm">
                             <thead class="bg-gray-50 border-b border-gray-200 text-xs uppercase text-gray-500">
-                                <tr><th class="p-3">Work</th><th class="p-3">Details</th><th class="p-3 text-right">Actions</th></tr>
+                                <tr>
+                                    <th class="p-3">Work</th>
+                                    <th class="p-3">Details</th>
+                                    <th class="p-3 text-right">Actions</th>
+                                </tr>
                             </thead>
                             <tbody id="admin-list-body"></tbody>
                         </table>
@@ -945,6 +1021,7 @@
         };
 
         function saveAdminConfig() {
+            // Read all fields
             siteConfig.siteTitle = document.getElementById('cfg-site-title').value;
             siteConfig.logoUrl = document.getElementById('cfg-logo-url').value;
             siteConfig.accentColor = document.getElementById('cfg-accent-color').value;
@@ -1029,17 +1106,113 @@
                 tr.innerHTML = `
                     <td class="p-3">${renderMedia(item, "w-10 h-10 object-cover rounded shadow-sm", 'admin')} <span class="ml-2 font-bold text-gray-800 text-xs">${item.title}</span></td>
                     <td class="p-3"><p class="text-[10px] text-gray-400 uppercase">${item.type} • ${item.category}</p></td>
-                    <td class="p-3 text-right"><button class="del-btn text-red-300 hover:text-red-600 text-xs font-bold uppercase transition-colors" data-id="${item.id}">Delete</button></td>
+                    <td class="p-3 text-right">
+                        <button class="vis-btn text-gray-400 hover:text-blue-500 text-sm mx-1 transition-colors" data-id="${item.id}" title="Toggle Visibility"><i class="fas ${item.hidden ? 'fa-eye-slash' : 'fa-eye'}"></i></button>
+                        <button class="edit-btn text-gray-400 hover:text-art-accent text-sm mx-1 transition-colors" data-id="${item.id}" title="Edit Details"><i class="fas fa-edit"></i></button>
+                        <button class="del-btn text-gray-400 hover:text-red-500 text-sm mx-1 transition-colors" data-id="${item.id}" title="Delete"><i class="fas fa-trash"></i></button>
+                    </td>
                 `;
                 tbody.appendChild(tr);
             });
+            
+            // Delete Listener
             document.querySelectorAll('.del-btn').forEach(b => b.addEventListener('click', async (e) => {
                 if (!confirm('Delete?')) return;
                 const id = e.currentTarget.getAttribute('data-id');
-                if (isLocalMode) { portfolioData = portfolioData.filter(i => i.id !== id); renderCarousel(); renderGallery(); renderAdminList(); }
-                else await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio_items', id));
+                if (isLocalMode) { 
+                    portfolioData = portfolioData.filter(i => i.id !== id); 
+                    renderCarousel(); renderGallery(); renderAdminList(); 
+                } else await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio_items', id));
+            }));
+
+            // Visibility Listener
+            document.querySelectorAll('.vis-btn').forEach(b => b.addEventListener('click', async (e) => {
+                const id = e.currentTarget.getAttribute('data-id');
+                const item = portfolioData.find(i => i.id === id);
+                if (isLocalMode) {
+                    item.hidden = !item.hidden;
+                    renderCarousel(); renderGallery(); renderAdminList();
+                } else await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio_items', id), { hidden: !item.hidden });
+            }));
+
+            // Edit Listener
+            document.querySelectorAll('.edit-btn').forEach(b => b.addEventListener('click', (e) => {
+                const id = e.currentTarget.getAttribute('data-id');
+                openEditModal(id);
             }));
         }
+
+        // --- Edit Item Logic ---
+        function openEditModal(id) {
+            const item = portfolioData.find(i => i.id === id);
+            if (!item) return;
+
+            document.getElementById('edit-id').value = item.id;
+            document.getElementById('edit-title').value = item.title || "";
+            document.getElementById('edit-category').value = item.category || "Mixed Media";
+            document.getElementById('edit-type').value = item.type || "image";
+            document.getElementById('edit-image-url').value = item.image || "";
+            document.getElementById('edit-year').value = item.year || "";
+            document.getElementById('edit-medium').value = item.medium || "";
+            document.getElementById('edit-desc').value = item.desc || "";
+            document.getElementById('edit-featured').checked = item.featured || false;
+
+            document.getElementById('edit-item-modal').classList.remove('hidden');
+        }
+
+        document.getElementById('close-edit-modal').addEventListener('click', () => {
+            document.getElementById('edit-item-modal').classList.add('hidden');
+        });
+        document.getElementById('cancel-edit').addEventListener('click', () => {
+            document.getElementById('edit-item-modal').classList.add('hidden');
+        });
+
+        // Edit Modal File Upload
+        document.getElementById('edit-file-upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                document.getElementById('edit-image-url').value = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        document.getElementById('save-edit').addEventListener('click', async () => {
+            const id = document.getElementById('edit-id').value;
+            const updatedItem = {
+                title: document.getElementById('edit-title').value,
+                category: document.getElementById('edit-category').value,
+                type: document.getElementById('edit-type').value,
+                image: document.getElementById('edit-image-url').value,
+                year: document.getElementById('edit-year').value,
+                medium: document.getElementById('edit-medium').value,
+                desc: document.getElementById('edit-desc').value,
+                featured: document.getElementById('edit-featured').checked
+            };
+
+            if (isLocalMode) {
+                const idx = portfolioData.findIndex(i => i.id === id);
+                if (idx !== -1) {
+                    portfolioData[idx] = { ...portfolioData[idx], ...updatedItem };
+                    renderCarousel();
+                    renderGallery();
+                    renderAdminList();
+                    document.getElementById('edit-item-modal').classList.add('hidden');
+                    alert("Item Updated!");
+                }
+            } else {
+                try {
+                    await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio_items', id), updatedItem);
+                    document.getElementById('edit-item-modal').classList.add('hidden');
+                    alert("Item Updated in Cloud!");
+                } catch(err) {
+                    console.error(err);
+                    alert("Error updating item.");
+                }
+            }
+        });
+
 
         function loadHeroVideo(url) {
             const container = document.getElementById('hero-video-wrapper');
@@ -1100,6 +1273,49 @@
                     document.getElementById('input-image-url').value = evt.target.result;
                 };
                 reader.readAsDataURL(file);
+            });
+
+            // Add Work Form Submission - FIXED
+            document.getElementById('add-work-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = e.target.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.innerText = "Adding...";
+                btn.disabled = true;
+
+                const newItem = {
+                    id: Date.now().toString(),
+                    title: document.getElementById('input-title').value || "Untitled",
+                    category: document.getElementById('input-category').value,
+                    type: document.getElementById('input-type').value,
+                    image: document.getElementById('input-image-url').value,
+                    year: document.getElementById('input-year').value || new Date().getFullYear(),
+                    medium: document.getElementById('input-medium').value || "Mixed Media",
+                    desc: "Added via Toolkit",
+                    featured: document.getElementById('input-featured').checked,
+                    hidden: false,
+                    source: 'manual'
+                };
+
+                if (isLocalMode) {
+                    portfolioData.unshift(newItem);
+                    renderGallery();
+                    renderCarousel();
+                    renderAdminList();
+                    alert("Item Added Successfully!");
+                } else {
+                    try {
+                        await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'portfolio_items'), newItem);
+                        alert("Item Added to Cloud!");
+                    } catch(err) {
+                        console.error(err);
+                        alert("Error adding item to cloud.");
+                    }
+                }
+
+                e.target.reset();
+                btn.innerText = originalText;
+                btn.disabled = false;
             });
 
             // Login Logic
