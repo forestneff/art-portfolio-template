@@ -449,7 +449,7 @@
                     <div class="space-y-2 text-sm">
                         <div class="flex justify-between"><span
                                 class="text-gray-400 uppercase tracking-wide">Medium</span><span id="modal-medium"
-                                class="font-medium">Mixed Media on Canvas</span></div>
+                                class="font-medium">Oil on Canvas</span></div>
                     </div>
                 </div>
                 <div class="pt-6"><button
@@ -557,7 +557,7 @@
                 <div class="p-4 md:p-6 border-b border-gray-200 flex items-center justify-center md:justify-start">
                     <h2 class="hidden md:block text-xl font-serif font-bold text-black">Toolkit</h2>
                     <i class="fas fa-tools md:hidden text-xl text-black"></i>
-                    <p class="hidden md:block text-[10px] uppercase tracking-widest text-gray-400 mt-1 ml-2">v2.5</p>
+                    <p class="hidden md:block text-[10px] uppercase tracking-widest text-gray-400 mt-1 ml-2">v2.6</p>
                 </div>
                 <nav class="flex-1 p-2 md:p-4 space-y-2">
                     <button
@@ -1387,8 +1387,14 @@
         function openModal(id) {
             const item = portfolioData.find(d => d.id === id); if (!item) return;
             document.getElementById('modal-media-container').innerHTML = renderMedia(item, "", 'modal');
-            document.getElementById('modal-title').innerText = item.title; document.getElementById('modal-title-large').innerText = item.title;
-            document.getElementById('modal-category').innerText = item.category; document.getElementById('modal-year').innerText = item.year;
+            document.getElementById('modal-title').innerText = item.title;
+            document.getElementById('modal-title-large').innerText = item.title;
+            document.getElementById('modal-category').innerText = item.category;
+            document.getElementById('modal-year').innerText = item.year;
+            // FIXED: Use correct property 'desc'
+            document.getElementById('modal-description').innerText = item.desc || "No description available.";
+            document.getElementById('modal-medium').innerText = item.medium || "Mixed Media";
+
             document.getElementById('canvas-modal').classList.remove('hidden');
             setTimeout(() => { document.getElementById('canvas-modal').classList.remove('opacity-0'); }, 10);
             document.body.style.overflow = 'hidden';
