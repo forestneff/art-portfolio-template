@@ -18,6 +18,9 @@
     <!-- Google Identity Services (Required for Drive Sync) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
+    <!-- HEIC Conversion Library -->
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+
     <!-- Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap"
@@ -554,7 +557,7 @@
                 <div class="p-4 md:p-6 border-b border-gray-200 flex items-center justify-center md:justify-start">
                     <h2 class="hidden md:block text-xl font-serif font-bold text-black">Toolkit</h2>
                     <i class="fas fa-tools md:hidden text-xl text-black"></i>
-                    <p class="hidden md:block text-[10px] uppercase tracking-widest text-gray-400 mt-1 ml-2">v2.4</p>
+                    <p class="hidden md:block text-[10px] uppercase tracking-widest text-gray-400 mt-1 ml-2">v2.5</p>
                 </div>
                 <nav class="flex-1 p-2 md:p-4 space-y-2">
                     <button
@@ -925,12 +928,58 @@
         };
 
         const initialPortfolioData = [
-            { id: '1', title: "Sound Vortex", category: "Mixed Media", type: "video", year: 2025, medium: "Mixed Media, Canvas, Video", image: "https://youtu.be/8xLUjE5Qnag", desc: "Multi-colored light-play on Sound Vortex.", featured: true, source: 'manual', hidden: false },
-            { id: '2', title: "Echoes of the Sierra", category: "Abstract", type: "image", year: 2023, medium: "Oil on Canvas", image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", desc: "A visual echo of the foothills.", featured: false, hidden: true, source: 'manual' },
-            { id: '3', title: "Frequency State", category: "Concept", type: "image", year: 2024, medium: "Digital Composite", image: "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", desc: "Visualizing sound waves.", featured: true, source: 'manual', hidden: true },
-            { id: '4', title: "Urban Glyph I", category: "Mixed Media", type: "image", year: 2023, medium: "Acrylic on Panel", image: "https://images.unsplash.com/photo-1549887534-1541e9326642?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", desc: "Street-informed mark making on raw canvas.", featured: false, hidden: true, source: 'manual' },
-            { id: '5', title: "Lunar Motif", category: "Abstract", type: "image", year: 2022, medium: "Texture & Oil", image: "https://images.unsplash.com/photo-1515405295579-ba7f45403022?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", desc: "Heavy texture work inspired by lunar landscapes.", featured: true, hidden: true, source: 'manual' },
-            { id: '6', title: "Architectural Thought", category: "Concept", type: "image", year: 2023, medium: "Digital", image: "https://images.unsplash.com/photo-1507643179173-617d6a1982a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", desc: "Spatial awareness translated onto a 2D plane.", featured: false, hidden: true, source: 'manual' }
+            { id: '1', title: "Sound Vortex - Light Play", category: "Digital", type: "video", year: 2025, medium: "Mixed on canvas, light play, video", image: "https://youtu.be/8xLUjE5Qnag", desc: "Multi-colored light-play on Sound Vortex.", featured: true, source: 'manual', hidden: false },
+            {
+                id: '2', title: "Love A Little", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas.",
+                image: "https://drive.google.com/file/d/1B8Nj1QGU_maZF6TZZ8fqK_HfDCXWHSly/view?usp=drive_link",
+                desc: "Love A Little presents a layered field of color, pressure, and repeated gesture in which symbols, partial figures, and looping marks emerge through dense surface activity. The composition is built through rhythmic abrasion and overpainting, allowing vivid pigment to move across matte texture in waves rather than fixed forms. Linear marks and fragmented glyphs suggest communication without resolution, while the palette oscillates between warmth and tension. Rather than illustrating sentiment, the work treats love as provisional—constructed, disrupted, and reassembled through movement, repetition, and visual interference.",
+                featured: false, hidden: false, source: 'manual'
+            },
+            {
+                id: '3', title: "Creature Statement", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
+                image: "https://drive.google.com/file/d/1hHkI7rM0KMGCRKnW5rzXCMYAdvKkItNX/view?usp=drive_link",
+                desc: "Creature Statement centers on a fractured, face-like presence that emerges through layers of vivid color, abrasion, and gestural mark-making. Embedded eyes anchor the composition, establishing a point of recognition within an otherwise volatile field of motion, drips, and looping lines. The surface oscillates between control and disruption, where matte texture absorbs light while saturated and fluorescent marks activate and shift across environments. Rather than resolving into a fixed figure, the work presents identity as unstable—constructed through signal, movement, and perception—inviting the viewer to encounter the image as an evolving presence rather than a portrait.",
+                featured: true, source: 'manual', hidden: false
+            },
+            {
+                id: '4', title: "No Kings", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
+                image: "https://drive.google.com/file/d/179pImnf2jVJ4ARBLt7CPfO0MicGv-NBH/view?usp=drive_link",
+                desc: "No Kings presents language as an active visual element rather than a declarative message. Built on a dense, matte, sculptural surface, the work layers vivid pigment, graffiti-informed text, and symbolic marks into a compressed, high-energy field. Phrases and fragments—“No Kings,” “Love Power,” “Trust,” “Level Up”—appear, overlap, and partially dissolve, functioning as signals embedded within the composition rather than fixed statements. Color and texture work in tension, with saturated marks activating against absorptive surfaces, causing the painting to shift as light and viewing distance change. The piece operates as a charged visual environment where hierarchy, language, and perception remain deliberately unstable.",
+                featured: true, source: 'manual', hidden: false
+            },
+                        {
+                id: '5', title: "SAMO LIVES ON", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
+                image: "https://drive.google.com/file/d/1B5IvoOlNcOUfHeDIJPRemXI5o1mKDeOb/view?usp=drive_link",
+                desc: "SAMO LIVES ON is a contemporary homage to Jean-Michel Basquiat and the enduring impact of his early SAMO graffiti practice. Centered on a fractured, skull-like visage rendered through layered line, color, and text, the work engages street-derived mark-making as both visual language and cultural signal. Words, phrases, and symbols appear as interruptions rather than declarations, echoing Basquiat’s use of language as rhythm, provocation, and resistance to fixed meaning.",
+                featured: true, source: 'manual', hidden: false
+            },            
+            {
+                id: '6', title: "Sound Vortex", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
+                image: "https://drive.google.com/file/d/1kZM7aCRpWbg3C-M_3lUFMAiwUl-Doij4/view?usp=drive_link",
+                desc: "Sound Vortex operates as a dense field of color, gesture, and symbolic interruption. Matte texture absorbs light while saturated pigment, drips, and fluorescent marks activate the surface, creating a sense of motion that shifts with proximity and environment. Street-informed mark-making collides with abstract forms, glyphs, and fragmented symbols, producing a visual rhythm that feels both improvised and controlled. Rather than resolving into a single image, the work functions as a dynamic system—where color, texture, and movement circulate continuously, echoing the experience of sound translated into visual form.",
+                featured: true, source: 'manual', hidden: false
+            },  
+            {
+                id: '7', title: "Sushi", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
+                image: "https://drive.google.com/file/d/1L2n_mkNmwvsPyKeZJMVSQl7qvw4HsajS/view?usp=drive_link",
+                desc: "Sushi is constructed through aggressive gesture and stark chromatic contrast, where black and red marks cut across a raw, exposed ground. Broad, sweeping strokes collide with sharp linear interruptions, creating a sense of velocity and compression across the surface. The composition oscillates between control and rupture, with repeated directional marks suggesting slicing, layering, and reassembly rather than representation. The work resists narrative resolution, functioning instead as a visceral study of movement, pressure, and reduction—where form emerges through action and immediacy.",
+                featured: true, source: 'manual', hidden: false
+            },
+            {
+                id: '8', title: "Untitled", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
+                image: "https://drive.google.com/file/d/12w90ABs0JKC4Mylw4YHB9mEdWCSgYrvI/view?usp=drive_link",
+                desc: "Untitled presents a layered field of glyph-like forms, saturated color, and gestural linework operating as a visual language rather than a readable code. Dense patterning and matte surfaces absorb light, while fluorescent marks, drips, and sweeping arcs activate the composition, shifting with proximity and environment. The work moves between structure and improvisation, where repeated symbols suggest systems of communication without fixed translation. Rather than resolving into hierarchy or narrative, the painting functions as a dynamic visual network—responsive, unstable, and continuously in flux.",
+                featured: true, source: 'manual', hidden: false
+            },
+            {
+                id: '9', title: "", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
+                image: "",
+                desc: "",
+                featured: true, source: 'manual', hidden: true
+            },
+            
+            
+          
         ];
 
         /* === GLOBAL VARS === */
@@ -983,22 +1032,35 @@
             return 'image';
         }
 
+        // Helper: Convert Google Drive View Links to Direct Image Links
+        function processUrl(url) {
+            if (!url) return '';
+            // Pattern for Drive View Link: https://drive.google.com/file/d/{FILE_ID}/view...
+            const drivePattern = /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/;
+            const match = url.match(drivePattern);
+            if (match && match[1]) {
+                return `https://lh3.googleusercontent.com/d/${match[1]}`;
+            }
+            return url;
+        }
+
         function renderMedia(item, className, context = 'grid') {
-            const youtubeId = getYoutubeId(item.image);
-            const isVideoFile = (item.type === 'video' || getMediaType(item.image) === 'video') && !youtubeId;
-            const isAudio = item.type === 'audio' || getMediaType(item.image) === 'audio';
+            const processedUrl = processUrl(item.image);
+            const youtubeId = getYoutubeId(processedUrl);
+            const isVideoFile = (item.type === 'video' || getMediaType(processedUrl) === 'video') && !youtubeId;
+            const isAudio = item.type === 'audio' || getMediaType(processedUrl) === 'audio';
 
             if (youtubeId) {
                 if (context === 'modal') return `<iframe src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0" class="${className} w-full h-full aspect-video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
                 else return `<div class="relative w-full h-full group-hover:scale-105 transition-transform duration-700"><img src="https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg" class="${className}" onerror="this.src='https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg'"><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/50"><i class="fas fa-play text-white ml-1"></i></div></div></div>`;
             } else if (isVideoFile) {
-                if (context === 'modal') return `<video src="${item.image}" class="${className} max-h-[80vh] w-full" controls autoplay></video>`;
-                else return `<video src="${item.image}" class="${className} group-hover:scale-105 transition-transform duration-700" autoplay muted loop playsinline></video>`;
+                if (context === 'modal') return `<video src="${processedUrl}" class="${className} max-h-[80vh] w-full" controls autoplay></video>`;
+                else return `<video src="${processedUrl}" class="${className} group-hover:scale-105 transition-transform duration-700" autoplay muted loop playsinline></video>`;
             } else if (isAudio) {
-                if (context === 'modal') return `<div class="w-full flex flex-col items-center justify-center bg-gray-900 p-10 rounded-lg text-white"><i class="fas fa-music text-6xl mb-6 text-art-accent"></i><audio src="${item.image}" controls class="w-full"></audio><p class="mt-4 font-serif text-2xl">${item.title}</p></div>`;
+                if (context === 'modal') return `<div class="w-full flex flex-col items-center justify-center bg-gray-900 p-10 rounded-lg text-white"><i class="fas fa-music text-6xl mb-6 text-art-accent"></i><audio src="${processedUrl}" controls class="w-full"></audio><p class="mt-4 font-serif text-2xl">${item.title}</p></div>`;
                 else return `<div class="w-full h-full min-h-[300px] bg-gray-900 flex flex-col items-center justify-center text-white relative group overflow-hidden"><div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/sound-waves.png')]"></div><div class="relative z-10 p-6 text-center"><i class="fas fa-waveform text-4xl mb-4 text-art-accent"></i><h4 class="font-serif text-lg">${item.title}</h4><span class="text-[10px] uppercase tracking-widest mt-2 block opacity-70">Audio Track</span></div></div>`;
             } else {
-                return `<img src="${item.image}" alt="${item.title}" class="${className} group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://placehold.co/400x500?text=Image+Error'">`;
+                return `<img src="${processedUrl}" alt="${item.title}" class="${className} group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://placehold.co/400x500?text=Image+Error'">`;
             }
         }
 
@@ -1147,7 +1209,7 @@
             loadHeroVideo(siteConfig.heroVideo);
 
             document.getElementById('bio-name').innerText = siteConfig.bioName;
-            document.getElementById('bio-headshot').src = siteConfig.bioImg;
+            document.getElementById('bio-headshot').src = processUrl(siteConfig.bioImg); // Apply Fix here too
             document.getElementById('bio-text').innerHTML = siteConfig.bioLong;
             document.getElementById('statement-heading').innerText = siteConfig.stmtHead;
             document.getElementById('statement-body').innerHTML = siteConfig.stmtHook;
@@ -1447,11 +1509,40 @@
         document.getElementById('edit-file-upload').addEventListener('change', function (e) {
             const file = e.target.files[0];
             if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function (evt) {
-                document.getElementById('edit-image-url').value = evt.target.result;
-            };
-            reader.readAsDataURL(file);
+
+            // HEIC/HEIF Check & Conversion
+            if (file.type === "image/heic" || file.type === "image/heif" || file.name.match(/\.(heic|heif)$/i)) {
+                if (typeof heic2any !== 'undefined') {
+                    // Show a simple loading indicator on the button text
+                    const btn = this.parentElement.querySelector('button');
+                    const origText = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+                    heic2any({ blob: file, toType: "image/jpeg", quality: 0.8 })
+                        .then((conversionResult) => {
+                            const reader = new FileReader();
+                            reader.onload = function (evt) {
+                                document.getElementById('edit-image-url').value = evt.target.result;
+                                btn.innerHTML = origText;
+                            };
+                            reader.readAsDataURL(conversionResult); // Conversion result is a Blob
+                        })
+                        .catch((e) => {
+                            console.error(e);
+                            alert("Could not convert HEIC file.");
+                            btn.innerHTML = origText;
+                        });
+                } else {
+                    alert("HEIC conversion library not loaded.");
+                }
+            } else {
+                // Standard File Logic
+                const reader = new FileReader();
+                reader.onload = function (evt) {
+                    document.getElementById('edit-image-url').value = evt.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         });
 
         document.getElementById('save-edit').addEventListener('click', async () => {
@@ -1492,9 +1583,10 @@
 
         function loadHeroVideo(url) {
             const container = document.getElementById('hero-video-wrapper');
-            const youtubeId = getYoutubeId(url);
+            const processedUrl = processUrl(url); // Also process hero video URL
+            const youtubeId = getYoutubeId(processedUrl);
             if (youtubeId) container.innerHTML = `<div class="video-bg-container"><iframe src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${youtubeId}&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&disablekb=1" class="video-bg-youtube opacity-60" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>`;
-            else container.innerHTML = `<video autoplay loop muted playsinline class="video-bg-direct opacity-60"><source src="${url}" type="video/mp4"></video>`;
+            else container.innerHTML = `<video autoplay loop muted playsinline class="video-bg-direct opacity-60"><source src="${processedUrl}" type="video/mp4"></video>`;
         }
 
         // Event Listeners
@@ -1562,12 +1654,29 @@
                 const title = cleanName.replace(/\b(19|20)\d{2}\b/, '').trim();
                 document.getElementById('input-title').value = title || "Untitled";
 
-                // 3. File Reader for Local Preview
-                const reader = new FileReader();
-                reader.onload = function (evt) {
-                    document.getElementById('input-image-url').value = evt.target.result;
-                };
-                reader.readAsDataURL(file);
+                // 3. File Reader with HEIC Support
+                if (file.type === "image/heic" || file.type === "image/heif" || file.name.match(/\.(heic|heif)$/i)) {
+                    if (typeof heic2any !== 'undefined') {
+                        const btn = this.parentElement.querySelector('button');
+                        const origText = btn.innerHTML;
+                        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+                        heic2any({ blob: file, toType: "image/jpeg", quality: 0.8 }).then((conversionResult) => {
+                            const reader = new FileReader();
+                            reader.onload = function (evt) {
+                                document.getElementById('input-image-url').value = evt.target.result;
+                                btn.innerHTML = origText;
+                            };
+                            reader.readAsDataURL(conversionResult);
+                        });
+                    }
+                } else {
+                    const reader = new FileReader();
+                    reader.onload = function (evt) {
+                        document.getElementById('input-image-url').value = evt.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
             });
 
             // Add Work Form Submission - FIXED
