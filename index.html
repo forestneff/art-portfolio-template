@@ -301,7 +301,7 @@
                 class="px-6 md:px-12 mb-10 flex flex-col md:flex-row justify-between items-center md:items-end max-w-7xl mx-auto text-center md:text-left">
                 <div class="mb-6 md:mb-0">
                     <h2 class="text-3xl font-serif">Selected Works</h2>
-                    <p class="text-sm text-gray-500 mt-2">Curated highlights from the studio.</p>
+                    <p class="text-sm text-gray-500 mt-2">Curated highlights from the artist's collection.</p>
                 </div>
                 <div class="flex space-x-4">
                     <button id="scroll-left"
@@ -400,7 +400,7 @@
                 availability, commission, or collaboration.</p>
             <a id="contact-email-btn" href="#"
                 class="inline-block border border-white px-10 py-4 text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300">Contact
-                Studio</a>
+                Artist</a>
             <div id="social-links" class="mt-16 flex justify-center space-x-8"></div>
 
             <div class="mt-20 pt-10 border-t border-gray-800 flex flex-col items-center">
@@ -409,7 +409,7 @@
                 <!-- LOGIN CONTAINER -->
                 <div id="login-container" class="relative group h-10 w-64 mx-auto flex justify-center items-center">
                     <button id="login-trigger"
-                        class="text-[10px] text-gray-700 hover:text-gray-500 uppercase tracking-widest transition-all duration-500 absolute">Studio
+                        class="text-[10px] text-gray-700 hover:text-gray-500 uppercase tracking-widest transition-all duration-500 absolute">Artist
                         Login</button>
                     <div id="login-form-container"
                         class="flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 absolute inset-0 transform scale-95">
@@ -453,6 +453,7 @@
                     </div>
                 </div>
                 <div class="pt-6"><button
+                        id="inquire-email-btn"
                         class="w-full bg-black text-white py-4 text-xs uppercase tracking-widest hover:bg-art-accent transition-colors">Inquire</button>
                 </div>
             </div>
@@ -944,7 +945,7 @@
                 id: '3', title: "Creature Statement", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
                 image: "https://drive.google.com/file/d/1hHkI7rM0KMGCRKnW5rzXCMYAdvKkItNX/view?usp=drive_link",
                 desc: "Creature Statement centers on a fractured, face-like presence that emerges through layers of vivid color, abrasion, and gestural mark-making. Embedded eyes anchor the composition, establishing a point of recognition within an otherwise volatile field of motion, drips, and looping lines. The surface oscillates between control and disruption, where matte texture absorbs light while saturated and fluorescent marks activate and shift across environments. Rather than resolving into a fixed figure, the work presents identity as unstable—constructed through signal, movement, and perception—inviting the viewer to encounter the image as an evolving presence rather than a portrait.",
-                featured: true, source: 'manual', hidden: false
+                featured: false, source: 'manual', hidden: false
             },
             {
                 id: '4', title: "No Kings", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
@@ -1222,6 +1223,7 @@
             document.getElementById('statement-body').innerHTML = siteConfig.stmtHook;
 
             document.getElementById('contact-email-btn').href = `mailto:${siteConfig.email}`;
+            document.getElementById('inquire-email-btn').href = `mailto:${siteConfig.email}`;
             document.getElementById('contact-text').innerText = siteConfig.collectorInfo;
             document.getElementById('footer-copy').innerHTML = `&copy; ${new Date().getFullYear()} ${siteConfig.heroTitle}. All Rights Reserved.`;
 
