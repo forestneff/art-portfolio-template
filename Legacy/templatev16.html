@@ -303,7 +303,7 @@
                     <h2 class="text-3xl font-serif">Selected Works</h2>
                     <p class="text-sm text-gray-500 mt-2">Curated highlights from the artist's collection.</p>
                 </div>
-                <div class="flex space-x-4 hidden md:flex">
+                <div class="flex space-x-4">
                     <button id="scroll-left"
                         class="w-12 h-12 border border-gray-300 rounded-full flex items-center justify-center hover:bg-art-dark hover:text-art-bg transition-colors"><i
                             class="fas fa-arrow-left"></i></button>
@@ -313,7 +313,7 @@
                 </div>
             </div>
             <div id="carousel-track"
-                class="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8 md:overflow-x-auto px-6 md:px-12 pb-8 no-scrollbar scroll-smooth md:h-[60vh] md:min-h-[500px] items-center md:items-stretch">
+                class="flex space-x-8 overflow-x-auto px-6 md:px-12 pb-8 no-scrollbar scroll-smooth h-[60vh] min-h-[500px] items-center">
                 <!-- Injected via JS -->
             </div>
         </section>
@@ -399,7 +399,8 @@
             <p id="contact-text" class="text-gray-400 max-w-lg mx-auto mb-10">For catalogue requests, exhibition
                 availability, commission, or collaboration.</p>
             <a id="contact-email-btn" href="#"
-                class="inline-block border border-white px-10 py-4 text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300">Contact</a>
+                class="inline-block border border-white px-10 py-4 text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300">Contact
+                Artist</a>
             <div id="social-links" class="mt-16 flex justify-center space-x-8"></div>
 
             <div class="mt-20 pt-10 border-t border-gray-800 flex flex-col items-center">
@@ -451,8 +452,9 @@
                                 class="font-medium">Oil on Canvas</span></div>
                     </div>
                 </div>
-                <div class="pt-6"><a id="inquire-email-btn" href="#"
-                        class="w-full block text-center bg-black text-white py-4 text-xs uppercase tracking-widest hover:bg-art-accent transition-colors">Inquire</a>
+                <div class="pt-6"><button
+                        id="inquire-email-btn"
+                        class="w-full bg-black text-white py-4 text-xs uppercase tracking-widest hover:bg-art-accent transition-colors">Inquire</button>
                 </div>
             </div>
         </div>
@@ -547,26 +549,6 @@
         </div>
     </div>
 
-    <!-- Layout Edit Modal (Expanded) -->
-    <div id="layout-edit-modal"
-        class="fixed inset-0 z-[70] hidden bg-black/50 backdrop-blur-sm flex justify-center items-center p-4">
-        <div
-            class="bg-white w-full max-w-lg rounded-lg shadow-2xl flex flex-col overflow-hidden animate-fade-in max-h-[80vh]">
-            <div class="bg-gray-100 px-6 py-4 flex justify-between items-center border-b border-gray-200">
-                <h3 class="text-lg font-bold text-gray-800" id="layout-edit-title">Edit Section</h3>
-                <button id="close-layout-modal" class="text-gray-500 hover:text-red-500"><i
-                        class="fas fa-times text-xl"></i></button>
-            </div>
-            <div class="p-6 overflow-y-auto" id="layout-edit-content">
-                <!-- Injected via JS based on section -->
-            </div>
-            <div class="bg-gray-50 px-6 py-4 border-t border-gray-200 flex justify-end">
-                <button id="save-layout-settings"
-                    class="bg-art-accent text-white px-6 py-2 text-sm font-bold uppercase tracking-wide rounded shadow hover:bg-black transition-colors">Apply</button>
-            </div>
-        </div>
-    </div>
-
     <!-- ADMIN MODAL -->
     <div id="admin-modal"
         class="fixed inset-0 bg-black bg-opacity-95 z-[60] hidden flex justify-center items-center p-4 backdrop-blur-sm">
@@ -576,7 +558,7 @@
                 <div class="p-4 md:p-6 border-b border-gray-200 flex items-center justify-center md:justify-start">
                     <h2 class="hidden md:block text-xl font-serif font-bold text-black">Toolkit</h2>
                     <i class="fas fa-tools md:hidden text-xl text-black"></i>
-                    <p class="hidden md:block text-[10px] uppercase tracking-widest text-gray-400 mt-1 ml-2">v6.0</p>
+                    <p class="hidden md:block text-[10px] uppercase tracking-widest text-gray-400 mt-1 ml-2">v3.1</p>
                 </div>
                 <nav class="flex-1 p-2 md:p-4 space-y-2">
                     <button
@@ -609,7 +591,7 @@
                 <div class="p-4 border-t border-gray-200">
                     <button id="close-admin"
                         class="w-full text-center text-xs uppercase text-red-400 hover:text-red-600 font-bold">
-                        <i class="fas fa-sign-out-alt md:hidden"></i> <span class="hidden md:inline">APPLY & EXIT</span>
+                        <i class="fas fa-sign-out-alt md:hidden"></i> <span class="hidden md:inline">Logout</span>
                     </button>
                 </div>
             </div>
@@ -682,19 +664,53 @@
                         </div>
                     </div>
 
-                    <!-- 2. LAYOUT TAB (Refactored) -->
+                    <!-- 2. LAYOUT TAB -->
                     <div id="tab-layout" class="dash-tab hidden space-y-8 animate-fade-in">
                         <h2 class="text-2xl font-bold font-serif">Site Layout</h2>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <!-- Section Organizer -->
                             <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                                <h4 class="text-xs font-bold uppercase text-gray-400 mb-4">Page Structure</h4>
+                                <h4 class="text-xs font-bold uppercase text-gray-400 mb-4">Section Visibility & Order
+                                </h4>
                                 <div id="layout-list" class="space-y-2">
                                     <!-- Populated by JS -->
                                 </div>
-                                <p class="text-[10px] text-gray-400 mt-4 italic">Pinned items (Hero, Nav) stay at top.
-                                    Click text to edit details.</p>
+                            </div>
+
+                            <!-- Hero & Archive Config -->
+                            <div class="space-y-6">
+                                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                                    <h4 class="text-xs font-bold uppercase text-gray-400 mb-4">Hero Action</h4>
+                                    <div class="space-y-3">
+                                        <div>
+                                            <label class="block text-xs mb-1">Button Text</label>
+                                            <input id="cfg-hero-btn-text"
+                                                class="w-full p-2 border rounded text-sm bg-gray-50">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs mb-1">Target Section (ID)</label>
+                                            <select id="cfg-hero-btn-link"
+                                                class="w-full p-2 border rounded text-sm bg-gray-50">
+                                                <option value="#archive">Archive</option>
+                                                <option value="#featured">Featured</option>
+                                                <option value="#contact">Contact</option>
+                                                <option value="#statement">Statement</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                                    <h4 class="text-xs font-bold uppercase text-gray-400 mb-4">Archive Configuration
+                                    </h4>
+                                    <div>
+                                        <label class="block text-xs mb-1">Categories (Comma Separated)</label>
+                                        <textarea id="cfg-archive-cats"
+                                            class="w-full p-2 border rounded text-sm bg-gray-50 h-24 font-mono"
+                                            placeholder="Abstract, Mixed Media..."></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -747,10 +763,26 @@
 
                         <!-- Text Content -->
                         <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm space-y-4">
-                            <h4 class="text-xs font-bold uppercase text-gray-400">Global Typography</h4>
+                            <h4 class="text-xs font-bold uppercase text-gray-400">Typography & Titles</h4>
                             <div>
                                 <label class="block text-xs mb-1">Site Title (Browser Tab)</label>
                                 <input id="cfg-site-title" class="w-full p-2 border rounded text-sm bg-gray-50">
+                            </div>
+                            <div>
+                                <label class="block text-xs mb-1">Hero Title (Main)</label>
+                                <input id="cfg-hero-title" class="w-full p-2 border rounded text-sm bg-gray-50">
+                            </div>
+                            <div>
+                                <label class="block text-xs mb-1">Hero Subtitle</label>
+                                <input id="cfg-hero-subtitle" class="w-full p-2 border rounded text-sm bg-gray-50">
+                            </div>
+                            <div>
+                                <label class="block text-xs mb-1">Hero Tagline</label>
+                                <input id="cfg-hero-tagline" class="w-full p-2 border rounded text-sm bg-gray-50">
+                            </div>
+                            <div>
+                                <label class="block text-xs mb-1">Hero Video URL</label>
+                                <input id="cfg-hero-video" class="w-full p-2 border rounded text-sm bg-gray-50">
                             </div>
                         </div>
                     </div>
@@ -873,13 +905,13 @@
             bioImg: "https://lh3.googleusercontent.com/d/1LNQC2J3Gp97TScYJrDN8jtK3i5M2wXk2=w1000",
             stmtHook: "Jourdan Alexzander is a multidisciplinary artist and experiential creator whose work fuses abstract expressionism, street-influenced mark-making, sacred geometry, sound, and architectural thinking into immersive visual narratives exploring consciousness, place, and frequency.",
             bioShort: "Jourdan Alexzander is a California-based multidisciplinary artist working across painting, mixed media, sound, spatial design, and experiential environments. His visual work blends abstract expressionism, street-influenced techniques, and psychedelic symbolism, often incorporating heavy texture, bold color fields, and cosmic or lunar motifs inspired by the landscapes of Northern California and the Sierra Nevada.",
-            bioLong: "Jourdan Alexzander is a multidisciplinary artist and creative director whose practice spans painting, mixed media, architectural environments, sound, and immersive systems. Rooted in abstract expressionism and street-art methodologies, his visual language is defined by thick textural surfaces, layered mark-making, and vibrant chromatic tension.<br><br>Many works explore lunar symbolism, sacred geometry, and energetic landscapes—often referencing Lake Tahoe, desert environments, and the liminal space between nature and consciousness.<br><br>Beyond his work as a fine-artist, Jourdan is the founder of Orion Aura / Pulseora, an experimental ecosystem combining architecture, lighting, sound design, and locally controlled AI systems.",
+            bioLong: "Jourdan Alexzander is a multidisciplinary artist and creative director whose practice spans painting, mixed media, architectural environments, sound, and immersive systems. Rooted in abstract expressionism and street-art methodologies, his visual language is defined by thick textural surfaces, layered mark-making, and vibrant chromatic tension.<br><br>Many works explore lunar symbolism, sacred geometry, and energetic landscapes—often referencing Lake Tahoe, desert environments, and the liminal space between nature and consciousness.<br><br>Beyond traditional studio practice, Jourdan is the founder of Orion Aura / Pulseora, an experimental ecosystem combining architecture, lighting, sound design, and locally controlled AI systems.",
             stmtHead: "Bridging the gap between the digital void and physical permanence.",
 
             // CONTACT & SETTINGS
             email: "paintfrsh@gmail.com",
             phone: "",
-            collectorInfo: "For catalogue requests, exhibition availability, commission, or collaboration, please contact the artist.",
+            collectorInfo: "For catalogue requests, exhibition availability, commission, or collaboration, please contact the studio.",
             driveUrl: "",
 
             // Layout Configuration
@@ -892,24 +924,68 @@
                 { id: 'bio', visible: true, name: "Biography" },
                 { id: 'contact', visible: true, name: "Contact Footer" }
             ],
-            // Section Specific Settings (New)
-            layoutSettings: {
-                featured: { display: "carousel", order: [] },
-                archive: { display: "masonry", showTitles: true, showCategories: true }
-            },
             archiveCats: ["Abstract", "Mixed Media", "Digital", "Concept"]
         };
 
         const initialPortfolioData = [
-            { id: '1', title: "Sound Vortex - Light Play", category: "Digital", type: "video", year: 2025, medium: "Mixed on canvas, light play, video", image: "https://youtu.be/8xLUjE5Qnag", desc: "Multi-colored light-play on Sound Vortex.", featured: true, source: 'manual', hidden: false },
-            { id: '2', title: "Love A Little", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas.", image: "https://drive.google.com/file/d/1B8Nj1QGU_maZF6TZZ8fqK_HfDCXWHSly/view?usp=drive_link", desc: "Love A Little presents a layered field of color, pressure, and repeated gesture in which symbols, partial figures, and looping marks emerge through dense surface activity. The composition is built through rhythmic abrasion and overpainting, allowing vivid pigment to move across matte texture in waves rather than fixed forms. Linear marks and fragmented glyphs suggest communication without resolution, while the palette oscillates between warmth and tension. Rather than illustrating sentiment, the work treats love as provisional—constructed, disrupted, and reassembled through movement, repetition, and visual interference.", featured: false, hidden: false, source: 'manual' },
-            { id: '3', title: "Creature Statement", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas", image: "https://drive.google.com/file/d/1hHkI7rM0KMGCRKnW5rzXCMYAdvKkItNX/view?usp=drive_link", desc: "Creature Statement centers on a fractured, face-like presence that emerges through layers of vivid color, abrasion, and gestural mark-making. Embedded eyes anchor the composition, establishing a point of recognition within an otherwise volatile field of motion, drips, and looping lines. The surface oscillates between control and disruption, where matte texture absorbs light while saturated and fluorescent marks activate and shift across environments. Rather than resolving into a fixed figure, the work presents identity as unstable—constructed through signal, movement, and perception—inviting the viewer to encounter the image as an evolving presence rather than a portrait.", featured: true, source: 'manual', hidden: false },
-            { id: '4', title: "No Kings", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas", image: "https://drive.google.com/file/d/179pImnf2jVJ4ARBLt7CPfO0MicGv-NBH/view?usp=drive_link", desc: "No Kings presents language as an active visual element rather than a declarative message. Built on a dense, matte, sculptural surface, the work layers vivid pigment, graffiti-informed text, and symbolic marks into a compressed, high-energy field. Phrases and fragments—“No Kings,” “Love Power,” “Trust,” “Level Up”—appear, overlap, and partially dissolve, functioning as signals embedded within the composition rather than fixed statements. Color and texture work in tension, with saturated marks activating against absorptive surfaces, causing the painting to shift as light and viewing distance change. The piece operates as a charged visual environment where hierarchy, language, and perception remain deliberately unstable.", featured: true, source: 'manual', hidden: false },
-            { id: '5', title: "SAMO LIVES ON", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas", image: "https://drive.google.com/file/d/1B5IvoOlNcOUfHeDIJPRemXI5o1mKDeOb/view?usp=drive_link", desc: "SAMO LIVES ON is a contemporary homage to Jean-Michel Basquiat and the enduring impact of his early SAMO graffiti practice. Centered on a fractured, skull-like visage rendered through layered line, color, and text, the work engages street-derived mark-making as both visual language and cultural signal. Words, phrases, and symbols appear as interruptions rather than declarations, echoing Basquiat’s use of language as rhythm, provocation, and resistance to fixed meaning.", featured: true, source: 'manual', hidden: false },
-            { id: '6', title: "Sound Vortex", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas", image: "https://drive.google.com/file/d/1kZM7aCRpWbg3C-M_3lUFMAiwUl-Doij4/view?usp=drive_link", desc: "Sound Vortex operates as a dense field of color, gesture, and symbolic interruption. Matte texture absorbs light while saturated pigment, drips, and fluorescent marks activate the surface, creating a sense of motion that shifts with proximity and environment. Street-informed mark-making collides with abstract forms, glyphs, and fragmented symbols, producing a visual rhythm that feels both improvised and controlled. Rather than resolving into a single image, the work functions as a dynamic system—where color, texture, and movement circulate continuously, echoing the experience of sound translated into visual form.", featured: true, source: 'manual', hidden: false },
-            { id: '7', title: "Sushi", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas", image: "https://drive.google.com/file/d/1L2n_mkNmwvsPyKeZJMVSQl7qvw4HsajS/view?usp=drive_link", desc: "Sushi is constructed through aggressive gesture and stark chromatic contrast, where black and red marks cut across a raw, exposed ground. Broad, sweeping strokes collide with sharp linear interruptions, creating a sense of velocity and compression across the surface. The composition oscillates between control and rupture, with repeated directional marks suggesting slicing, layering, and reassembly rather than representation. The work resists narrative resolution, functioning instead as a visceral study of movement, pressure, and reduction—where form emerges through action and immediacy.", featured: true, source: 'manual', hidden: false },
-            { id: '8', title: "Untitled", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas", image: "https://drive.google.com/file/d/12w90ABs0JKC4Mylw4YHB9mEdWCSgYrvI/view?usp=drive_link", desc: "Untitled presents a layered field of glyph-like forms, saturated color, and gestural linework operating as a visual language rather than a readable code. Dense patterning and matte surfaces absorb light, while fluorescent marks, drips, and sweeping arcs activate the composition, shifting with proximity and environment. The work moves between structure and improvisation, where repeated symbols suggest systems of communication without fixed translation. Rather than resolving into hierarchy or narrative, the painting functions as a dynamic visual network—responsive, unstable, and continuously in flux.", featured: true, source: 'manual', hidden: false },
-            { id: '9', title: "", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas", image: "", desc: "", featured: true, source: 'manual', hidden: true },
+            {
+                id: '1', title: "", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
+                image: "",
+                desc: "",
+                featured: true, source: 'manual', hidden: true
+            },
+    
+            {
+                id: '2', title: "Love A Little", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas.",
+                image: "https://drive.google.com/file/d/1B8Nj1QGU_maZF6TZZ8fqK_HfDCXWHSly/view?usp=drive_link",
+                desc: "Love A Little presents a layered field of color, pressure, and repeated gesture in which symbols, partial figures, and looping marks emerge through dense surface activity. The composition is built through rhythmic abrasion and overpainting, allowing vivid pigment to move across matte texture in waves rather than fixed forms. Linear marks and fragmented glyphs suggest communication without resolution, while the palette oscillates between warmth and tension. Rather than illustrating sentiment, the work treats love as provisional—constructed, disrupted, and reassembled through movement, repetition, and visual interference.",
+                featured: false, hidden: false, source: 'manual'
+            },
+            {
+                id: '3', title: "Creature Statement", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
+                image: "https://drive.google.com/file/d/1hHkI7rM0KMGCRKnW5rzXCMYAdvKkItNX/view?usp=drive_link",
+                desc: "Creature Statement centers on a fractured, face-like presence that emerges through layers of vivid color, abrasion, and gestural mark-making. Embedded eyes anchor the composition, establishing a point of recognition within an otherwise volatile field of motion, drips, and looping lines. The surface oscillates between control and disruption, where matte texture absorbs light while saturated and fluorescent marks activate and shift across environments. Rather than resolving into a fixed figure, the work presents identity as unstable—constructed through signal, movement, and perception—inviting the viewer to encounter the image as an evolving presence rather than a portrait.",
+                featured: false, source: 'manual', hidden: false
+            },
+            {
+                id: '4', title: "No Kings", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
+                image: "https://drive.google.com/file/d/179pImnf2jVJ4ARBLt7CPfO0MicGv-NBH/view?usp=drive_link",
+                desc: "No Kings presents language as an active visual element rather than a declarative message. Built on a dense, matte, sculptural surface, the work layers vivid pigment, graffiti-informed text, and symbolic marks into a compressed, high-energy field. Phrases and fragments—“No Kings,” “Love Power,” “Trust,” “Level Up”—appear, overlap, and partially dissolve, functioning as signals embedded within the composition rather than fixed statements. Color and texture work in tension, with saturated marks activating against absorptive surfaces, causing the painting to shift as light and viewing distance change. The piece operates as a charged visual environment where hierarchy, language, and perception remain deliberately unstable.",
+                featured: true, source: 'manual', hidden: false
+            },
+            {
+                id: '5', title: "SAMO LIVES ON", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
+                image: "https://drive.google.com/file/d/1B5IvoOlNcOUfHeDIJPRemXI5o1mKDeOb/view?usp=drive_link",
+                desc: "SAMO LIVES ON is a contemporary homage to Jean-Michel Basquiat and the enduring impact of his early SAMO graffiti practice. Centered on a fractured, skull-like visage rendered through layered line, color, and text, the work engages street-derived mark-making as both visual language and cultural signal. Words, phrases, and symbols appear as interruptions rather than declarations, echoing Basquiat’s use of language as rhythm, provocation, and resistance to fixed meaning.",
+                featured: true, source: 'manual', hidden: false
+            },
+            {
+                id: '6', title: "Sound Vortex", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
+                image: "https://drive.google.com/file/d/1kZM7aCRpWbg3C-M_3lUFMAiwUl-Doij4/view?usp=drive_link",
+                desc: "Sound Vortex operates as a dense field of color, gesture, and symbolic interruption. Matte texture absorbs light while saturated pigment, drips, and fluorescent marks activate the surface, creating a sense of motion that shifts with proximity and environment. Street-informed mark-making collides with abstract forms, glyphs, and fragmented symbols, producing a visual rhythm that feels both improvised and controlled. Rather than resolving into a single image, the work functions as a dynamic system—where color, texture, and movement circulate continuously, echoing the experience of sound translated into visual form.",
+                featured: true, source: 'manual', hidden: false
+            },
+            {
+                id: '7', title: "Sushi", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
+                image: "https://drive.google.com/file/d/1L2n_mkNmwvsPyKeZJMVSQl7qvw4HsajS/view?usp=drive_link",
+                desc: "Sushi is constructed through aggressive gesture and stark chromatic contrast, where black and red marks cut across a raw, exposed ground. Broad, sweeping strokes collide with sharp linear interruptions, creating a sense of velocity and compression across the surface. The composition oscillates between control and rupture, with repeated directional marks suggesting slicing, layering, and reassembly rather than representation. The work resists narrative resolution, functioning instead as a visceral study of movement, pressure, and reduction—where form emerges through action and immediacy.",
+                featured: true, source: 'manual', hidden: false
+            },
+            {
+                id: '8', title: "Untitled", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas",
+                image: "https://drive.google.com/file/d/12w90ABs0JKC4Mylw4YHB9mEdWCSgYrvI/view?usp=drive_link",
+                desc: "Untitled presents a layered field of glyph-like forms, saturated color, and gestural linework operating as a visual language rather than a readable code. Dense patterning and matte surfaces absorb light, while fluorescent marks, drips, and sweeping arcs activate the composition, shifting with proximity and environment. The work moves between structure and improvisation, where repeated symbols suggest systems of communication without fixed translation. Rather than resolving into hierarchy or narrative, the painting functions as a dynamic visual network—responsive, unstable, and continuously in flux.",
+                featured: true, source: 'manual', hidden: false
+            },
+            {
+                id: '9', title: "Sound Vortex - Light Play", category: "Digital", type: "video", year: 2025, medium: "Mixed on canvas, light play, video",
+                image: "https://youtu.be/8xLUjE5Qnag",
+                desc: "Multi-colored light-play on Sound Vortex.",
+                featured: true, source: 'manual', hidden: false
+            },
+
+
+
         ];
 
         /* === GLOBAL VARS === */
@@ -1093,26 +1169,14 @@
         function renderCarousel() {
             const track = document.getElementById('carousel-track');
             track.innerHTML = '';
-
-            // Apply Manual Sort if exists
-            let featuredItems = portfolioData.filter(i => i.featured && !i.hidden);
-            const manualOrder = siteConfig.layoutSettings.featured?.order || [];
-            if (manualOrder.length > 0) {
-                featuredItems.sort((a, b) => {
-                    const idxA = manualOrder.indexOf(a.id);
-                    const idxB = manualOrder.indexOf(b.id);
-                    if (idxA === -1 && idxB === -1) return 0;
-                    if (idxA === -1) return 1;
-                    if (idxB === -1) return -1;
-                    return idxA - idxB;
-                });
-            }
-
+            const featuredItems = portfolioData.filter(i => i.featured && !i.hidden);
             if (featuredItems.length === 0) track.innerHTML = '<p class="text-gray-400 italic px-6">No featured works selected.</p>';
             featuredItems.forEach(item => {
                 const card = document.createElement('div');
+                // Use flex-none to respect content sizing, h-full to fill container
                 card.className = 'flex-none h-full group cursor-pointer relative snap-center mr-8';
                 card.onclick = () => openModal(item.id);
+                // Image uses w-auto to scale naturally with h-full constraint
                 card.innerHTML = `<div class="h-full overflow-hidden relative shadow-lg bg-gray-100">${renderMedia(item, "h-full w-auto object-cover", 'grid')}<div class="absolute bottom-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"><h3 class="text-lg font-serif font-bold text-white shadow-black drop-shadow-md">${item.title}</h3></div></div>`;
                 track.appendChild(card);
             });
@@ -1122,6 +1186,7 @@
             document.title = siteConfig.siteTitle;
             document.getElementById('meta-title').innerText = siteConfig.siteTitle;
 
+            // Branding
             const logoImg = document.getElementById('nav-logo-img');
             const logoText = document.getElementById('nav-logo-text');
             if (siteConfig.logoUrl) {
@@ -1134,6 +1199,7 @@
                 logoText.innerText = "J.A. ART";
             }
 
+            // Colors
             const t = themes[siteConfig.theme] || themes.warm;
             const root = document.documentElement;
             root.style.setProperty('--bg-color', t.bg);
@@ -1144,13 +1210,14 @@
             const cp = document.getElementById('color-preview');
             if (cp) cp.style.backgroundColor = siteConfig.accentColor;
 
+            // Content
             document.getElementById('hero-title').innerText = siteConfig.heroTitle;
             document.getElementById('hero-subtitle').innerText = siteConfig.heroSubtitle;
             document.getElementById('hero-tagline').innerText = siteConfig.heroTagline;
             loadHeroVideo(siteConfig.heroVideo);
 
             document.getElementById('bio-name').innerText = siteConfig.bioName;
-            document.getElementById('bio-headshot').src = processUrl(siteConfig.bioImg);
+            document.getElementById('bio-headshot').src = processUrl(siteConfig.bioImg); // Apply Fix here too
             document.getElementById('bio-text').innerHTML = siteConfig.bioLong;
             document.getElementById('statement-heading').innerText = siteConfig.stmtHead;
             document.getElementById('statement-body').innerHTML = siteConfig.stmtHook;
@@ -1189,10 +1256,18 @@
             const originalText = btn.innerText;
             btn.innerText = "Syncing...";
 
+            // SIMULATED SYNC: In reality, this would parse the Doc ID and call Google Drive API
             setTimeout(() => {
                 alert("Simulated Sync Complete: Profile Updated from EPK.");
+
+                // Demo Update to show logic working
                 siteConfig.bioShort += " [Synced]";
+
+                // Smart Update Trigger
+                // If Design/Hero fields match old profile data, update them.
+                // For simulation, we just force an update if they contain "Jourdan"
                 if (siteConfig.siteTitle.includes("JOURDAN")) siteConfig.siteTitle = siteConfig.bioName + " | Portfolio";
+
                 populateAdminConfig();
                 applyConfig();
                 btn.innerText = originalText;
@@ -1200,73 +1275,55 @@
         }
 
         function populateAdminConfig() {
-            // Safety checks for elements
-            if (document.getElementById('cfg-site-title')) document.getElementById('cfg-site-title').value = siteConfig.siteTitle;
-            if (document.getElementById('cfg-logo-url')) document.getElementById('cfg-logo-url').value = siteConfig.logoUrl;
-            if (document.getElementById('cfg-accent-color')) document.getElementById('cfg-accent-color').value = siteConfig.accentColor;
-            // Hero fields moved to modal, not populating here directly to avoid conflicts, they are populated on openLayoutEdit
+            // Design Tab
+            document.getElementById('cfg-site-title').value = siteConfig.siteTitle;
+            document.getElementById('cfg-logo-url').value = siteConfig.logoUrl;
+            document.getElementById('cfg-accent-color').value = siteConfig.accentColor;
+            document.getElementById('cfg-hero-title').value = siteConfig.heroTitle;
+            document.getElementById('cfg-hero-subtitle').value = siteConfig.heroSubtitle;
+            document.getElementById('cfg-hero-tagline').value = siteConfig.heroTagline;
+            document.getElementById('cfg-hero-video').value = siteConfig.heroVideo;
 
-            if (document.getElementById('cfg-bio-name')) document.getElementById('cfg-bio-name').value = siteConfig.bioName;
-            if (document.getElementById('cfg-bio-img')) document.getElementById('cfg-bio-img').value = siteConfig.bioImg;
-            if (document.getElementById('cfg-stmt-hook')) document.getElementById('cfg-stmt-hook').value = siteConfig.stmtHook;
-            if (document.getElementById('cfg-bio-short')) document.getElementById('cfg-bio-short').value = siteConfig.bioShort;
-            if (document.getElementById('cfg-bio-long')) document.getElementById('cfg-bio-long').value = siteConfig.bioLong;
-            if (document.getElementById('cfg-stmt-head')) document.getElementById('cfg-stmt-head').value = siteConfig.stmtHead;
+            // Profile Tab
+            document.getElementById('cfg-bio-name').value = siteConfig.bioName;
+            document.getElementById('cfg-bio-img').value = siteConfig.bioImg;
+            document.getElementById('cfg-stmt-hook').value = siteConfig.stmtHook;
+            document.getElementById('cfg-bio-short').value = siteConfig.bioShort;
+            document.getElementById('cfg-bio-long').value = siteConfig.bioLong;
+            document.getElementById('cfg-stmt-head').value = siteConfig.stmtHead;
 
-            if (document.getElementById('cfg-email')) document.getElementById('cfg-email').value = siteConfig.email;
-            if (document.getElementById('cfg-phone')) document.getElementById('cfg-phone').value = siteConfig.phone;
-            if (document.getElementById('cfg-collector-info')) document.getElementById('cfg-collector-info').value = siteConfig.collectorInfo;
-            if (document.getElementById('cfg-drive')) document.getElementById('cfg-drive').value = siteConfig.driveUrl;
-            if (document.getElementById('cfg-epk-url')) document.getElementById('cfg-epk-url').value = siteConfig.epkUrl;
-            if (document.getElementById('cfg-archive-cats')) document.getElementById('cfg-archive-cats').value = siteConfig.archiveCats.join(', ');
+            // Settings Tab
+            document.getElementById('cfg-email').value = siteConfig.email;
+            document.getElementById('cfg-phone').value = siteConfig.phone;
+            document.getElementById('cfg-collector-info').value = siteConfig.collectorInfo;
+            document.getElementById('cfg-drive').value = siteConfig.driveUrl;
+            document.getElementById('cfg-epk-url').value = siteConfig.epkUrl;
+
+            // Layout Tab
+            document.getElementById('cfg-hero-btn-text').value = siteConfig.heroBtnText || "View Collection";
+            document.getElementById('cfg-hero-btn-link').value = siteConfig.heroBtnLink || "#archive";
+            document.getElementById('cfg-archive-cats').value = siteConfig.archiveCats.join(', ');
 
             renderLayoutManager();
 
-            if (document.getElementById('cfg-accent-color')) {
-                document.getElementById('cfg-accent-color').addEventListener('input', (e) => {
-                    siteConfig.accentColor = e.target.value;
-                    document.getElementById('color-preview').style.backgroundColor = e.target.value;
-                });
-            }
+            // Color input listener
+            document.getElementById('cfg-accent-color').addEventListener('input', (e) => {
+                siteConfig.accentColor = e.target.value;
+                document.getElementById('color-preview').style.backgroundColor = e.target.value;
+            });
         }
 
         function renderLayoutManager() {
             const list = document.getElementById('layout-list');
             list.innerHTML = '';
-
-            // 1. Pinned Navbar
-            const navDiv = document.createElement('div');
-            navDiv.className = 'flex items-center justify-between p-3 bg-gray-100 border-l-4 border-art-accent border-gray-200 rounded layout-item mb-2';
-            navDiv.innerHTML = `
-                <div class="flex items-center space-x-3 cursor-pointer flex-1" onclick="openLayoutEdit('navbar')">
-                    <i class="fas fa-thumbtack text-gray-400 text-xs"></i>
-                    <span class="text-sm font-bold text-gray-800">Navigation Bar</span>
-                </div>
-                <span class="text-xs text-gray-400 uppercase">Fixed Top</span>
-            `;
-            list.appendChild(navDiv);
-
-            // 2. Pinned Hero
-            const heroDiv = document.createElement('div');
-            heroDiv.className = 'flex items-center justify-between p-3 bg-gray-100 border-l-4 border-gray-300 border-gray-200 rounded layout-item mb-4';
-            heroDiv.innerHTML = `
-                <div class="flex items-center space-x-3 cursor-pointer flex-1" onclick="openLayoutEdit('hero')">
-                     <i class="fas fa-thumbtack text-gray-400 text-xs"></i>
-                    <span class="text-sm font-bold text-gray-800">Hero Section</span>
-                </div>
-                <span class="text-xs text-gray-400 uppercase">Fixed Top</span>
-            `;
-            list.appendChild(heroDiv);
-
-            // 3. Dynamic Sections
             siteConfig.layout.forEach((section, index) => {
                 const div = document.createElement('div');
-                div.className = 'flex items-center justify-between p-3 bg-white border border-gray-200 rounded layout-item hover:shadow-md transition-shadow';
+                div.className = 'flex items-center justify-between p-3 bg-gray-50 border border-gray-200 rounded layout-item';
                 div.innerHTML = `
-                    <div class="flex items-center space-x-3 cursor-pointer flex-1" onclick="openLayoutEdit('${section.id}')">
-                        <input type="checkbox" class="accent-art-accent h-4 w-4" data-idx="${index}" ${section.visible ? 'checked' : ''} onclick="event.stopPropagation()">
-                        <span class="text-sm font-bold text-gray-700 hover:text-art-accent transition-colors">${section.name}</span>
-                        <span class="text-xs text-gray-400">Edit Settings</span>
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" class="accent-art-accent h-4 w-4" data-idx="${index}" ${section.visible ? 'checked' : ''}>
+                        <span class="text-sm font-bold text-gray-700">${section.name}</span>
+                        <span class="text-xs text-gray-400">#${section.id}</span>
                     </div>
                     <div class="flex space-x-2">
                         <button class="text-gray-400 hover:text-black w-6" onclick="moveSection(${index}, -1)"><i class="fas fa-arrow-up"></i></button>
@@ -1275,227 +1332,10 @@
                 `;
                 div.querySelector('input').addEventListener('change', (e) => {
                     siteConfig.layout[index].visible = e.target.checked;
-                    applyConfig(); // Instant update
                 });
                 list.appendChild(div);
             });
         }
-
-        /* NEW LAYOUT EDIT MODAL LOGIC */
-        window.openLayoutEdit = function (sectionId) {
-            const modal = document.getElementById('layout-edit-modal');
-            const title = document.getElementById('layout-edit-title');
-            const content = document.getElementById('layout-edit-content');
-
-            title.innerText = `Edit: ${sectionId.charAt(0).toUpperCase() + sectionId.slice(1)}`;
-            content.innerHTML = '';
-
-            if (!siteConfig.layoutSettings[sectionId]) siteConfig.layoutSettings[sectionId] = {};
-            const settings = siteConfig.layoutSettings[sectionId];
-
-            // 1. NAVBAR
-            if (sectionId === 'navbar') {
-                content.innerHTML = `
-                    <div class="space-y-4">
-                        <p class="text-xs text-gray-500">Global Navigation Settings</p>
-                        <button onclick="document.querySelector('[data-target=tab-design]').click(); document.getElementById('layout-edit-modal').classList.add('hidden');" class="w-full text-left p-3 border rounded hover:bg-gray-50 flex justify-between items-center">
-                            <span class="text-sm font-bold">Edit Logo & Brand Colors</span>
-                            <i class="fas fa-chevron-right text-xs"></i>
-                        </button>
-                    </div>
-                `;
-                document.getElementById('save-layout-settings').onclick = () => modal.classList.add('hidden');
-            }
-            // 2. HERO
-            else if (sectionId === 'hero') {
-                content.innerHTML = `
-                    <div class="space-y-4">
-                        <p class="text-xs text-gray-500 mb-2">Hero Action Button</p>
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Button Text</label>
-                            <input id="modal-hero-btn-text" class="w-full p-2 border rounded text-sm focus:border-art-accent" value="${siteConfig.heroBtnText}">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Target Section</label>
-                            <select id="modal-hero-btn-link" class="w-full p-2 border rounded text-sm bg-white">
-                                <option value="#archive" ${siteConfig.heroBtnLink === '#archive' ? 'selected' : ''}>Archive</option>
-                                <option value="#featured" ${siteConfig.heroBtnLink === '#featured' ? 'selected' : ''}>Featured</option>
-                                <option value="#contact" ${siteConfig.heroBtnLink === '#contact' ? 'selected' : ''}>Contact</option>
-                                <option value="#statement" ${siteConfig.heroBtnLink === '#statement' ? 'selected' : ''}>Statement</option>
-                            </select>
-                        </div>
-                         <hr class="border-gray-200 my-4">
-                        <h4 class="text-xs font-bold uppercase text-gray-400">Typography & Titles</h4>
-                        <div>
-                             <label class="block text-xs mb-1">Hero Title (Main)</label>
-                             <input id="modal-hero-title" class="w-full p-2 border rounded text-sm bg-gray-50" value="${siteConfig.heroTitle}">
-                        </div>
-                        <div>
-                             <label class="block text-xs mb-1">Hero Subtitle</label>
-                             <input id="modal-hero-subtitle" class="w-full p-2 border rounded text-sm bg-gray-50" value="${siteConfig.heroSubtitle}">
-                        </div>
-                        <div>
-                             <label class="block text-xs mb-1">Hero Tagline</label>
-                             <input id="modal-hero-tagline" class="w-full p-2 border rounded text-sm bg-gray-50" value="${siteConfig.heroTagline}">
-                        </div>
-                         <div>
-                             <label class="block text-xs mb-1">Hero Video URL</label>
-                             <input id="modal-hero-video" class="w-full p-2 border rounded text-sm bg-gray-50" value="${siteConfig.heroVideo}">
-                        </div>
-                    </div>
-                `;
-
-                // Add Live Listeners for Instant Preview
-                const inputs = ['modal-hero-btn-text', 'modal-hero-btn-link', 'modal-hero-title', 'modal-hero-subtitle', 'modal-hero-tagline', 'modal-hero-video'];
-                inputs.forEach(id => {
-                    setTimeout(() => {
-                        const el = document.getElementById(id);
-                        if (el) el.addEventListener('input', () => {
-                            if (id === 'modal-hero-btn-text') siteConfig.heroBtnText = el.value;
-                            if (id === 'modal-hero-btn-link') siteConfig.heroBtnLink = el.value;
-                            if (id === 'modal-hero-title') siteConfig.heroTitle = el.value;
-                            if (id === 'modal-hero-subtitle') siteConfig.heroSubtitle = el.value;
-                            if (id === 'modal-hero-tagline') siteConfig.heroTagline = el.value;
-                            if (id === 'modal-hero-video') siteConfig.heroVideo = el.value;
-                            applyConfig();
-                        });
-                    }, 0);
-                });
-
-                document.getElementById('save-layout-settings').onclick = () => {
-                    // Final commit is handled by Global Save, but this hides modal
-                    modal.classList.add('hidden');
-                };
-            }
-            // 3. FEATURED
-            else if (sectionId === 'featured') {
-                content.innerHTML = `<p class="text-xs text-gray-500 mb-4">Reorder Selected Works for the Carousel. Use Up/Down arrows.</p>`;
-                let featured = portfolioData.filter(i => i.featured && !i.hidden);
-                const manualOrder = settings.order || [];
-                if (manualOrder.length > 0) {
-                    featured.sort((a, b) => {
-                        const idxA = manualOrder.indexOf(a.id);
-                        const idxB = manualOrder.indexOf(b.id);
-                        if (idxA === -1 && idxB === -1) return 0;
-                        if (idxA === -1) return 1;
-                        if (idxB === -1) return -1;
-                        return idxA - idxB;
-                    });
-                }
-
-                if (featured.length === 0) {
-                    content.innerHTML += `<p class="text-sm italic">No items marked as 'Featured' in Content tab.</p>`;
-                } else {
-                    const listContainer = document.createElement('div');
-                    listContainer.className = "space-y-2 max-h-60 overflow-y-auto";
-                    featured.forEach((item) => {
-                        const row = document.createElement('div');
-                        row.className = "flex items-center justify-between p-2 border border-gray-100 bg-white rounded";
-                        // Visual Match to Main Content List
-                        row.innerHTML = `
-                            <div class="flex items-center space-x-3">
-                                <img src="${processUrl(item.image)}" class="w-10 h-10 object-cover rounded shadow-sm">
-                                <div>
-                                    <span class="text-xs font-bold block text-gray-800 truncate w-32 md:w-40">${item.title}</span>
-                                    <span class="text-[10px] text-gray-400 uppercase">${item.category}</span>
-                                </div>
-                            </div>
-                            <div class="flex space-x-1">
-                                <button class="p-1 hover:bg-gray-100 rounded text-gray-400 hover:text-black" onclick="moveFeaturedOrder('${item.id}', -1)"><i class="fas fa-arrow-up text-xs"></i></button>
-                                <button class="p-1 hover:bg-gray-100 rounded text-gray-400 hover:text-black" onclick="moveFeaturedOrder('${item.id}', 1)"><i class="fas fa-arrow-down text-xs"></i></button>
-                            </div>
-                        `;
-                        listContainer.appendChild(row);
-                    });
-                    content.appendChild(listContainer);
-                }
-                document.getElementById('save-layout-settings').onclick = () => modal.classList.add('hidden');
-
-            }
-            // 4. ARCHIVE
-            else if (sectionId === 'archive') {
-                const display = settings.display || 'masonry';
-                const showTitles = settings.showTitles !== false;
-                const showCats = settings.showCategories !== false;
-
-                content.innerHTML = `
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Display Style</label>
-                            <select id="archive-display-select" class="w-full p-2 border rounded text-sm bg-gray-50 focus:border-art-accent">
-                                <option value="masonry" ${display === 'masonry' ? 'selected' : ''}>Masonry (Default)</option>
-                                <option value="grid" ${display === 'grid' ? 'selected' : ''}>Square Grid</option>
-                            </select>
-                        </div>
-                        <div class="space-y-2">
-                            <label class="block text-xs font-bold uppercase text-gray-500">Visible Details (Overlay)</label>
-                            <label class="flex items-center space-x-2 p-2 border rounded hover:bg-gray-50 cursor-pointer">
-                                <input type="checkbox" id="archive-show-titles" ${showTitles ? 'checked' : ''} class="accent-art-accent">
-                                <span class="text-sm font-bold text-gray-700">Show Titles</span>
-                            </label>
-                            <label class="flex items-center space-x-2 p-2 border rounded hover:bg-gray-50 cursor-pointer">
-                                <input type="checkbox" id="archive-show-cats" ${showCats ? 'checked' : ''} class="accent-art-accent">
-                                <span class="text-sm font-bold text-gray-700">Show Categories</span>
-                            </label>
-                        </div>
-                         <div class="pt-4 border-t border-gray-100">
-                             <button onclick="document.querySelector('[data-target=tab-content]').click(); document.getElementById('layout-edit-modal').classList.add('hidden');" class="w-full bg-black text-white py-2 text-xs uppercase tracking-widest hover:bg-art-accent transition-colors">Manage Content Library</button>
-                        </div>
-                    </div>
-                `;
-
-                // Add Live Listener
-                const updateArchiveLive = () => {
-                    siteConfig.layoutSettings.archive.display = document.getElementById('archive-display-select').value;
-                    siteConfig.layoutSettings.archive.showTitles = document.getElementById('archive-show-titles').checked;
-                    siteConfig.layoutSettings.archive.showCategories = document.getElementById('archive-show-cats').checked;
-                    renderGallery();
-                };
-
-                setTimeout(() => {
-                    document.getElementById('archive-display-select').addEventListener('change', updateArchiveLive);
-                    document.getElementById('archive-show-titles').addEventListener('change', updateArchiveLive);
-                    document.getElementById('archive-show-cats').addEventListener('change', updateArchiveLive);
-                }, 0);
-
-                document.getElementById('save-layout-settings').onclick = () => modal.classList.add('hidden');
-
-            }
-            // 5. TEXT SECTIONS
-            else if (sectionId === 'bio' || sectionId === 'statement') {
-                content.innerHTML = `
-                    <p class="text-sm text-gray-600 mb-6">Text for this section is managed in the Profile tab.</p>
-                    <button onclick="document.querySelector('[data-target=tab-profile]').click(); document.getElementById('layout-edit-modal').classList.add('hidden');" class="w-full bg-gray-800 text-white py-3 text-xs uppercase tracking-widest hover:bg-black transition-colors">Go to Profile Settings</button>
-                 `;
-                document.getElementById('save-layout-settings').onclick = () => modal.classList.add('hidden');
-            } else {
-                content.innerHTML = `<p class="text-sm text-gray-500">No specific display settings for this section.</p>`;
-                document.getElementById('save-layout-settings').onclick = () => modal.classList.add('hidden');
-            }
-
-            modal.classList.remove('hidden');
-        }
-
-        // Helper for reordering featured
-        window.moveFeaturedOrder = function (itemId, dir) {
-            let featured = portfolioData.filter(i => i.featured && !i.hidden);
-            let currentOrder = siteConfig.layoutSettings.featured.order || featured.map(i => i.id);
-
-            featured.forEach(f => { if (!currentOrder.includes(f.id)) currentOrder.push(f.id); });
-
-            const currentIndex = currentOrder.indexOf(itemId);
-            if (currentIndex === -1) return;
-
-            const newIndex = currentIndex + dir;
-            if (newIndex >= 0 && newIndex < currentOrder.length) {
-                [currentOrder[currentIndex], currentOrder[newIndex]] = [currentOrder[newIndex], currentOrder[currentIndex]];
-                siteConfig.layoutSettings.featured.order = currentOrder;
-                openLayoutEdit('featured');
-                renderCarousel();
-            }
-        }
-
-        document.getElementById('close-layout-modal').addEventListener('click', () => document.getElementById('layout-edit-modal').classList.add('hidden'));
 
         window.moveSection = function (index, direction) {
             if (direction === -1 && index > 0) {
@@ -1504,7 +1344,6 @@
                 [siteConfig.layout[index], siteConfig.layout[index + 1]] = [siteConfig.layout[index + 1], siteConfig.layout[index]];
             }
             renderLayoutManager();
-            applyConfig(); // Apply layout changes to DOM
         };
 
         window.moveWork = function (index, direction) {
@@ -1519,17 +1358,19 @@
         };
 
         function saveAdminConfig() {
-            // Read values (Including Hero values potentially updated in modal)
-            // Note: Hero inputs are only present in DOM when modal is open. If modal is closed, this read might fail or read null.
-            // FIX: We rely on the live updating of siteConfig for Hero inputs via listeners in openLayoutEdit.
-            // We only need to read the main tab inputs here explicitly.
-
+            // Logic: Capture old values to check for dependencies
             const oldName = siteConfig.bioName;
+
+            // Read values
             const newName = document.getElementById('cfg-bio-name').value;
 
             siteConfig.siteTitle = document.getElementById('cfg-site-title').value;
             siteConfig.logoUrl = document.getElementById('cfg-logo-url').value;
             siteConfig.accentColor = document.getElementById('cfg-accent-color').value;
+            siteConfig.heroTitle = document.getElementById('cfg-hero-title').value;
+            siteConfig.heroSubtitle = document.getElementById('cfg-hero-subtitle').value;
+            siteConfig.heroTagline = document.getElementById('cfg-hero-tagline').value;
+            siteConfig.heroVideo = document.getElementById('cfg-hero-video').value;
 
             siteConfig.bioName = newName;
             siteConfig.bioImg = document.getElementById('cfg-bio-img').value;
@@ -1544,10 +1385,14 @@
             siteConfig.driveUrl = document.getElementById('cfg-drive').value;
             siteConfig.epkUrl = document.getElementById('cfg-epk-url').value;
 
+            siteConfig.heroBtnText = document.getElementById('cfg-hero-btn-text').value;
+            siteConfig.heroBtnLink = document.getElementById('cfg-hero-btn-link').value;
             const cats = document.getElementById('cfg-archive-cats').value.split(',').map(s => s.trim()).filter(s => s.length > 0);
             siteConfig.archiveCats = cats;
 
+            // Smart Update Logic: If Artist Name changed, update Hero Title if they matched previously
             if (oldName !== newName) {
+                // If Hero Title was identical to old name (case insensitive), update it
                 if (siteConfig.heroTitle.toLowerCase() === oldName.toLowerCase()) {
                     siteConfig.heroTitle = newName.toUpperCase();
                 }
@@ -1566,12 +1411,9 @@
             document.getElementById('modal-title-large').innerText = item.title;
             document.getElementById('modal-category').innerText = item.category;
             document.getElementById('modal-year').innerText = item.year;
+            // FIXED: Use correct property 'desc'
             document.getElementById('modal-description').innerText = item.desc || "No description available.";
             document.getElementById('modal-medium').innerText = item.medium || "Mixed Media";
-
-            const inquireBtn = document.getElementById('inquire-email-btn');
-            const subject = encodeURIComponent(`Inquire About: ${item.title}`);
-            inquireBtn.href = `mailto:${siteConfig.email}?subject=${subject}`;
 
             document.getElementById('canvas-modal').classList.remove('hidden');
             setTimeout(() => { document.getElementById('canvas-modal').classList.remove('opacity-0'); }, 10);
@@ -1579,7 +1421,9 @@
         }
         function closeModal() {
             document.getElementById('canvas-modal').classList.add('opacity-0');
+            // CRITICAL FIX: Stop media playback instantly
             document.getElementById('modal-media-container').innerHTML = '';
+
             setTimeout(() => {
                 document.getElementById('canvas-modal').classList.add('hidden');
                 document.body.style.overflow = 'auto';
@@ -1622,17 +1466,15 @@
                 const tr = document.createElement('tr');
                 tr.className = `border-b border-gray-100 hover:bg-gray-50 transition-colors ${item.hidden ? 'opacity-50' : ''}`;
                 tr.innerHTML = `
-                    <td class="p-3">${renderMedia(item, "w-10 h-10 object-cover rounded shadow-sm", 'admin')} <span class="ml-2 font-bold text-gray-800 text-xs block md:inline mt-1 md:mt-0">${item.title}</span></td>
+                    <td class="p-3">${renderMedia(item, "w-10 h-10 object-cover rounded shadow-sm", 'admin')} <span class="ml-2 font-bold text-gray-800 text-xs">${item.title}</span></td>
                     <td class="p-3 hidden md:table-cell"><p class="text-[10px] text-gray-400 uppercase">${item.type} • ${item.category}</p></td>
                     <td class="p-3 text-right whitespace-nowrap">
-                        <div class="flex items-center justify-end">
-                            <button class="text-gray-400 hover:text-black w-5 mx-1" onclick="moveWork(${index}, -1)"><i class="fas fa-arrow-up"></i></button>
-                            <button class="text-gray-400 hover:text-black w-5 mx-1" onclick="moveWork(${index}, 1)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="feat-btn text-gray-400 hover:text-yellow-500 text-sm mx-1 transition-colors" data-id="${item.id}" title="Toggle Featured"><i class="fas ${item.featured ? 'fa-star text-yellow-500' : 'fa-star'}"></i></button>
-                            <button class="vis-btn text-gray-400 hover:text-blue-500 text-sm mx-1 transition-colors" data-id="${item.id}" title="Toggle Visibility"><i class="fas ${item.hidden ? 'fa-eye-slash' : 'fa-eye'}"></i></button>
-                            <button class="edit-btn text-gray-400 hover:text-art-accent text-sm mx-1 transition-colors" data-id="${item.id}" title="Edit Details"><i class="fas fa-edit"></i></button>
-                            <button class="del-btn text-gray-400 hover:text-red-500 text-sm mx-1 transition-colors" data-id="${item.id}" title="Delete"><i class="fas fa-trash"></i></button>
-                        </div>
+                        <button class="text-gray-400 hover:text-black w-5 mx-1" onclick="moveWork(${index}, -1)"><i class="fas fa-arrow-up"></i></button>
+                        <button class="text-gray-400 hover:text-black w-5 mx-1" onclick="moveWork(${index}, 1)"><i class="fas fa-arrow-down"></i></button>
+                        <button class="feat-btn text-gray-400 hover:text-yellow-500 text-sm mx-1 transition-colors" data-id="${item.id}" title="Toggle Featured"><i class="fas ${item.featured ? 'fa-star text-yellow-500' : 'fa-star'}"></i></button>
+                        <button class="vis-btn text-gray-400 hover:text-blue-500 text-sm mx-1 transition-colors" data-id="${item.id}" title="Toggle Visibility"><i class="fas ${item.hidden ? 'fa-eye-slash' : 'fa-eye'}"></i></button>
+                        <button class="edit-btn text-gray-400 hover:text-art-accent text-sm mx-1 transition-colors" data-id="${item.id}" title="Edit Details"><i class="fas fa-edit"></i></button>
+                        <button class="del-btn text-gray-400 hover:text-red-500 text-sm mx-1 transition-colors" data-id="${item.id}" title="Delete"><i class="fas fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -1697,26 +1539,38 @@
             document.getElementById('edit-item-modal').classList.add('hidden');
         });
 
+        // Edit Modal File Upload
         document.getElementById('edit-file-upload').addEventListener('change', function (e) {
             const file = e.target.files[0];
             if (!file) return;
 
+            // HEIC/HEIF Check & Conversion
             if (file.type === "image/heic" || file.type === "image/heif" || file.name.match(/\.(heic|heif)$/i)) {
                 if (typeof heic2any !== 'undefined') {
+                    // Show a simple loading indicator on the button text
                     const btn = this.parentElement.querySelector('button');
                     const origText = btn.innerHTML;
                     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
-                    heic2any({ blob: file, toType: "image/jpeg", quality: 0.8 }).then((conversionResult) => {
-                        const reader = new FileReader();
-                        reader.onload = function (evt) {
-                            document.getElementById('edit-image-url').value = evt.target.result;
+                    heic2any({ blob: file, toType: "image/jpeg", quality: 0.8 })
+                        .then((conversionResult) => {
+                            const reader = new FileReader();
+                            reader.onload = function (evt) {
+                                document.getElementById('edit-image-url').value = evt.target.result;
+                                btn.innerHTML = origText;
+                            };
+                            reader.readAsDataURL(conversionResult); // Conversion result is a Blob
+                        })
+                        .catch((e) => {
+                            console.error(e);
+                            alert("Could not convert HEIC file.");
                             btn.innerHTML = origText;
-                        };
-                        reader.readAsDataURL(conversionResult);
-                    });
+                        });
+                } else {
+                    alert("HEIC conversion library not loaded.");
                 }
             } else {
+                // Standard File Logic
                 const reader = new FileReader();
                 reader.onload = function (evt) {
                     document.getElementById('edit-image-url').value = evt.target.result;
@@ -1760,35 +1614,29 @@
             }
         });
 
+
         function loadHeroVideo(url) {
             const container = document.getElementById('hero-video-wrapper');
-            const processedUrl = processUrl(url);
+            const processedUrl = processUrl(url); // Also process hero video URL
             const youtubeId = getYoutubeId(processedUrl);
             if (youtubeId) container.innerHTML = `<div class="video-bg-container"><iframe src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${youtubeId}&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&disablekb=1" class="video-bg-youtube opacity-60" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>`;
             else container.innerHTML = `<video autoplay loop muted playsinline class="video-bg-direct opacity-60"><source src="${processedUrl}" type="video/mp4"></video>`;
         }
 
+        // Event Listeners
         document.addEventListener('DOMContentLoaded', () => {
             initApp();
+
+            // Global Keydown (Esc & Space)
             document.addEventListener('keydown', (e) => {
+                // Escape: Close Modals
                 if (e.key === 'Escape') {
-                    if (!document.getElementById('canvas-modal').classList.contains('hidden')) {
-                        closeModal();
-                        return; // Prioritize public modal
-                    }
-                    if (!document.getElementById('edit-item-modal').classList.contains('hidden')) {
-                        document.getElementById('edit-item-modal').classList.add('hidden');
-                        return;
-                    }
-                    if (!document.getElementById('layout-edit-modal').classList.contains('hidden')) {
-                        document.getElementById('layout-edit-modal').classList.add('hidden');
-                        return;
-                    }
-                    if (!document.getElementById('admin-modal').classList.contains('hidden')) {
-                        document.getElementById('admin-modal').classList.add('hidden');
-                        return;
-                    }
+                    if (!document.getElementById('canvas-modal').classList.contains('hidden')) closeModal();
+                    if (!document.getElementById('edit-item-modal').classList.contains('hidden')) document.getElementById('edit-item-modal').classList.add('hidden');
+                    if (!document.getElementById('admin-modal').classList.contains('hidden')) document.getElementById('admin-modal').classList.add('hidden');
                 }
+
+                // Space: Scroll Next Section (only if not typing in an input)
                 if (e.key === ' ' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
                     e.preventDefault();
                     const sections = Array.from(document.querySelectorAll('.section-target:not(.hidden)'));
@@ -1798,6 +1646,7 @@
                 }
             });
 
+            // Tab Navigation
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const targetId = e.currentTarget.getAttribute('data-target');
@@ -1808,15 +1657,18 @@
                 });
             });
 
+            // Save Configs
             document.querySelectorAll('.save-config-btn').forEach(btn => btn.addEventListener('click', saveAdminConfig));
 
+            // File Upload Logic (Smart Sort)
             document.getElementById('file-upload').addEventListener('change', function (e) {
                 const file = e.target.files[0];
                 if (!file) return;
 
+                // 1. Auto-Detect Type
                 const mime = file.type;
                 let type = 'image';
-                let category = 'Mixed Media';
+                let category = 'Mixed Media'; // default
 
                 if (mime.startsWith('video/')) { type = 'video'; category = 'Video'; }
                 else if (mime.startsWith('audio/')) { type = 'audio'; category = 'Audio'; }
@@ -1824,13 +1676,19 @@
                 document.getElementById('input-type').value = type;
                 document.getElementById('input-category').value = category;
 
-                const name = file.name.split('.')[0];
-                const cleanName = name.replace(/[_-]/g, ' ');
+                // 2. Smart Metadata Extraction (Filename)
+                const name = file.name.split('.')[0]; // remove extension
+                const cleanName = name.replace(/[_-]/g, ' '); // replace separators
+
+                // Extract Year if 4 digits present
                 const yearMatch = cleanName.match(/\b(19|20)\d{2}\b/);
                 if (yearMatch) document.getElementById('input-year').value = yearMatch[0];
+
+                // Set Title (remove year if present to be clean)
                 const title = cleanName.replace(/\b(19|20)\d{2}\b/, '').trim();
                 document.getElementById('input-title').value = title || "Untitled";
 
+                // 3. File Reader with HEIC Support
                 if (file.type === "image/heic" || file.type === "image/heif" || file.name.match(/\.(heic|heif)$/i)) {
                     if (typeof heic2any !== 'undefined') {
                         const btn = this.parentElement.querySelector('button');
@@ -1855,6 +1713,7 @@
                 }
             });
 
+            // Add Work Form Submission - FIXED
             document.getElementById('add-work-form').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const btn = e.target.querySelector('button[type="submit"]');
@@ -1897,6 +1756,7 @@
                 btn.disabled = false;
             });
 
+            // Login Logic
             const loginTrigger = document.getElementById('login-trigger');
             const loginContainer = document.getElementById('login-container');
             const loginPassword = document.getElementById('login-password');
@@ -1917,6 +1777,7 @@
                     document.getElementById('admin-modal').classList.remove('hidden');
                     populateAdminConfig();
                     renderAdminList();
+                    // Reset UI
                     loginPassword.value = '';
                     loginContainer.classList.remove('login-active');
                     loginSubmit.classList.remove('submit-active');
@@ -1939,9 +1800,11 @@
             // Correct Modal Close Logic
             document.getElementById('close-modal').addEventListener('click', closeModal);
             document.getElementById('canvas-modal').addEventListener('click', (e) => {
+                // Close if clicking the background overlay (id="canvas-modal") but NOT its children
                 if (e.target.id === 'canvas-modal') closeModal();
             });
 
+            // Interactions
             document.getElementById('scroll-left').addEventListener('click', () => document.getElementById('carousel-track').scrollBy({ left: -350, behavior: 'smooth' }));
             document.getElementById('scroll-right').addEventListener('click', () => document.getElementById('carousel-track').scrollBy({ left: 350, behavior: 'smooth' }));
             document.getElementById('mobile-menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('translate-x-full'));
