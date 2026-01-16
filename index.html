@@ -303,7 +303,8 @@
                     <h2 class="text-3xl font-serif">Selected Works</h2>
                     <p class="text-sm text-gray-500 mt-2">Curated highlights from the artist's collection.</p>
                 </div>
-                <div class="flex space-x-4 hidden md:flex">
+                <!-- Controls hidden on mobile OR in Glitch mode if desired, but kept for standard -->
+                <div class="flex space-x-4 hidden md:flex" id="carousel-controls">
                     <button id="scroll-left"
                         class="w-12 h-12 border border-gray-300 rounded-full flex items-center justify-center hover:bg-art-dark hover:text-art-bg transition-colors"><i
                             class="fas fa-arrow-left"></i></button>
@@ -312,8 +313,8 @@
                             class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
-            <div id="carousel-track"
-                class="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8 md:overflow-x-auto px-6 md:px-12 pb-8 no-scrollbar scroll-smooth md:h-[60vh] md:min-h-[500px] items-center md:items-stretch">
+            <!-- Dynamic Container -->
+            <div id="carousel-track" class="w-full">
                 <!-- Injected via JS -->
             </div>
         </section>
@@ -399,7 +400,8 @@
             <p id="contact-text" class="text-gray-400 max-w-lg mx-auto mb-10">For catalogue requests, exhibition
                 availability, commission, or collaboration.</p>
             <a id="contact-email-btn" href="#"
-                class="inline-block border border-white px-10 py-4 text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300">Contact</a>
+                class="inline-block border border-white px-10 py-4 text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300">Contact
+                Studio</a>
             <div id="social-links" class="mt-16 flex justify-center space-x-8"></div>
 
             <div class="mt-20 pt-10 border-t border-gray-800 flex flex-col items-center">
@@ -408,7 +410,7 @@
                 <!-- LOGIN CONTAINER -->
                 <div id="login-container" class="relative group h-10 w-64 mx-auto flex justify-center items-center">
                     <button id="login-trigger"
-                        class="text-[10px] text-gray-700 hover:text-gray-500 uppercase tracking-widest transition-all duration-500 absolute">Artist
+                        class="text-[10px] text-gray-700 hover:text-gray-500 uppercase tracking-widest transition-all duration-500 absolute">Studio
                         Login</button>
                     <div id="login-form-container"
                         class="flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 absolute inset-0 transform scale-95">
@@ -547,11 +549,11 @@
         </div>
     </div>
 
-    <!-- Layout Edit Modal (Expanded) -->
+    <!-- Layout Edit Modal (Refined) -->
     <div id="layout-edit-modal"
         class="fixed inset-0 z-[70] hidden bg-black/50 backdrop-blur-sm flex justify-center items-center p-4">
         <div
-            class="bg-white w-full max-w-lg rounded-lg shadow-2xl flex flex-col overflow-hidden animate-fade-in max-h-[80vh]">
+            class="bg-white w-full max-w-lg rounded-lg shadow-2xl flex flex-col overflow-hidden animate-fade-in max-h-[85vh]">
             <div class="bg-gray-100 px-6 py-4 flex justify-between items-center border-b border-gray-200">
                 <h3 class="text-lg font-bold text-gray-800" id="layout-edit-title">Edit Section</h3>
                 <button id="close-layout-modal" class="text-gray-500 hover:text-red-500"><i
@@ -562,7 +564,8 @@
             </div>
             <div class="bg-gray-50 px-6 py-4 border-t border-gray-200 flex justify-end">
                 <button id="save-layout-settings"
-                    class="bg-art-accent text-white px-6 py-2 text-sm font-bold uppercase tracking-wide rounded shadow hover:bg-black transition-colors">Apply</button>
+                    class="bg-art-accent text-white px-6 py-2 text-sm font-bold uppercase tracking-wide rounded shadow hover:bg-black transition-colors">Apply
+                    Changes</button>
             </div>
         </div>
     </div>
@@ -576,7 +579,7 @@
                 <div class="p-4 md:p-6 border-b border-gray-200 flex items-center justify-center md:justify-start">
                     <h2 class="hidden md:block text-xl font-serif font-bold text-black">Toolkit</h2>
                     <i class="fas fa-tools md:hidden text-xl text-black"></i>
-                    <p class="hidden md:block text-[10px] uppercase tracking-widest text-gray-400 mt-1 ml-2">v6.0</p>
+                    <p class="hidden md:block text-[10px] uppercase tracking-widest text-gray-400 mt-1 ml-2">v7.0</p>
                 </div>
                 <nav class="flex-1 p-2 md:p-4 space-y-2">
                     <button
@@ -609,7 +612,7 @@
                 <div class="p-4 border-t border-gray-200">
                     <button id="close-admin"
                         class="w-full text-center text-xs uppercase text-red-400 hover:text-red-600 font-bold">
-                        <i class="fas fa-sign-out-alt md:hidden"></i> <span class="hidden md:inline">APPLY & EXIT</span>
+                        <i class="fas fa-sign-out-alt md:hidden"></i> <span class="hidden md:inline">Logout</span>
                     </button>
                 </div>
             </div>
@@ -682,7 +685,7 @@
                         </div>
                     </div>
 
-                    <!-- 2. LAYOUT TAB (Refactored) -->
+                    <!-- 2. LAYOUT TAB -->
                     <div id="tab-layout" class="dash-tab hidden space-y-8 animate-fade-in">
                         <h2 class="text-2xl font-bold font-serif">Site Layout</h2>
 
@@ -693,8 +696,8 @@
                                 <div id="layout-list" class="space-y-2">
                                     <!-- Populated by JS -->
                                 </div>
-                                <p class="text-[10px] text-gray-400 mt-4 italic">Pinned items (Hero, Nav) stay at top.
-                                    Click text to edit details.</p>
+                                <p class="text-[10px] text-gray-400 mt-4 italic">Pinned items stay top. Click text to
+                                    edit settings.</p>
                             </div>
                         </div>
                     </div>
@@ -873,7 +876,7 @@
             bioImg: "https://lh3.googleusercontent.com/d/1LNQC2J3Gp97TScYJrDN8jtK3i5M2wXk2=w1000",
             stmtHook: "Jourdan Alexzander is a multidisciplinary artist and experiential creator whose work fuses abstract expressionism, street-influenced mark-making, sacred geometry, sound, and architectural thinking into immersive visual narratives exploring consciousness, place, and frequency.",
             bioShort: "Jourdan Alexzander is a California-based multidisciplinary artist working across painting, mixed media, sound, spatial design, and experiential environments. His visual work blends abstract expressionism, street-influenced techniques, and psychedelic symbolism, often incorporating heavy texture, bold color fields, and cosmic or lunar motifs inspired by the landscapes of Northern California and the Sierra Nevada.",
-            bioLong: "Jourdan Alexzander is a multidisciplinary artist and creative director whose practice spans painting, mixed media, architectural environments, sound, and immersive systems. Rooted in abstract expressionism and street-art methodologies, his visual language is defined by thick textural surfaces, layered mark-making, and vibrant chromatic tension.<br><br>Many works explore lunar symbolism, sacred geometry, and energetic landscapes—often referencing Lake Tahoe, desert environments, and the liminal space between nature and consciousness.<br><br>Beyond his work as a fine-artist, Jourdan is the founder of Orion Aura / Pulseora, an experimental ecosystem combining architecture, lighting, sound design, and locally controlled AI systems.",
+            bioLong: "Jourdan Alexzander is a multidisciplinary artist and creative director whose practice spans painting, mixed media, architectural environments, sound, and immersive systems. Rooted in abstract expressionism and street-art methodologies, his visual language is defined by thick textural surfaces, layered mark-making, and vibrant chromatic tension.<br><br>Many works explore lunar symbolism, sacred geometry, and energetic landscapes—often referencing Lake Tahoe, desert environments, and the liminal space between nature and consciousness.<br><br>Beyond his work as a multi-media artist, Jourdan is the founder of Orion Aura / Pulseora, an experimental ecosystem combining architecture, lighting, sound design, and locally controlled AI systems.",
             stmtHead: "Bridging the gap between the digital void and physical permanence.",
 
             // CONTACT & SETTINGS
@@ -894,14 +897,14 @@
             ],
             // Section Specific Settings (New)
             layoutSettings: {
-                featured: { display: "carousel", order: [] },
+                featured: { display: "carousel", order: [], style: "standard" },
                 archive: { display: "masonry", showTitles: true, showCategories: true }
             },
             archiveCats: ["Abstract", "Mixed Media", "Digital", "Concept"]
         };
 
         const initialPortfolioData = [
-            { id: '1', title: "Sound Vortex - Light Play", category: "Digital", type: "video", year: 2025, medium: "Mixed on canvas, light play, video", image: "https://youtu.be/8xLUjE5Qnag", desc: "Multi-colored light-play on Sound Vortex.", featured: true, source: 'manual', hidden: false },
+            { id: '1', title: "Sound Vortex - Light Play", category: "Digital", type: "video", year: 2025, medium: "Mixed on canvas, light play, video", image: "https://youtu.be/8xLUjE5Qnag", desc: "Multi-colored light-play on Sound Vortex.", featured: false, source: 'manual', hidden: false },
             { id: '2', title: "Love A Little", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas.", image: "https://drive.google.com/file/d/1B8Nj1QGU_maZF6TZZ8fqK_HfDCXWHSly/view?usp=drive_link", desc: "Love A Little presents a layered field of color, pressure, and repeated gesture in which symbols, partial figures, and looping marks emerge through dense surface activity. The composition is built through rhythmic abrasion and overpainting, allowing vivid pigment to move across matte texture in waves rather than fixed forms. Linear marks and fragmented glyphs suggest communication without resolution, while the palette oscillates between warmth and tension. Rather than illustrating sentiment, the work treats love as provisional—constructed, disrupted, and reassembled through movement, repetition, and visual interference.", featured: false, hidden: false, source: 'manual' },
             { id: '3', title: "Creature Statement", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas", image: "https://drive.google.com/file/d/1hHkI7rM0KMGCRKnW5rzXCMYAdvKkItNX/view?usp=drive_link", desc: "Creature Statement centers on a fractured, face-like presence that emerges through layers of vivid color, abrasion, and gestural mark-making. Embedded eyes anchor the composition, establishing a point of recognition within an otherwise volatile field of motion, drips, and looping lines. The surface oscillates between control and disruption, where matte texture absorbs light while saturated and fluorescent marks activate and shift across environments. Rather than resolving into a fixed figure, the work presents identity as unstable—constructed through signal, movement, and perception—inviting the viewer to encounter the image as an evolving presence rather than a portrait.", featured: true, source: 'manual', hidden: false },
             { id: '4', title: "No Kings", category: "Mixed Media", type: "image", year: 2025, medium: "Mixed media on canvas", image: "https://drive.google.com/file/d/179pImnf2jVJ4ARBLt7CPfO0MicGv-NBH/view?usp=drive_link", desc: "No Kings presents language as an active visual element rather than a declarative message. Built on a dense, matte, sculptural surface, the work layers vivid pigment, graffiti-informed text, and symbolic marks into a compressed, high-energy field. Phrases and fragments—“No Kings,” “Love Power,” “Trust,” “Level Up”—appear, overlap, and partially dissolve, functioning as signals embedded within the composition rather than fixed statements. Color and texture work in tension, with saturated marks activating against absorptive surfaces, causing the painting to shift as light and viewing distance change. The piece operates as a charged visual environment where hierarchy, language, and perception remain deliberately unstable.", featured: true, source: 'manual', hidden: false },
@@ -915,13 +918,16 @@
         /* === GLOBAL VARS === */
         const savedConfigStr = localStorage.getItem('art_site_config');
         const savedConfig = savedConfigStr ? JSON.parse(savedConfigStr) : {};
-        // Source of Truth Logic: Merge defaults with saved overrides
         let siteConfig = { ...defaultConfig, ...savedConfig };
+        // Migration check for layoutSettings
+        if (!siteConfig.layoutSettings) siteConfig.layoutSettings = defaultConfig.layoutSettings;
 
         // Data Integrity Check
         if (!siteConfig.logoUrl) siteConfig.logoUrl = "";
         if (!siteConfig.epkUrl) siteConfig.epkUrl = "";
         if (!siteConfig.accentColor) siteConfig.accentColor = defaultConfig.accentColor;
+        if (!siteConfig.heroBtnText) siteConfig.heroBtnText = defaultConfig.heroBtnText;
+        if (!siteConfig.heroBtnLink) siteConfig.heroBtnLink = defaultConfig.heroBtnLink;
 
         const isLocalMode = typeof __firebase_config === 'undefined';
         let app, auth, db, appId;
@@ -962,10 +968,8 @@
             return 'image';
         }
 
-        // Helper: Convert Google Drive View Links to Direct Image Links
         function processUrl(url) {
             if (!url) return '';
-            // Pattern for Drive View Link: https://drive.google.com/file/d/{FILE_ID}/view...
             const drivePattern = /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/;
             const match = url.match(drivePattern);
             if (match && match[1]) {
@@ -984,13 +988,17 @@
                 if (context === 'modal') return `<iframe src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0" class="${className} w-full h-full aspect-video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
                 else return `<div class="relative w-full h-full group-hover:scale-105 transition-transform duration-700"><img src="https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg" class="${className}" onerror="this.src='https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg'"><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/50"><i class="fas fa-play text-white ml-1"></i></div></div></div>`;
             } else if (isVideoFile) {
-                if (context === 'modal') return `<video src="${processedUrl}" class="${className} max-h-[80vh] w-full" controls autoplay></video>`;
+                if (context === 'modal') return `<video src="${processedUrl}" class="${className} max-h-[85vh] w-full object-contain" controls autoplay></video>`;
                 else return `<video src="${processedUrl}" class="${className} group-hover:scale-105 transition-transform duration-700" autoplay muted loop playsinline></video>`;
             } else if (isAudio) {
                 if (context === 'modal') return `<div class="w-full flex flex-col items-center justify-center bg-gray-900 p-10 rounded-lg text-white"><i class="fas fa-music text-6xl mb-6 text-art-accent"></i><audio src="${processedUrl}" controls class="w-full"></audio><p class="mt-4 font-serif text-2xl">${item.title}</p></div>`;
                 else return `<div class="w-full h-full min-h-[300px] bg-gray-900 flex flex-col items-center justify-center text-white relative group overflow-hidden"><div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/sound-waves.png')]"></div><div class="relative z-10 p-6 text-center"><i class="fas fa-waveform text-4xl mb-4 text-art-accent"></i><h4 class="font-serif text-lg">${item.title}</h4><span class="text-[10px] uppercase tracking-widest mt-2 block opacity-70">Audio Track</span></div></div>`;
             } else {
-                return `<img src="${processedUrl}" alt="${item.title}" class="${className} group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://placehold.co/400x500?text=Image+Error'">`;
+                // Modal Specific Logic: Contain image
+                if (context === 'modal') {
+                    return `<img src="${processedUrl}" alt="${item.title}" class="w-full h-full max-h-[85vh] object-contain shadow-sm" onerror="this.src='https://placehold.co/400x500?text=Image+Error'">`;
+                }
+                return `<img src="${processedUrl}" alt="${item.title}" class="${className} group-hover:scale-105 transition-transform duration-700 object-cover" onerror="this.src='https://placehold.co/400x500?text=Image+Error'">`;
             }
         }
 
@@ -1000,7 +1008,6 @@
             navContainer.innerHTML = '';
             mobileNavContainer.innerHTML = '';
 
-            // Render configured links
             siteConfig.layout.forEach((section, index) => {
                 const el = document.getElementById(section.id);
                 if (el) {
@@ -1029,14 +1036,12 @@
                 }
             });
 
-            // Add Footer Jump Icon (Desktop)
             const jumpBtn = document.createElement('a');
             jumpBtn.href = "#footer-copy";
             jumpBtn.className = "hover:text-art-accent transition-colors ml-4 cursor-pointer text-sm mix-blend-difference text-white";
             jumpBtn.innerHTML = '<i class="fas fa-fingerprint text-lg"></i>';
             navContainer.appendChild(jumpBtn);
 
-            // Add Footer Jump Icon (Mobile)
             const mobileJump = document.createElement('a');
             mobileJump.href = "#footer-copy";
             mobileJump.className = "text-gray-500 text-3xl hover:text-white transition-colors mt-8";
@@ -1070,20 +1075,33 @@
         function renderGallery() {
             const grid = document.getElementById('gallery-grid');
             grid.innerHTML = '';
+
+            const displayMode = siteConfig.layoutSettings.archive?.display || 'masonry';
+            const showTitles = siteConfig.layoutSettings.archive?.showTitles !== false;
+            const showCats = siteConfig.layoutSettings.archive?.showCategories !== false;
+
+            grid.className = displayMode === 'grid'
+                ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]'
+                : 'masonry-grid space-y-8 min-h-[400px]';
+
             const filtered = (currentFilter === 'all' ? portfolioData : portfolioData.filter(i => i.category === currentFilter)).filter(i => !i.hidden);
 
             if (filtered.length === 0) grid.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10 font-light italic">No visible works in this category.</p>`;
 
             filtered.forEach((item, index) => {
                 const tile = document.createElement('div');
-                tile.className = 'masonry-item group cursor-pointer relative overflow-hidden animate-fade-in w-full break-inside-avoid mb-8';
+                tile.className = displayMode === 'grid' ? 'relative group cursor-pointer overflow-hidden animate-fade-in aspect-square' : 'masonry-item group cursor-pointer relative overflow-hidden animate-fade-in w-full break-inside-avoid mb-8';
                 tile.onclick = () => openModal(item.id);
+
+                let overlayContent = '';
+                if (showCats) overlayContent += `<p class="text-art-accent text-[10px] uppercase tracking-widest font-bold mb-3">${item.category}</p>`;
+                if (showTitles) overlayContent += `<h3 class="text-xl font-serif italic">${item.title}</h3>`;
+
                 tile.innerHTML = `
-                    <div class="w-full relative bg-gray-50 overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500">
-                        ${renderMedia(item, "w-full h-auto object-cover", 'grid')}
+                    <div class="w-full h-full relative bg-gray-50 overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500">
+                        ${renderMedia(item, "w-full h-full object-cover", 'grid')}
                         <div class="absolute inset-0 bg-art-dark/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-center items-center text-white p-6 text-center backdrop-blur-[2px]">
-                            <p class="text-art-accent text-[10px] uppercase tracking-widest font-bold mb-3">${item.category}</p>
-                            <h3 class="text-xl font-serif italic">${item.title}</h3>
+                            ${overlayContent}
                         </div>
                     </div>`;
                 grid.appendChild(tile);
@@ -1094,9 +1112,10 @@
             const track = document.getElementById('carousel-track');
             track.innerHTML = '';
 
-            // Apply Manual Sort if exists
             let featuredItems = portfolioData.filter(i => i.featured && !i.hidden);
             const manualOrder = siteConfig.layoutSettings.featured?.order || [];
+            const carouselStyle = siteConfig.layoutSettings.featured?.style || 'glitch';
+
             if (manualOrder.length > 0) {
                 featuredItems.sort((a, b) => {
                     const idxA = manualOrder.indexOf(a.id);
@@ -1111,11 +1130,29 @@
             if (featuredItems.length === 0) track.innerHTML = '<p class="text-gray-400 italic px-6">No featured works selected.</p>';
             featuredItems.forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'flex-none h-full group cursor-pointer relative snap-center mr-8';
+
+                if (carouselStyle === 'glitch') {
+                    // Glitch Mode: Widescreen stretch
+                    card.className = 'flex-none w-screen md:w-auto h-screen md:h-full group cursor-pointer relative snap-center md:mr-8 mb-0 flex justify-center items-center overflow-hidden';
+                    // Image fills container completely for texture zoom effect
+                    card.innerHTML = `<div class="relative w-full h-full shadow-lg bg-gray-900">${renderMedia(item, "w-full h-full object-cover transform scale-125 hover:scale-110 transition-transform duration-1000", 'grid')}<div class="absolute bottom-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"><h3 class="text-lg font-serif font-bold text-white shadow-black drop-shadow-md">${item.title}</h3></div></div>`;
+                } else {
+                    // Standard Mode: Vertical Stack (Mobile), Horizontal (Desktop)
+                    card.className = 'flex-none w-full md:w-auto h-auto md:h-full group cursor-pointer relative snap-center md:mr-8 mb-16 md:mb-0 flex justify-center items-center';
+                    // Standard Image Sizing: constrained by width on mobile, height on desktop
+                    card.innerHTML = `<div class="relative shadow-lg bg-gray-100 w-full md:w-auto md:h-full flex justify-center">${renderMedia(item, "w-full h-auto max-h-[70vh] md:h-full md:w-auto object-contain md:object-cover", 'grid')}<div class="absolute bottom-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"><h3 class="text-lg font-serif font-bold text-white shadow-black drop-shadow-md">${item.title}</h3></div></div>`;
+                }
+
                 card.onclick = () => openModal(item.id);
-                card.innerHTML = `<div class="h-full overflow-hidden relative shadow-lg bg-gray-100">${renderMedia(item, "h-full w-auto object-cover", 'grid')}<div class="absolute bottom-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"><h3 class="text-lg font-serif font-bold text-white shadow-black drop-shadow-md">${item.title}</h3></div></div>`;
                 track.appendChild(card);
             });
+
+            // Adjust Container Layout based on Style
+            if (carouselStyle === 'glitch') {
+                track.className = "flex flex-col md:flex-row space-y-0 md:space-y-0 md:space-x-0 md:overflow-x-auto w-full";
+            } else {
+                track.className = "flex flex-col md:flex-row space-y-16 md:space-y-0 md:space-x-8 md:overflow-x-auto px-6 md:px-12 pb-8 no-scrollbar scroll-smooth md:h-[60vh] md:min-h-[500px] items-center md:items-stretch w-full";
+            }
         }
 
         function applyConfig() {
@@ -1176,27 +1213,9 @@
             if (themeName === 'dark') siteConfig.accentColor = "#BB86FC";
             if (themeName === 'light') siteConfig.accentColor = "#000000";
             if (themeName === 'bauhaus') siteConfig.accentColor = "#D63333";
-
             document.getElementById('cfg-accent-color').value = siteConfig.accentColor;
             document.getElementById('color-preview').style.backgroundColor = siteConfig.accentColor;
             applyConfig();
-        }
-
-        window.simulateEpkSync = function () {
-            const url = document.getElementById('cfg-epk-url').value;
-            if (!url) { alert("Please enter a Google Doc URL."); return; }
-            const btn = document.querySelector('button[onclick="simulateEpkSync()"]');
-            const originalText = btn.innerText;
-            btn.innerText = "Syncing...";
-
-            setTimeout(() => {
-                alert("Simulated Sync Complete: Profile Updated from EPK.");
-                siteConfig.bioShort += " [Synced]";
-                if (siteConfig.siteTitle.includes("JOURDAN")) siteConfig.siteTitle = siteConfig.bioName + " | Portfolio";
-                populateAdminConfig();
-                applyConfig();
-                btn.innerText = originalText;
-            }, 1000);
         }
 
         function populateAdminConfig() {
@@ -1204,7 +1223,6 @@
             if (document.getElementById('cfg-site-title')) document.getElementById('cfg-site-title').value = siteConfig.siteTitle;
             if (document.getElementById('cfg-logo-url')) document.getElementById('cfg-logo-url').value = siteConfig.logoUrl;
             if (document.getElementById('cfg-accent-color')) document.getElementById('cfg-accent-color').value = siteConfig.accentColor;
-            // Hero fields moved to modal, not populating here directly to avoid conflicts, they are populated on openLayoutEdit
 
             if (document.getElementById('cfg-bio-name')) document.getElementById('cfg-bio-name').value = siteConfig.bioName;
             if (document.getElementById('cfg-bio-img')) document.getElementById('cfg-bio-img').value = siteConfig.bioImg;
@@ -1230,6 +1248,7 @@
             }
         }
 
+        /* REFACTORED LAYOUT MANAGER */
         function renderLayoutManager() {
             const list = document.getElementById('layout-list');
             list.innerHTML = '';
@@ -1369,48 +1388,31 @@
             }
             // 3. FEATURED
             else if (sectionId === 'featured') {
-                content.innerHTML = `<p class="text-xs text-gray-500 mb-4">Reorder Selected Works for the Carousel. Use Up/Down arrows.</p>`;
-                let featured = portfolioData.filter(i => i.featured && !i.hidden);
-                const manualOrder = settings.order || [];
-                if (manualOrder.length > 0) {
-                    featured.sort((a, b) => {
-                        const idxA = manualOrder.indexOf(a.id);
-                        const idxB = manualOrder.indexOf(b.id);
-                        if (idxA === -1 && idxB === -1) return 0;
-                        if (idxA === -1) return 1;
-                        if (idxB === -1) return -1;
-                        return idxA - idxB;
-                    });
-                }
+                const currentStyle = settings.style || 'standard';
+                content.innerHTML = `
+                    <div class="space-y-4">
+                        <div>
+                             <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Carousel Style (Desktop)</label>
+                             <select id="featured-style-select" class="w-full p-2 border rounded text-sm bg-gray-50 focus:border-art-accent">
+                                <option value="standard" ${currentStyle === 'standard' ? 'selected' : ''}>Standard (Responsive Height)</option>
+                                <option value="glitch" ${currentStyle === 'glitch' ? 'selected' : ''}>Glitch (Widescreen Stretch)</option>
+                            </select>
+                        </div>
+                        <hr class="border-gray-100">
+                        <p class="text-xs text-gray-500 mb-4">Reorder Selected Works for the Carousel. Use Up/Down arrows.</p>
+                        <div id="featured-reorder-list"></div>
+                    </div>
+                `;
 
-                if (featured.length === 0) {
-                    content.innerHTML += `<p class="text-sm italic">No items marked as 'Featured' in Content tab.</p>`;
-                } else {
-                    const listContainer = document.createElement('div');
-                    listContainer.className = "space-y-2 max-h-60 overflow-y-auto";
-                    featured.forEach((item) => {
-                        const row = document.createElement('div');
-                        row.className = "flex items-center justify-between p-2 border border-gray-100 bg-white rounded";
-                        // Visual Match to Main Content List
-                        row.innerHTML = `
-                            <div class="flex items-center space-x-3">
-                                <img src="${processUrl(item.image)}" class="w-10 h-10 object-cover rounded shadow-sm">
-                                <div>
-                                    <span class="text-xs font-bold block text-gray-800 truncate w-32 md:w-40">${item.title}</span>
-                                    <span class="text-[10px] text-gray-400 uppercase">${item.category}</span>
-                                </div>
-                            </div>
-                            <div class="flex space-x-1">
-                                <button class="p-1 hover:bg-gray-100 rounded text-gray-400 hover:text-black" onclick="moveFeaturedOrder('${item.id}', -1)"><i class="fas fa-arrow-up text-xs"></i></button>
-                                <button class="p-1 hover:bg-gray-100 rounded text-gray-400 hover:text-black" onclick="moveFeaturedOrder('${item.id}', 1)"><i class="fas fa-arrow-down text-xs"></i></button>
-                            </div>
-                        `;
-                        listContainer.appendChild(row);
+                setTimeout(() => {
+                    document.getElementById('featured-style-select').addEventListener('change', (e) => {
+                        siteConfig.layoutSettings.featured.style = e.target.value;
+                        renderCarousel();
                     });
-                    content.appendChild(listContainer);
-                }
+                    renderFeaturedReorderList();
+                }, 0);
+
                 document.getElementById('save-layout-settings').onclick = () => modal.classList.add('hidden');
-
             }
             // 4. ARCHIVE
             else if (sectionId === 'archive') {
@@ -1459,9 +1461,7 @@
                 }, 0);
 
                 document.getElementById('save-layout-settings').onclick = () => modal.classList.add('hidden');
-
             }
-            // 5. TEXT SECTIONS
             else if (sectionId === 'bio' || sectionId === 'statement') {
                 content.innerHTML = `
                     <p class="text-sm text-gray-600 mb-6">Text for this section is managed in the Profile tab.</p>
@@ -1476,7 +1476,57 @@
             modal.classList.remove('hidden');
         }
 
-        // Helper for reordering featured
+        function renderFeaturedReorderList() {
+            const listContainer = document.getElementById('featured-reorder-list');
+            if (!listContainer) {
+                const container = document.createElement('div');
+                container.id = 'featured-reorder-list';
+                container.className = "space-y-2 max-h-60 overflow-y-auto";
+                const parent = document.querySelector('#layout-edit-content > div');
+                if (parent) parent.appendChild(container);
+                return;
+            }
+
+            listContainer.innerHTML = '';
+
+            let featured = portfolioData.filter(i => i.featured && !i.hidden);
+            const manualOrder = siteConfig.layoutSettings.featured.order || [];
+            if (manualOrder.length > 0) {
+                featured.sort((a, b) => {
+                    const idxA = manualOrder.indexOf(a.id);
+                    const idxB = manualOrder.indexOf(b.id);
+                    if (idxA === -1 && idxB === -1) return 0;
+                    if (idxA === -1) return 1;
+                    if (idxB === -1) return -1;
+                    return idxA - idxB;
+                });
+            }
+
+            if (featured.length === 0) {
+                listContainer.innerHTML = `<p class="text-sm italic">No items marked as 'Featured' in Content tab.</p>`;
+                return;
+            }
+
+            featured.forEach((item) => {
+                const row = document.createElement('div');
+                row.className = "flex items-center justify-between p-2 border border-gray-100 bg-white rounded";
+                row.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <img src="${processUrl(item.image)}" class="w-10 h-10 object-cover rounded shadow-sm">
+                        <div>
+                            <span class="text-xs font-bold block text-gray-800 truncate w-32 md:w-40">${item.title}</span>
+                            <span class="text-[10px] text-gray-400 uppercase">${item.category}</span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-1">
+                        <button class="p-1 hover:bg-gray-100 rounded text-gray-400 hover:text-black" onclick="moveFeaturedOrder('${item.id}', -1)"><i class="fas fa-arrow-up text-xs"></i></button>
+                        <button class="p-1 hover:bg-gray-100 rounded text-gray-400 hover:text-black" onclick="moveFeaturedOrder('${item.id}', 1)"><i class="fas fa-arrow-down text-xs"></i></button>
+                    </div>
+                `;
+                listContainer.appendChild(row);
+            });
+        }
+
         window.moveFeaturedOrder = function (itemId, dir) {
             let featured = portfolioData.filter(i => i.featured && !i.hidden);
             let currentOrder = siteConfig.layoutSettings.featured.order || featured.map(i => i.id);
@@ -1490,7 +1540,7 @@
             if (newIndex >= 0 && newIndex < currentOrder.length) {
                 [currentOrder[currentIndex], currentOrder[newIndex]] = [currentOrder[newIndex], currentOrder[currentIndex]];
                 siteConfig.layoutSettings.featured.order = currentOrder;
-                openLayoutEdit('featured');
+                renderFeaturedReorderList();
                 renderCarousel();
             }
         }
@@ -1504,7 +1554,7 @@
                 [siteConfig.layout[index], siteConfig.layout[index + 1]] = [siteConfig.layout[index + 1], siteConfig.layout[index]];
             }
             renderLayoutManager();
-            applyConfig(); // Apply layout changes to DOM
+            applyConfig();
         };
 
         window.moveWork = function (index, direction) {
@@ -1519,38 +1569,41 @@
         };
 
         function saveAdminConfig() {
-            // Read values (Including Hero values potentially updated in modal)
-            // Note: Hero inputs are only present in DOM when modal is open. If modal is closed, this read might fail or read null.
-            // FIX: We rely on the live updating of siteConfig for Hero inputs via listeners in openLayoutEdit.
-            // We only need to read the main tab inputs here explicitly.
+            // Read values
+            if (document.getElementById('cfg-bio-name')) {
+                const oldName = siteConfig.bioName;
+                const newName = document.getElementById('cfg-bio-name').value;
+                siteConfig.bioName = newName;
 
-            const oldName = siteConfig.bioName;
-            const newName = document.getElementById('cfg-bio-name').value;
-
-            siteConfig.siteTitle = document.getElementById('cfg-site-title').value;
-            siteConfig.logoUrl = document.getElementById('cfg-logo-url').value;
-            siteConfig.accentColor = document.getElementById('cfg-accent-color').value;
-
-            siteConfig.bioName = newName;
-            siteConfig.bioImg = document.getElementById('cfg-bio-img').value;
-            siteConfig.stmtHook = document.getElementById('cfg-stmt-hook').value;
-            siteConfig.bioShort = document.getElementById('cfg-bio-short').value;
-            siteConfig.bioLong = document.getElementById('cfg-bio-long').value;
-            siteConfig.stmtHead = document.getElementById('cfg-stmt-head').value;
-
-            siteConfig.email = document.getElementById('cfg-email').value;
-            siteConfig.phone = document.getElementById('cfg-phone').value;
-            siteConfig.collectorInfo = document.getElementById('cfg-collector-info').value;
-            siteConfig.driveUrl = document.getElementById('cfg-drive').value;
-            siteConfig.epkUrl = document.getElementById('cfg-epk-url').value;
-
-            const cats = document.getElementById('cfg-archive-cats').value.split(',').map(s => s.trim()).filter(s => s.length > 0);
-            siteConfig.archiveCats = cats;
-
-            if (oldName !== newName) {
-                if (siteConfig.heroTitle.toLowerCase() === oldName.toLowerCase()) {
-                    siteConfig.heroTitle = newName.toUpperCase();
+                // Smart Update Logic
+                if (oldName !== newName) {
+                    if (siteConfig.heroTitle.toLowerCase() === oldName.toLowerCase()) {
+                        siteConfig.heroTitle = newName.toUpperCase();
+                    }
                 }
+            }
+
+            if (document.getElementById('cfg-site-title')) siteConfig.siteTitle = document.getElementById('cfg-site-title').value;
+            if (document.getElementById('cfg-logo-url')) siteConfig.logoUrl = document.getElementById('cfg-logo-url').value;
+            if (document.getElementById('cfg-accent-color')) siteConfig.accentColor = document.getElementById('cfg-accent-color').value;
+
+            // Hero values are handled in live modal update but saved here to ensure persistence if modal is open/closed
+
+            if (document.getElementById('cfg-bio-img')) siteConfig.bioImg = document.getElementById('cfg-bio-img').value;
+            if (document.getElementById('cfg-stmt-hook')) siteConfig.stmtHook = document.getElementById('cfg-stmt-hook').value;
+            if (document.getElementById('cfg-bio-short')) siteConfig.bioShort = document.getElementById('cfg-bio-short').value;
+            if (document.getElementById('cfg-bio-long')) siteConfig.bioLong = document.getElementById('cfg-bio-long').value;
+            if (document.getElementById('cfg-stmt-head')) siteConfig.stmtHead = document.getElementById('cfg-stmt-head').value;
+
+            if (document.getElementById('cfg-email')) siteConfig.email = document.getElementById('cfg-email').value;
+            if (document.getElementById('cfg-phone')) siteConfig.phone = document.getElementById('cfg-phone').value;
+            if (document.getElementById('cfg-collector-info')) siteConfig.collectorInfo = document.getElementById('cfg-collector-info').value;
+            if (document.getElementById('cfg-drive')) siteConfig.driveUrl = document.getElementById('cfg-drive').value;
+            if (document.getElementById('cfg-epk-url')) siteConfig.epkUrl = document.getElementById('cfg-epk-url').value;
+
+            if (document.getElementById('cfg-archive-cats')) {
+                const cats = document.getElementById('cfg-archive-cats').value.split(',').map(s => s.trim()).filter(s => s.length > 0);
+                siteConfig.archiveCats = cats;
             }
 
             localStorage.setItem('art_site_config', JSON.stringify(siteConfig));
