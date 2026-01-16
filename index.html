@@ -897,7 +897,7 @@
             ],
             // Section Specific Settings (New)
             layoutSettings: {
-                featured: { display: "carousel", order: [], style: "standard" },
+                featured: { display: "carousel", order: [], style: "glitch" },
                 archive: { display: "masonry", showTitles: true, showCategories: true }
             },
             archiveCats: ["Abstract", "Mixed Media", "Digital", "Concept"]
@@ -1388,7 +1388,7 @@
             }
             // 3. FEATURED
             else if (sectionId === 'featured') {
-                const currentStyle = settings.style || 'standard';
+                const currentStyle = settings.style || 'glitch';
                 content.innerHTML = `
                     <div class="space-y-4">
                         <div>
